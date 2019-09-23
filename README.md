@@ -9,13 +9,18 @@ In the production mode, we will have only 1 server running. All the client side 
 
 ## Setup
 #### Install dependencies
+```
 npm install
-
+```
 #### Start development server
+```
 npm run dev
-
+```
 #### Build for production
+```
 npm run build
-
+```
 #### Start production server
+```
 npm run start
+```
