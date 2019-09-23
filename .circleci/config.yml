@@ -1,0 +1,70 @@
+version: 2.1
+orbs:
+  ci: bigcommerce/internal@volatile
+  node: bigcommerce/internal-node@volatile
+
+#####################################################
+# Aliases
+#####################################################
+workspace_root: &workspace_root
+  ~/repo
+
+executor_defaults: &executor_defaults
+  executor:
+    name: node/node
+    node-version: "10"
+
+#####################################################
+# Commands
+#####################################################
+commands:
+  npm-install:
+    steps:
+      - node/npm-install
+
+  install-dependencies:
+    steps:
+      - ci/pre-setup
+      - npm-install
+
+#####################################################
+# Jobs
+#####################################################
+jobs:
+  install-dependencies:
+    <<: *executor_defaults
+    steps:
+      - install-dependencies
+
+  unit-tests:
+    <<: *executor_defaults
+    resource_class: large
+    steps:
+      - install-dependencies
+      - run: npm run test
+      - run: npm run lint
+
+  build-assets:
+    <<: *executor_defaults
+    steps:
+      - install-dependencies
+      - run: npm run build
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - dist
+
+#####################################################
+# Workflows
+#####################################################
+workflows:
+  version: 2
+  test-and-build:
+    jobs:
+      - install-dependencies
+      - unit-tests:
+          requires:
+            - install-dependencies
+      - build-assets:
+          requires:
+            - install-dependencies
