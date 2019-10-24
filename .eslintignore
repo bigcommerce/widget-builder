@@ -1,3 +1,4 @@
 /*
 !/src
 *.css
+src/server/tsconfig.server.json

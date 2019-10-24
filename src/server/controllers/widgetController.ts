@@ -1,21 +1,9 @@
 import uuid from 'uuid';
-import { Request, Response } from 'express';
 
-import { widgetTemplateLoader } from '../../services/widgetTemplate/widgetTemplate';
-import { widgetConfigLoader } from '../../services/widgetConfig/widgetConfig';
+import { FileLoaderResponse, WidgetFileType } from '../const';
+import widgetTemplateLoader from '../../services/widgetTemplate/widgetTemplate';
+import widgetConfigLoader from '../../services/widgetConfig/widgetConfig';
 import { getWidget, WidgetPreviewRenderRequest } from '../../services/api/widget';
-
-
-export enum WidgetFileType {
-    WIDGET_TEMPLATE_HTML = 'widget.html',
-    WIDGET_CONFIGURATION = 'config.json',
-    WIDGET_SCHEMA = 'schema.json',
-}
-
-export interface FileLoaderResponse {
-    type: WidgetFileType;
-    data: string;
-}
 
 const getInitialRenderingPayload = (): WidgetPreviewRenderRequest => ({
     widget_configuration: {},
@@ -26,26 +14,27 @@ const getInitialRenderingPayload = (): WidgetPreviewRenderRequest => ({
     storefront_api_query_params: {},
 });
 
-const generateRenderPayloadFromFileLoaderResults = (results: FileLoaderResponse[]): WidgetPreviewRenderRequest => results.reduce(
-    (acc: WidgetPreviewRenderRequest, current: FileLoaderResponse): WidgetPreviewRenderRequest => {
-        const { data, type } = current;
+function generateRenderPayloadFromFileLoaderResults(results: FileLoaderResponse[]): WidgetPreviewRenderRequest {
+    return results.reduce(
+        (acc: WidgetPreviewRenderRequest, current: FileLoaderResponse): WidgetPreviewRenderRequest => {
+            const { data, type } = current;
 
-        if (type === WidgetFileType.WIDGET_TEMPLATE_HTML) {
-            return { ...acc, widget_template: data };
-        }
+            if (type === WidgetFileType.WIDGET_TEMPLATE_HTML) {
+                return { ...acc, widget_template: data };
+            }
 
-        if (type === WidgetFileType.WIDGET_CONFIGURATION) {
-            return { ...acc, widget_configuration: JSON.parse(data) };
-        }
+            if (type === WidgetFileType.WIDGET_CONFIGURATION) {
+                return { ...acc, widget_configuration: JSON.parse(data) };
+            }
 
-        return acc;
-    }, getInitialRenderingPayload(),
-);
+            return acc;
+        }, getInitialRenderingPayload(),
+    );
+}
 
-export const getWidgetEndpoint = (widgetDir: string) => (_: Request, res: Response) => {
-    Promise.all([widgetTemplateLoader(widgetDir), widgetConfigLoader(widgetDir)])
-        .then((results: FileLoaderResponse[]) => {
-            return getWidget(generateRenderPayloadFromFileLoaderResults(results))
-                .then((data: string) => { res.send(data); });
-        }).catch((err: Error) => console.log(err));
-};
+export default function getWidgetHtml(widgetDir: string) {
+    return Promise.all([widgetTemplateLoader(widgetDir), widgetConfigLoader(widgetDir)])
+        .then(
+            (results: FileLoaderResponse[]) => getWidget(generateRenderPayloadFromFileLoaderResults(results)),
+        ).catch((err: Error) => console.log(err));
+}

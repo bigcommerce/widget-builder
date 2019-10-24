@@ -44,6 +44,16 @@ jobs:
       - run: npm run test
       - run: npm run lint
 
+  build-assets:
+    <<: *executor_defaults
+    steps:
+      - install-dependencies
+      - run: npm run build
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - dist
+
 #####################################################
 # Workflows
 #####################################################
@@ -52,3 +62,9 @@ workflows:
   test-and-build:
     jobs:
       - install-dependencies
+      - unit-tests:
+          requires:
+            - install-dependencies
+      - build-assets:
+          requires:
+            - install-dependencies

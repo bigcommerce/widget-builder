@@ -28,6 +28,10 @@ module.exports = {
     "no-underscore-dangle": "off",
     "@typescript-eslint/no-var-requires": "off",
     "import/no-extraneous-dependencies": "off",
+    "@typescript-eslint/camelcase": "off",
+    "max-len": [1, 120, 4],
+    "no-plusplus": "off",
+    "global-require": "off"
   },
   overrides: [
     {
