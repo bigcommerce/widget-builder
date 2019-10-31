@@ -31,7 +31,9 @@ module.exports = {
     "@typescript-eslint/camelcase": "off",
     "max-len": [1, 120, 4],
     "no-plusplus": "off",
-    "global-require": "off"
+    "global-require": "off",
+    "@typescript-eslint/no-use-before-define": ["error", { "functions": false }],
+    "no-case-declarations": "off"
   },
   overrides: [
     {

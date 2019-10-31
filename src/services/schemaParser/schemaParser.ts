@@ -90,12 +90,6 @@ enum SchemaSettingTag {
     ADVANCED = 'advanced',
 }
 
-export enum AlignmentSettingDisplay {
-    HORIZONTAL = 'horizontal',
-    VERTICAL = 'vertical',
-    BOTH = 'both',
-}
-
 enum CodeSyntaxHighlightLanguage {
     HTML = 'html',
 }
@@ -129,27 +123,6 @@ export interface SchemaSettingTypeMetaData {
     rangeValues?: RangeValues; // applicable for range type
     maxLength?: number; // Applicable to type text
     parseType?: ParseType;
-}
-
-export interface QueryParamBuilder {
-    [key: string]: any;
-}
-
-export interface WidgetTemplateEntry {
-    icon_name: string;
-    uuid: string;
-    name: string;
-    schema: (TabSchemaElement|ArraySchemaElement)[];
-    template: string;
-    kind: string;
-    storefront_api_query: string;
-}
-
-export interface CategoryEntry {
-    uuid: string;
-    name: string;
-    key: string;
-    widget_templates: WidgetTemplateEntry[];
 }
 
 function parseRegExPatternsDefaults(id: string, defaultValue: string = '', regExPatterns: RegExPattern[]) {
@@ -293,7 +266,7 @@ export function parseArraySchemaDefaults(arraySchemaElement: ArraySchemaElement)
     return configuration;
 }
 
-export function generateWidgetConfiguration(schema: (TabSchemaElement|ArraySchemaElement|HiddenSchemaElement)[]) {
+export function generateWidgetConfiguration(schema: SchemaElement[]) {
     let configuration = {};
     schema.forEach((schemaElement: SchemaElement) => {
         if (schemaElement.type === SchemaElementType.TAB) {

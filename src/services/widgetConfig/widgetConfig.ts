@@ -1,7 +1,8 @@
 import * as fs from 'fs';
 
 import { EVENT_MESSAGES, FileLoaderResponse, WidgetFileType } from '../../server/const';
-import { generateWidgetConfiguration } from '../schemaParser/schemaParser';
+import { generateWidgetConfiguration, SchemaElement } from '../schemaParser/schemaParser';
+import validateSchema from '../schemaValidator/schemaValidator';
 
 
 export default function widgetConfigLoader(widgetDir: string): Promise<FileLoaderResponse> {
@@ -20,7 +21,13 @@ export default function widgetConfigLoader(widgetDir: string): Promise<FileLoade
                                 process.exit(1);
                             }
 
-                            const widgetConfiguration = generateWidgetConfiguration(JSON.parse(schemaData));
+                            const schema = validateSchema(schemaData);
+                            if (!schema) {
+                                console.log(EVENT_MESSAGES.SCHEMA_FILE_NOT_VALID);
+                                process.exit(1);
+                            }
+
+                            const widgetConfiguration = generateWidgetConfiguration(schema as SchemaElement[]);
                             const widgetConfigurationJson = JSON.stringify(
                                 widgetConfiguration, null, 2,
                             );
