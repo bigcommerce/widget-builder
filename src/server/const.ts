@@ -5,6 +5,13 @@ export const EVENT_MESSAGES = {
     CONFIG_FILE_CREATED: 'New configuration file created! You may now modify this file.',
 };
 
-export const ROUTES = {
-    GET_WIDGET: '/api/get-widget',
-};
+export enum WidgetFileType {
+    WIDGET_TEMPLATE_HTML = 'widget.html',
+    WIDGET_CONFIGURATION = 'config.json',
+    WIDGET_SCHEMA = 'schema.json',
+}
+
+export interface FileLoaderResponse {
+    type: WidgetFileType;
+    data: string;
+}

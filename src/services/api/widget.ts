@@ -23,18 +23,20 @@ export interface WidgetPreviewRenderRequest {
     storefront_api_query_params: object;
 }
 
-export const getWidget = (data: WidgetPreviewRenderRequest): Promise<string> => new Promise((resolve, reject) => {
-    Axios({
-        method: 'post',
-        headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'X-Auth-Client': AUTH_CONFIG.authId,
-            'X-Auth-Token': AUTH_CONFIG.authToken,
-        },
-        data,
-        url: widgetApi.widgetPreviewRender(AUTH_CONFIG.storeId as string),
-    }).then((response: AxiosResponse<WidgetPreviewRenderResponse>) => {
-        resolve(response.data.data.html);
-    }).catch((err: Error) => reject(err));
-});
+export function getWidget(data: WidgetPreviewRenderRequest): Promise<string> {
+    return new Promise((resolve, reject) => {
+        Axios({
+            method: 'post',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'X-Auth-Client': AUTH_CONFIG.authId,
+                'X-Auth-Token': AUTH_CONFIG.authToken,
+            },
+            data,
+            url: widgetApi.widgetPreviewRender(AUTH_CONFIG.storeId as string),
+        }).then((response: AxiosResponse<WidgetPreviewRenderResponse>) => {
+            resolve(response.data.data.html);
+        }).catch((err: Error) => reject(err));
+    });
+}

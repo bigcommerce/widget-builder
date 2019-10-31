@@ -40,7 +40,7 @@ export interface ArraySchemaElement {
     defaultCount?: number;
     entryLabel: string;
     thumbnail?: string;
-    schema: Array<TabSchemaElement|ArraySchemaElement>;
+    schema: (TabSchemaElement|ArraySchemaElement)[];
 }
 
 export interface HiddenSchemaElement {
@@ -139,7 +139,7 @@ export interface WidgetTemplateEntry {
     icon_name: string;
     uuid: string;
     name: string;
-    schema: Array<TabSchemaElement|ArraySchemaElement>;
+    schema: (TabSchemaElement|ArraySchemaElement)[];
     template: string;
     kind: string;
     storefront_api_query: string;
@@ -152,7 +152,148 @@ export interface CategoryEntry {
     widget_templates: WidgetTemplateEntry[];
 }
 
-export function generateWidgetConfiguration(schema: Array<TabSchemaElement|ArraySchemaElement|HiddenSchemaElement>): object {
+function parseRegExPatternsDefaults(id: string, defaultValue: string = '', regExPatterns: RegExPattern[]) {
+    const regExPatternConfigurations: WidgetConfiguration = {};
+    const config: WidgetConfiguration = {};
+    const partsConfig: WidgetConfiguration = {};
+    const value = 'value';
+    const parts = 'parts';
+
+    regExPatterns.forEach((regExPattern) => {
+        const { pattern, matchIndex = 0, configKey } = regExPattern;
+        const re = new RegExp(pattern);
+        const matchResult = defaultValue.match(re);
+        const matchValue = matchResult ? matchResult[matchIndex] : null;
+        partsConfig[configKey] = matchValue;
+    });
+
+    config[value] = defaultValue;
+    config[parts] = partsConfig;
+    regExPatternConfigurations[id] = config;
+
+    return regExPatternConfigurations;
+}
+
+function parseConditionalDefaults(selectOptions: ConditionalSettingsValue[]) {
+    const conditionalConfigurations: WidgetConfiguration = {};
+    selectOptions.forEach((option) => {
+        if (option && option.settings) {
+            option.settings.forEach((conditionalSetting) => {
+                conditionalConfigurations[conditionalSetting.id] = conditionalSetting.default;
+            });
+        }
+    });
+
+    return conditionalConfigurations;
+}
+
+function buildSettingsDefaults(settings: BaseSchemaSetting[]) {
+    let configuration: WidgetConfiguration = {};
+    settings.forEach((setting: BaseSchemaSetting) => {
+        if (setting.typeMeta) {
+            if (setting.typeMeta.conditionalSettings) {
+                const parsedDefaults = parseConditionalDefaults(setting.typeMeta.conditionalSettings);
+
+                configuration = {
+                    ...configuration,
+                    ...parsedDefaults,
+                };
+            }
+
+            if (setting.typeMeta.regExPatterns) {
+                const parsedDefaults = parseRegExPatternsDefaults(
+                    setting.id,
+                    setting.default,
+                    setting.typeMeta.regExPatterns,
+                );
+
+                configuration = {
+                    ...configuration,
+                    ...parsedDefaults,
+                };
+            }
+        }
+
+        if (setting.default !== undefined) {
+            configuration[`${setting.id}`] = setting.default;
+        }
+    });
+
+    return configuration;
+}
+
+function parseTabSchemaDefaults(tabSections: SchemaSection[]) {
+    let configuration = {};
+    tabSections.forEach((section: SchemaSection) => {
+        const settingsDefaults = buildSettingsDefaults(section.settings);
+        configuration = {
+            ...configuration,
+            ...settingsDefaults,
+        };
+    });
+
+    return configuration;
+}
+
+export function parseArraySchemaDefaults(arraySchemaElement: ArraySchemaElement) {
+    let configuration: WidgetConfiguration = {};
+
+    const defaultCount = arraySchemaElement.defaultCount || 1;
+    const arraySchema = arraySchemaElement.schema;
+    const arraySchemaId = arraySchemaElement.id;
+    configuration[`${arraySchemaId}`] = [];
+    let arrayElementConfiguration: WidgetConfiguration = {};
+    arraySchema.forEach((schemaElement: SchemaElement) => {
+        if (schemaElement.type === SchemaElementType.TAB) {
+            const tabSchemaElement = schemaElement as TabSchemaElement;
+
+            tabSchemaElement.sections.forEach((section: SchemaSection) => {
+                section.settings.forEach((setting: LabeledSchemaSetting) => {
+                    if (setting.typeMeta && setting.typeMeta.conditionalSettings) {
+                        const parsedDefaults = parseConditionalDefaults(setting.typeMeta.conditionalSettings);
+
+                        arrayElementConfiguration[`${setting.id}`] = setting.default;
+                        arrayElementConfiguration = {
+                            ...arrayElementConfiguration,
+                            ...parsedDefaults,
+                        };
+                    } else if (setting.default !== undefined) {
+                        arrayElementConfiguration[`${setting.id}`] = setting.default;
+                    }
+                });
+            });
+        }
+
+        if (schemaElement.type === SchemaElementType.HIDDEN) {
+            const hiddenSchemaElement = schemaElement as HiddenSchemaElement;
+            const hiddenSettingDefaults = buildSettingsDefaults(hiddenSchemaElement.settings);
+
+            arrayElementConfiguration = {
+                ...arrayElementConfiguration,
+                ...hiddenSettingDefaults,
+            };
+        }
+    });
+
+    for (let i = 1; i <= defaultCount; i++) {
+        configuration[`${arraySchemaId}`].push({ ...arrayElementConfiguration });
+    }
+
+    arraySchema.forEach((schemaElement: TabSchemaElement | ArraySchemaElement) => {
+        if (schemaElement.type === SchemaElementType.ARRAY) {
+            const subArraySchemaElement = schemaElement as ArraySchemaElement;
+            const arrayConfiguration = parseArraySchemaDefaults(subArraySchemaElement);
+            configuration = {
+                ...configuration,
+                ...arrayConfiguration,
+            };
+        }
+    });
+
+    return configuration;
+}
+
+export function generateWidgetConfiguration(schema: (TabSchemaElement|ArraySchemaElement|HiddenSchemaElement)[]) {
     let configuration = {};
     schema.forEach((schemaElement: SchemaElement) => {
         if (schemaElement.type === SchemaElementType.TAB) {
@@ -185,146 +326,5 @@ export function generateWidgetConfiguration(schema: Array<TabSchemaElement|Array
         }
     });
 
-    return {...configuration};
-}
-
-export function parseArraySchemaDefaults(arraySchemaElement: ArraySchemaElement) {
-    let configuration: WidgetConfiguration = {};
-
-    const defaultCount = arraySchemaElement.defaultCount || 1;
-    const arraySchema = arraySchemaElement.schema;
-    const arraySchemaId = arraySchemaElement.id;
-    configuration[`${arraySchemaId}`] = [];
-    let arrayElementConfiguration: WidgetConfiguration = {};
-    arraySchema.forEach((schemaElement: SchemaElement) => {
-        if (schemaElement.type === SchemaElementType.TAB) {
-            const tabSchemaElement = schemaElement as TabSchemaElement;
-
-            tabSchemaElement.sections.forEach((section: SchemaSection) => {
-                section.settings.forEach((setting: LabeledSchemaSetting) => {
-                    if (setting.typeMeta && setting.typeMeta.conditionalSettings) {
-                        const parsedDefaults = parseConditionalDefaults(setting.typeMeta.conditionalSettings);
-
-                        arrayElementConfiguration[`${setting.id}`] = setting.default;
-                        arrayElementConfiguration = {
-                            ...arrayElementConfiguration,
-                            ...parsedDefaults,
-                        };
-                    } else if (setting.default) {
-                        arrayElementConfiguration[`${setting.id}`] = setting.default;
-                    }
-                });
-            });
-        }
-
-        if (schemaElement.type === SchemaElementType.HIDDEN) {
-            const hiddenSchemaElement = schemaElement as HiddenSchemaElement;
-            const hiddenSettingDefaults = buildSettingsDefaults(hiddenSchemaElement.settings);
-
-            arrayElementConfiguration = {
-                ...arrayElementConfiguration,
-                ...hiddenSettingDefaults,
-            };
-        }
-    });
-
-    for (let i = 1; i <= defaultCount; i++) {
-        configuration[`${arraySchemaId}`].push({...arrayElementConfiguration});
-    }
-
-    arraySchema.forEach((schemaElement: TabSchemaElement | ArraySchemaElement) => {
-        if (schemaElement.type === SchemaElementType.ARRAY) {
-            const subArraySchemaElement = schemaElement as ArraySchemaElement;
-            const arrayConfiguration = parseArraySchemaDefaults(subArraySchemaElement);
-            configuration = {
-                ...configuration,
-                ...arrayConfiguration,
-            };
-        }
-    });
-
     return configuration;
-}
-
-function parseTabSchemaDefaults(tabSections: SchemaSection[]) {
-    let configuration = {};
-    tabSections.forEach((section: SchemaSection) => {
-        const settingsDefaults = buildSettingsDefaults(section.settings);
-        configuration = {
-            ...configuration,
-            ...settingsDefaults,
-        };
-    });
-
-    return configuration;
-}
-
-function buildSettingsDefaults(settings: BaseSchemaSetting[]) {
-    let configuration: WidgetConfiguration = {};
-    settings.forEach((setting: BaseSchemaSetting) => {
-        if (setting.typeMeta) {
-            if (setting.typeMeta.conditionalSettings) {
-                const parsedDefaults = parseConditionalDefaults(setting.typeMeta.conditionalSettings);
-
-                configuration = {
-                    ...configuration,
-                    ...parsedDefaults,
-                };
-            }
-
-            if (setting.typeMeta.regExPatterns) {
-                const parsedDefaults = parseRegExPatternsDefaults(
-                    setting.id,
-                    setting.default,
-                    setting.typeMeta.regExPatterns
-                );
-
-                configuration = {
-                    ...configuration,
-                    ...parsedDefaults,
-                };
-            }
-        }
-
-        if (setting.default) {
-            configuration[`${setting.id}`] = setting.default;
-        }
-    });
-
-    return configuration;
-}
-
-function parseRegExPatternsDefaults(id: string, defaultValue: string = '', regExPatterns: RegExPattern[]) {
-    const regExPatternConfigurations: WidgetConfiguration =  {};
-    const config: WidgetConfiguration = {};
-    const partsConfig: WidgetConfiguration= {};
-    const value = 'value';
-    const parts = 'parts';
-
-    regExPatterns.forEach( regExPattern => {
-        const { pattern, matchIndex = 0, configKey } = regExPattern;
-        const re = new RegExp(pattern);
-        const matchResult = defaultValue.match(re);
-        const matchValue = matchResult ? matchResult[matchIndex] : null;
-        partsConfig[configKey] = matchValue;
-    });
-
-    config[value] = defaultValue;
-    config[parts] = partsConfig;
-    regExPatternConfigurations[id] = config;
-
-    return regExPatternConfigurations;
-}
-
-function parseConditionalDefaults(selectOptions: ConditionalSettingsValue[]) {
-    const conditionalConfigurations: WidgetConfiguration = {};
-    selectOptions.forEach(option => {
-        if (option && option.settings) {
-            option.settings.forEach(conditionalSetting => {
-                conditionalConfigurations[conditionalSetting.id] = conditionalSetting.default;
-            });
-        }
-    });
-
-    return conditionalConfigurations;
 }
