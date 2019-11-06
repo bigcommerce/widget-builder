@@ -2,3 +2,4 @@
 !/src
 *.css
 src/server/tsconfig.server.json
+src/cli/tsconfig.cli.json

@@ -1,6 +1,6 @@
 import Axios, { AxiosResponse } from 'axios';
 
-import { AUTH_CONFIG } from '../auth/const';
+import AUTH_CONFIG from '../auth/authConfig';
 
 export const API_GATEWAY_BASE = process.env.WIDGET_BUILDER_API_GATEWAY_BASE || 'https://api.bigcommerce.com';
 
