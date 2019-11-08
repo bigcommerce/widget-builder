@@ -3,13 +3,14 @@
   "version": "0.0.1",
   "main": "src/server/index.ts",
   "bin": {
-    "widget-builder": "./dist/server/index.js"
+    "widget-builder": "./dist/cli/index.js"
   },
   "scripts": {
     "build-client": "webpack",
     "build-server": "cd src/server && tsc -p tsconfig.server.json",
-    "build-cli": "npm run build && npm install -g",
-    "build": "npm run build-server && npm run build-client",
+    "build-cli": "cd src/cli && tsc -p tsconfig.cli.json",
+    "build": "npm run build-cli && npm run build-server && npm run build-client",
+    "install-cli": "npm run build && npm install -g",
     "server": "nodemon dist/server/index.js",
     "start": "npm run build && npm run server",
     "dev-client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
@@ -22,9 +23,13 @@
   "license": "ISC",
   "dependencies": {
     "@bigcommerce/big-design": "^0.7.1",
+    "ajv": "^6.10.2",
     "axios": "^0.19.0",
     "babel-polyfill": "^6.26.0",
+    "better-ajv-errors": "^0.6.7",
+    "chalk": "^2.4.2",
     "chokidar": "^3.2.3",
+    "commander": "^4.0.0",
     "express": "^4.16.3",
     "open": "^7.0.0",
     "react": "^16.9.0",
@@ -43,6 +48,9 @@
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
     "@babel/preset-typescript": "^7.6.0",
+    "@types/ajv": "^1.0.0",
+    "@types/commander": "^2.12.2",
+    "@types/chalk": "^2.2.0",
     "@types/enzyme": "^3.1.10",
     "@types/enzyme-adapter-react-16": "^1.0.3",
     "@types/express": "^4.17.1",

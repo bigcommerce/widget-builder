@@ -1,9 +1,9 @@
 import uuid from 'uuid';
 
-import { FileLoaderResponse, WidgetFileType } from '../const';
-import widgetTemplateLoader from '../../services/widgetTemplate/widgetTemplate';
-import widgetConfigLoader from '../../services/widgetConfig/widgetConfig';
-import { getWidget, WidgetPreviewRenderRequest } from '../../services/api/widget';
+import { getWidget, WidgetPreviewRenderRequest } from '../api/widget';
+import WidgetFileType, { FileLoaderResponse } from '../../types';
+import widgetTemplateLoader from '../widgetTemplate/widgetTemplateLoader/widgetTemplateLoader';
+import widgetConfigLoader from '../widgetConfig/widgetConfigLoader/widgetConfigLoader';
 
 const getInitialRenderingPayload = (): WidgetPreviewRenderRequest => ({
     widget_configuration: {},
@@ -19,11 +19,11 @@ function generateRenderPayloadFromFileLoaderResults(results: FileLoaderResponse[
         (acc: WidgetPreviewRenderRequest, current: FileLoaderResponse): WidgetPreviewRenderRequest => {
             const { data, type } = current;
 
-            if (type === WidgetFileType.WIDGET_TEMPLATE_HTML) {
+            if (type === WidgetFileType.TEMPLATE) {
                 return { ...acc, widget_template: data };
             }
 
-            if (type === WidgetFileType.WIDGET_CONFIGURATION) {
+            if (type === WidgetFileType.CONFIGURATION) {
                 return { ...acc, widget_configuration: JSON.parse(data) };
             }
 
@@ -32,9 +32,11 @@ function generateRenderPayloadFromFileLoaderResults(results: FileLoaderResponse[
     );
 }
 
-export default function getWidgetHtml(widgetDir: string) {
-    return Promise.all([widgetTemplateLoader(widgetDir), widgetConfigLoader(widgetDir)])
-        .then(
-            (results: FileLoaderResponse[]) => getWidget(generateRenderPayloadFromFileLoaderResults(results)),
-        ).catch((err: Error) => console.log(err));
+export default function renderWidget(widgetDir: string): Promise<string> {
+    return Promise.all([
+        widgetTemplateLoader(widgetDir),
+        widgetConfigLoader(widgetDir),
+    ]).then(
+        (results: FileLoaderResponse[]) => getWidget(generateRenderPayloadFromFileLoaderResults(results)),
+    );
 }
