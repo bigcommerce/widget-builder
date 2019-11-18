@@ -20,7 +20,7 @@
     "test": "jest --coverage || true",
     "test:updateSnapshot": "jest --updateSnapshot"
   },
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@bigcommerce/big-design": "^0.7.1",
     "ajv": "^6.10.2",
