@@ -35,19 +35,17 @@ jobs:
     <<: *executor_defaults
     steps:
       - install-dependencies
-
   unit-tests:
     <<: *executor_defaults
     resource_class: large
     steps:
       - install-dependencies
       - run: npm run test
-      - run: npm run lint
-
   build-assets:
     <<: *executor_defaults
     steps:
       - install-dependencies
+      - run: npm run lint
       - run: npm run build
       - persist_to_workspace:
           root: *workspace_root

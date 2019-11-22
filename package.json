@@ -17,7 +17,7 @@
     "dev-server": "cd src/server && tsc -p tsconfig.server.json --watch",
     "lint": "eslint \"src/**/*\"",
     "lint-fix": "eslint --fix \"src/**/*\"",
-    "test": "jest --forceExit",
+    "test": "jest",
     "test:updateSnapshot": "jest --updateSnapshot"
   },
   "license": "ISC",
