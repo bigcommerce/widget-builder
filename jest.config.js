@@ -7,5 +7,14 @@ module.exports = {
   },
   setupFilesAfterEnv: [
     "<rootDir>/src/setupTests.js",
-  ]
+  ],
+  collectCoverageFrom: [
+      "src/**/*.{js,jsx,ts,tsx}"
+    ],
+    coverageThreshold: {
+      "global": {
+        "lines": 90,
+        "statements": 90
+      }
+    }
 };
