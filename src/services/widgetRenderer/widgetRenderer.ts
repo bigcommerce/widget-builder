@@ -14,7 +14,7 @@ const getInitialRenderingPayload = (): WidgetPreviewRenderRequest => ({
     storefront_api_query_params: {},
 });
 
-function generateRenderPayloadFromFileLoaderResults(results: FileLoaderResponse[]): WidgetPreviewRenderRequest {
+export function generateRenderPayloadFromFileLoaderResults(results: FileLoaderResponse[]): WidgetPreviewRenderRequest {
     return results.reduce(
         (acc: WidgetPreviewRenderRequest, current: FileLoaderResponse): WidgetPreviewRenderRequest => {
             const { data, type } = current;
@@ -37,6 +37,8 @@ export default function renderWidget(widgetDir: string): Promise<string> {
         widgetTemplateLoader(widgetDir),
         widgetConfigLoader(widgetDir),
     ]).then(
-        (results: FileLoaderResponse[]) => getWidget(generateRenderPayloadFromFileLoaderResults(results)),
+        (results: FileLoaderResponse[]) => getWidget(
+            generateRenderPayloadFromFileLoaderResults(results),
+        ),
     );
 }

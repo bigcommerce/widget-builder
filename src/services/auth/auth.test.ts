@@ -10,4 +10,14 @@ describe('Auth credential status check', () => {
 
         expect(checkStatus).toEqual(true);
     });
+
+    it('fails if any of the credentials are missing', () => {
+        const checkStatus = checkCredentials({
+            storeId: '123456',
+            authId: 'abc123',
+            authToken: '',
+        });
+
+        expect(checkStatus).toEqual(false);
+    });
 });
