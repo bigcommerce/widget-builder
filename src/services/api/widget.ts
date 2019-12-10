@@ -34,7 +34,7 @@ export function getWidget(data: WidgetPreviewRenderRequest): Promise<string> {
                 'X-Auth-Token': AUTH_CONFIG.authToken,
             },
             data,
-            url: widgetApi.widgetPreviewRender(AUTH_CONFIG.storeId as string),
+            url: widgetApi.widgetPreviewRender(AUTH_CONFIG.storeHash as string),
         }).then((response: AxiosResponse<WidgetPreviewRenderResponse>) => {
             resolve(response.data.data.html);
         }).catch((err: Error) => reject(err));
