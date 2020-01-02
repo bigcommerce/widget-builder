@@ -1,5 +1,5 @@
 # Widget Builder
-Widget builder is a developer tool that can be used while developing a widget,
+Widget builder is a developer tool that can be used while developing a widget.
 
 ## Getting started
 ### Authentication
