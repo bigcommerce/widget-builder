@@ -32,7 +32,7 @@ module.exports = {
     "@typescript-eslint/camelcase": "off",
     "max-len": [1, 120, 4],
     "no-plusplus": "off",
-    "global-require": "off"
+    "global-require": "off",
   },
   overrides: [
     {

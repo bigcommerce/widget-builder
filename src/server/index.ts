@@ -7,75 +7,23 @@ import open from 'open';
 import { Socket } from 'socket.io';
 
 import { host, port } from '../config';
-import WidgetFileType, { FileLoaderResponse, SocketData } from '../types';
 import { log, messages } from '../messages';
-import schemaLoader from '../services/schema/schemaLoader/schemaLoader';
-import { generateWidgetConfiguration } from '../services/schema/schemaParser/schemaParser';
-import widgetConfigWriter from '../services/widgetConfig/widgetConfigWriter/widgetConfigWriter';
-import SchemaValidator from '../services/schema/schemaValidator/schemaValidator';
+import liveReload, { Options } from '../services/broadcast/liveReload';
+import broadcastToSockets from '../services/broadcast/broadcastToSockets';
+import WidgetFileType from '../types';
+import validateSchema from '../services/schema/schemaValidator/validateSchema';
+import generateQueryParams from '../services/query/generateQueryParams';
+import validateQueryParamsBuilder from '../services/query/queryParamsBuilderValidator/validateQueryParamsBuilder';
 import renderWidget from '../services/widgetRenderer/widgetRenderer';
+import generateConfig from '../services/widgetConfig/generateConfig';
 
 const BUILDER_ADDRESS = `${host}:${port}`;
-
-interface SocketsBroadcast {
-    sockets: Socket[];
-    data: SocketData;
-}
-
-function broadcastToSockets({ sockets, data }: SocketsBroadcast) {
-    sockets.forEach((socket: Socket) => socket.emit('event', data));
-}
 
 interface Watcher {
     directory: string;
     sockets: Socket[];
     options: Options;
 }
-
-const generateConfig = (directory: string) => schemaLoader(directory).then(({ data }: FileLoaderResponse) => {
-    log.info(messages.parseSchema());
-    const schema = JSON.parse(data);
-    const widgetConfiguration = generateWidgetConfiguration(schema);
-    const widgetConfigurationJson = JSON.stringify(
-        widgetConfiguration, null, 2,
-    );
-    widgetConfigWriter(directory, widgetConfigurationJson).then(() => {
-        log.info(messages.configFileWritten());
-    });
-});
-
-const schemaValidation = (directory: string) => schemaLoader(directory).then(({ data }: FileLoaderResponse) => {
-    const schema = JSON.parse(data);
-    const validator = new SchemaValidator(schema);
-    validator.validate();
-});
-
-interface WidgetChangeBroadcast {
-    directory: string;
-    sockets: Socket[];
-    fileEvent: string;
-    filePath: string;
-}
-
-const broadcastWidgetChange = ({
-    directory, sockets, fileEvent, filePath,
-}: WidgetChangeBroadcast) => {
-    renderWidget(directory)
-        .then((html: string) => {
-            broadcastToSockets({
-                sockets,
-                data: {
-                    event: fileEvent,
-                    html,
-                    path: filePath,
-                },
-            });
-            log.info(messages.rerenderWidget());
-        })
-        .catch((error: string) => {
-            log.error(error);
-        });
-};
 
 function setupFileWatcher({ directory, sockets, options }: Watcher) {
     chokidar.watch(directory).on('all', (fileEvent: string, filePath: string) => {
@@ -88,9 +36,25 @@ function setupFileWatcher({ directory, sockets, options }: Watcher) {
         switch (fileName) {
             // When the widget template or configuration changes, we should live reload
             case WidgetFileType.TEMPLATE:
-            case WidgetFileType.CONFIGURATION:
-                broadcastWidgetChange({
+                liveReload({
                     directory, sockets, fileEvent, filePath,
+                });
+                break;
+
+            case WidgetFileType.CONFIGURATION:
+            case WidgetFileType.QUERY:
+                liveReload({
+                    directory, sockets, fileEvent, filePath, options,
+                });
+                break;
+
+            case WidgetFileType.QUERY_PARAMS_BUILDER:
+                if (options.validateQueryParamsBuilder) {
+                    validateQueryParamsBuilder(directory);
+                }
+
+                liveReload({
+                    directory, sockets, fileEvent, filePath, options,
                 });
                 break;
 
@@ -98,7 +62,7 @@ function setupFileWatcher({ directory, sockets, options }: Watcher) {
             case WidgetFileType.SCHEMA:
                 // Validate the schema against json schema
                 if (options.validateSchema) {
-                    schemaValidation(directory);
+                    validateSchema(directory);
                 }
 
                 // Check whether we need to regenerate a config file
@@ -116,12 +80,6 @@ function setupFileWatcher({ directory, sockets, options }: Watcher) {
                 break;
         }
     });
-}
-
-export interface Options {
-    generateConfig?: boolean;
-    validateSchema?: boolean;
-    autoOpen?: boolean;
 }
 
 export default function startWidgetBuilder(directory: string, options: Options) {
@@ -163,12 +121,20 @@ export default function startWidgetBuilder(directory: string, options: Options) 
             });
     });
 
-    if (options.generateConfig) {
+    if (options.generateQueryParams) {
+        generateConfig(directory).then(() => {
+            generateQueryParams(directory);
+        });
+    } else if (options.generateConfig) {
         generateConfig(directory);
     }
 
     if (options.validateSchema) {
-        schemaValidation(directory);
+        validateSchema(directory);
+    }
+
+    if (options.validateQueryParamsBuilder) {
+        validateQueryParamsBuilder(directory);
     }
 
     setupFileWatcher({
