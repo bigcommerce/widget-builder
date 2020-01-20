@@ -237,7 +237,7 @@ const jsonSchema = {
                         },
                         type: {
                             type: 'string',
-                            enum: ['NONE', 'SRC', 'IMAGE_MANAGER', 'PRODUCT_IMAGE'],
+                            enum: ['NONE', 'URL', 'IMAGE_MANAGER', 'PRODUCT_IMAGE'],
                         },
                     },
                 },
