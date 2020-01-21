@@ -4,6 +4,8 @@ import { getWidget, WidgetPreviewRenderRequest } from '../api/widget';
 import WidgetFileType, { FileLoaderResponse } from '../../types';
 import widgetTemplateLoader from '../widgetTemplate/widgetTemplateLoader/widgetTemplateLoader';
 import widgetConfigLoader from '../widgetConfig/widgetConfigLoader/widgetConfigLoader';
+import queryLoader from '../query/queryLoader/queryLoader';
+import queryParamsLoader from '../query/queryParamsLoader/queryParamsLoader';
 
 const getInitialRenderingPayload = (): WidgetPreviewRenderRequest => ({
     widget_configuration: {},
@@ -27,6 +29,14 @@ export function generateRenderPayloadFromFileLoaderResults(results: FileLoaderRe
                 return { ...acc, widget_configuration: JSON.parse(data) };
             }
 
+            if (type === WidgetFileType.QUERY) {
+                return { ...acc, storefront_api_query: data };
+            }
+
+            if (type === WidgetFileType.QUERY_PARAMS) {
+                return { ...acc, storefront_api_query_params: JSON.parse(data) };
+            }
+
             return acc;
         }, getInitialRenderingPayload(),
     );
@@ -36,6 +46,8 @@ export default function renderWidget(widgetDir: string): Promise<string> {
     return Promise.all([
         widgetTemplateLoader(widgetDir),
         widgetConfigLoader(widgetDir),
+        queryLoader(widgetDir),
+        queryParamsLoader(widgetDir),
     ]).then(
         (results: FileLoaderResponse[]) => getWidget(
             generateRenderPayloadFromFileLoaderResults(results),

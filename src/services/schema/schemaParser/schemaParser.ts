@@ -131,6 +131,10 @@ export interface SchemaSettingTypeMetaData {
     parseType?: ParseType;
 }
 
+export interface StorefrontApiQueryParams {
+    [key: string]: any;
+}
+
 export interface QueryParamBuilder {
     [key: string]: any;
 }

@@ -16,7 +16,9 @@ const cli = new Command();
 cli
     .version(version)
     .option('--gen-config', 'generate a config.json file')
+    .option('--gen-query-params', 'generate a queryParams.json file')
     .option('--validate-schema', 'validate schema.json file')
+    .option('--validate-query-params-builder', 'validate queryParamsBuilder.json file')
     .option('--auto-open <flag>', 'open browser automatically to the builder preview', 'true');
 
 cli.parse(process.argv);
@@ -30,6 +32,8 @@ startWidgetBuilder(
     {
         autoOpen: cli.autoOpen === 'true',
         generateConfig: cli.genConfig,
+        generateQueryParams: cli.genQueryParams,
         validateSchema: cli.validateSchema,
+        validateQueryParamsBuilder: cli.validateQueryParamsBuilder,
     },
 );
