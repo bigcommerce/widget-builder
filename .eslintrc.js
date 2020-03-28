@@ -12,6 +12,7 @@ module.exports = {
     'plugin:import/errors',
     'plugin:import/warnings',
     'plugin:import/typescript',
+    'plugin:react/recommended',
   ],
   parserOptions: {
     project: './tsconfig.json',
@@ -33,6 +34,7 @@ module.exports = {
     "max-len": [1, 120, 4],
     "no-plusplus": "off",
     "global-require": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
   },
   overrides: [
     {

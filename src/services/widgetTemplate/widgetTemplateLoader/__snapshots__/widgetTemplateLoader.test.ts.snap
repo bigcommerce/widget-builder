@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports['widgetTemplateLoader correctly loads widgetTemplate 1'] = `
+Object {
+  "data": "<div id=\\"bc-product-list-{{_.id}}\\"></div>
+
+{{#each products as |product|}}
+{{#each ../_.data.site.products.edges as |productResource|}}
+{{#if productResource.node.entityId \\"==\\" product.productId}}
+<script type=\\"application/ld+json\\">
+        {
+          \\"@context\\": \\"https://schema.org/\\",
+          \\"@type\\": \\"Product\\",
+          \\"name\\": \\"{{productResource.node.name}}\\",
+          \\"image\\": \\"{{productResource.node.defaultImage.url}}\\",
+          \\"description\\": \\"{{product.productDescription}}\\",
+          \\"sku\\": \\"{{productResource.node.sku}}\\",
+          \\"aggregateRating\\": {
+            \\"@type\\": \\"AggregateRating\\",
+            {{#if productResource.node.reviewSummary.summationOfRatings \\"==\\" 0}}
+            \\"ratingValue\\": \\"0\\",
+            {{else}}
+            \\"ratingValue\\": \\"{{divide productResource.node.reviewSummary.summationOfRatings productResource.node.reviewSummary.numberOfReviews}}\\",
+            {{/if}}
+            \\"reviewCount\\": \\"{{productResource.node.reviewSummary.numberOfReviews}}\\"
+          },
+          \\"offers\\": {
+            \\"@type\\": \\"Offer\\",
+            \\"priceCurrency\\": \\"{{productResource.node.prices.price.currencyCode}}\\",
+            \\"price\\": \\"{{productResource.node.prices.price.value}}\\",
+            \\"seller\\": {
+              \\"@type\\": \\"Organization\\",
+              \\"name\\": \\"{{../../../_.data.site.settings.storeName}}\\"
+            }
+          }
+        }
+      </script>
+{{/if}}
+{{/each}}
+{{/each}}
+
+<script type=\\"text/javascript\\">
+  (function() {
+    var widgetConfiguration = {{{json .}}};
+    if (window.BigCommerce && window.BigCommerce.initializeProductList && typeof window.BigCommerce.initializeProductList === 'function') {
+      window.BigCommerce.initializeProductList(widgetConfiguration);
+    } else {
+      var scriptTag = document.createElement('script');
+      scriptTag.type = 'text/javascript';
+      scriptTag.src = 'https://microapps.bigcommerce.com/product-list-widget/6cc5f2e894e852b115b5ecad2abe50d21e256f06/bundle.js';
+      scriptTag.defer = true;
+      scriptTag.onload = function () { window.BigCommerce.initializeProductList(widgetConfiguration) };
+      document.head.appendChild(scriptTag);
+    }
+  })();
+</script>
+",
+  "type": "widget.html",
+}
+`;

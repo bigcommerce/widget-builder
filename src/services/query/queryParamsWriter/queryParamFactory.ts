@@ -1,4 +1,5 @@
 /* eslint class-methods-use-this: 0 */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { flattenDeep } from 'lodash';
 

@@ -4,14 +4,17 @@ function f(message: string) {
     return `[${new Date().toISOString()}] ${message}`;
 }
 
+/* eslint-disable no-console */
 export const log = {
-    debug: (message: any) => console.debug(chalk.grey(f(message))),
-    info: (message: any) => console.log(chalk.blue(f(message))),
-    notice: (message: any) => console.log(chalk.yellow(f(message))),
-    error: (message: any) => console.error(chalk.red(f(message))),
-    success: (message: any) => console.log(chalk.green(f(message))),
+    debug: (message: string) => console.debug(chalk.grey(f(message))),
+    info: (message: string) => console.log(chalk.blue(f(message))),
+    notice: (message: string) => console.log(chalk.yellow(f(message))),
+    error: (message: string) => console.error(chalk.red(f(message))),
+    success: (message: string) => console.log(chalk.green(f(message))),
 };
+/* eslint-enable no-console */
 
+/* eslint-disable max-len */
 export const messages = {
     startup: (builderAddress: string) => `Starting widget-builder at ${builderAddress}!`,
     rerenderWidget: () => 'Re-rendering the widget. You should see changes reflect in the browser preview.',
@@ -34,3 +37,4 @@ export const messages = {
     socketConnected: () => 'Socket connected.',
     socketDisconnected: () => 'Socket disconnected.',
 };
+/* eslint-enable max-len */

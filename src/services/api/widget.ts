@@ -5,7 +5,8 @@ import AUTH_CONFIG from '../auth/authConfig';
 export const API_GATEWAY_BASE = process.env.WIDGET_BUILDER_API_GATEWAY_BASE || 'https://api.bigcommerce.com';
 
 export const widgetApi = {
-    widgetPreviewRender: (storeHash: string): string => `${API_GATEWAY_BASE}/stores/${storeHash}/v3/content/widget-templates/preview`,
+    widgetPreviewRender:
+        (storeHash: string): string => `${API_GATEWAY_BASE}/stores/${storeHash}/v3/content/widget-templates/preview`,
 };
 
 interface WidgetPreviewRenderResponse {

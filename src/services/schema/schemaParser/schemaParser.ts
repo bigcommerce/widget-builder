@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 export enum SchemaElementType {
     ARRAY = 'array',
     TAB = 'tab',

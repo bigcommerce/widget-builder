@@ -6,9 +6,9 @@ import { log, messages } from '../../../messages';
 import jsonQueryParamsBuilder from './jsonQueryParamsBuilder';
 
 export default class QueryParamsBuilderValidator {
-    readonly queryParamsBuilder: any;
+    readonly queryParamsBuilder: object;
 
-    constructor(queryParamsBuilder: any) {
+    constructor(queryParamsBuilder: object) {
         this.queryParamsBuilder = queryParamsBuilder;
     }
 
@@ -28,5 +28,7 @@ export default class QueryParamsBuilderValidator {
         } else {
             log.info(messages.queryParamsBuilderValidated());
         }
+
+        return valid;
     };
 }

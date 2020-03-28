@@ -17,7 +17,8 @@ export class App extends Component<{}, {}> {
 
     componentDidMount() {
         this.socket = io(`${host}:${port}`);
-        this.socket.on('connect', () => console.log('Socket connected'));
+
+        this.socket.on('connect', () => console.log('Socket connected')); // eslint-disable-line no-console
         this.socket.on('event', (data: SocketData) => {
             this.mountWidget(data.html);
         });

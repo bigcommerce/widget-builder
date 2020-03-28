@@ -1,6 +1,8 @@
-import schemaData from '../../__fixtures__/testSchema';
+import fs from 'fs';
 
 import { handleSchemaLoader } from './schemaLoader';
+
+const schemaData = fs.readFileSync('src/services/__fixtures__/schema.json', 'utf8').toString();
 
 describe('Schema Loader Handler', () => {
     it('properly returns schema object to resolve', () => {
