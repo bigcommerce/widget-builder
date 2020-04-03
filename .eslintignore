@@ -3,3 +3,5 @@
 *.css
 src/server/tsconfig.server.json
 src/cli/tsconfig.cli.json
+src/services/__fixtures__
+*.snap

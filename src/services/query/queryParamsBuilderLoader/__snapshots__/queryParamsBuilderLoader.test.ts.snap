@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`queryParamsBuilderLoader correctly loads queryParamsBuilder 1`] = `
+Object {
+  "data": "{
+    \\"productIds\\": {
+        \\"reads\\": \\"products.*.productId\\",
+        \\"type\\": \\"Int!\\"
+    },
+    \\"productId\\": {
+        \\"reads\\": \\"productId\\",
+        \\"type\\": \\"Int!\\"
+    },
+    \\"name\\": {
+        \\"reads\\": \\"name\\",
+        \\"type\\": \\"String!\\"
+    }
+}
+",
+  "type": "queryParamsBuilder.json",
+}
+`;

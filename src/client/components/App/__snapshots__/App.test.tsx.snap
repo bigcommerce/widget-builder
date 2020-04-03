@@ -1,3 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['renders 1'] = 'ShallowWrapper {}';
+exports['mountWidget correctly mounts a widget 1'] = `
+<div>
+  <div
+    class="styled__StyledFlex-hcvk8l-0 gzvNmR styled__StyledBox-sj5f1m-0 dWCHjG"
+  >
+    <img
+      height="34"
+      src="favicon.ico"
+    />
+       
+    <h1
+      class="styled__StyledH1-tqnj75-1 exiPoU"
+    >
+      Widget Builder
+    </h1>
+  </div>
+  <div>
+    <div>
+      blah
+    </div>
+  </div>
+</div>
+`;
+
+exports['renders 1'] = `
+<div>
+  <div
+    class="styled__StyledFlex-hcvk8l-0 gzvNmR styled__StyledBox-sj5f1m-0 dWCHjG"
+  >
+    <img
+      height="34"
+      src="favicon.ico"
+    />
+       
+    <h1
+      class="styled__StyledH1-tqnj75-1 exiPoU"
+    >
+      Widget Builder
+    </h1>
+  </div>
+  <div />
+</div>
+`;

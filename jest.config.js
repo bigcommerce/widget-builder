@@ -1,6 +1,7 @@
 module.exports = {
+  roots: ["<rootDir>/src"],
   preset: 'ts-jest',
-  testEnvironment: 'node',
+  testEnvironment: 'jsdom',
   transform: {
     '^.+\\.js$': 'babel-jest',
     '.+\\.(css|styl|less|sass|scss)$': 'jest-transform-css',

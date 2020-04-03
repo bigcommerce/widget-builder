@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`createElementFromHTML correctly creates an element 1`] = `
+<div>
+  Hello
+</div>
+`;
+
+exports[`executeWidgetScripts correctly clones a script 1`] = `
+<div>
+  
+            
+  <script
+    data-test1="hi"
+    id="id1"
+  >
+    
+                console.log("first")
+            
+  </script>
+  
+            
+  <script
+    data-test1="hi2"
+    id="id2"
+  >
+    
+                console.log("second")
+            
+  </script>
+  
+        
+</div>
+`;

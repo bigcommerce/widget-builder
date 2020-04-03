@@ -18,7 +18,7 @@
     "lint": "eslint \"src/**/*\"",
     "lint-fix": "eslint --fix \"src/**/*\"",
     "test": "jest --coverage || true",
-    "test:updateSnapshot": "jest --updateSnapshot"
+    "test:updateSnapshot": "jest --updateSnapshot --silent"
   },
   "license": "MIT",
   "dependencies": {
@@ -68,6 +68,7 @@
     "@types/uuid": "^3.4.5",
     "@typescript-eslint/eslint-plugin": "^1.9.0",
     "@typescript-eslint/parser": "^1.9.0",
+    "axios-mock-adapter": "^1.17.0",
     "babel-eslint": "^10.0.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.0",

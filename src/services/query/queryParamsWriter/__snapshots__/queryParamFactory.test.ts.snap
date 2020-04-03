@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports['queryParamFactory correctly loads query params 1'] = `
+Object {
+  "name": "Fred",
+  "productId": 5,
+  "productIds": Array [
+    1,
+  ],
+}
+`;

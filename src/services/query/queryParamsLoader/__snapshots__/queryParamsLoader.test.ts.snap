@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`queryParamsLoader correctly loads query params 1`] = `
+Object {
+  "data": "{
+    \\"productIds\\": [1, 2],
+    \\"product\\": 1,
+    \\"name\\": \\"Fred\\"
+}
+",
+  "type": "queryParams.json",
+}
+`;
