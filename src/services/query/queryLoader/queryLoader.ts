@@ -8,9 +8,16 @@ export default function queryLoader(widgetDir: string): Promise<FileLoaderRespon
         fs.readFile(
             `${widgetDir}/${WidgetFileType.QUERY}`,
             'utf8',
-            (error: Error, data: string) => {
-                if (!data || error) {
-                    reject(messages.invalidQuery());
+            (error, data: string) => {
+                if (error) {
+                    if (error.code === 'ENOENT') {
+                        resolve({
+                            type: WidgetFileType.QUERY,
+                            data: '',
+                        });
+                    } else {
+                        reject(messages.invalidQuery());
+                    }
                 }
 
                 resolve({

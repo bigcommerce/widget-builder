@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['generateWidgetConfiguration correctly generates a widget configuration 1'] = `
+exports[`generateWidgetConfiguration correctly generates a widget configuration 1`] = `
 Object {
   "animationDuration": "400",
   "buttonActionType": "addToCart",
@@ -89,9 +89,6 @@ Object {
   "productRatingsTextColor": "#8C93AD",
   "products": Array [
     Object {
-      "productDescription": "",
-      "productId": "",
-      "productImage": "",
       "productImageAlignment": Object {
         "horizontal": "center",
         "vertical": "middle",
@@ -99,9 +96,6 @@ Object {
       "productImageFit": "fit",
     },
     Object {
-      "productDescription": "",
-      "productId": "",
-      "productImage": "",
       "productImageAlignment": Object {
         "horizontal": "center",
         "vertical": "middle",
@@ -109,9 +103,6 @@ Object {
       "productImageFit": "fit",
     },
     Object {
-      "productDescription": "",
-      "productId": "",
-      "productImage": "",
       "productImageAlignment": Object {
         "horizontal": "center",
         "vertical": "middle",
