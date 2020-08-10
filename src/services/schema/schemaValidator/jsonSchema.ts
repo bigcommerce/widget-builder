@@ -30,7 +30,7 @@ const jsonSchema = {
                     $ref: '#/definitions/schema',
                 },
                 thumbnail: {
-                    type: 'string',
+                    type: 'object',
                 },
             },
             required: ['id', 'type', 'label', 'schema', 'entryLabel'],
@@ -84,7 +84,7 @@ const jsonSchema = {
                 },
                 default: {},
             },
-            required: ['id', 'default'],
+            required: ['id'],
         },
         labeledSchemaSetting: {
             allOf: [
@@ -104,6 +104,7 @@ const jsonSchema = {
                 { $ref: '#/definitions/boxModelSetting' },
                 { $ref: '#/definitions/codeSetting' },
                 { $ref: '#/definitions/colorSetting' },
+                { $ref: '#/definitions/elementSetting' },
                 { $ref: '#/definitions/imageManagerSetting' },
                 { $ref: '#/definitions/inputSetting' },
                 { $ref: '#/definitions/numberSetting' },
@@ -222,6 +223,23 @@ const jsonSchema = {
                 type: { enum: ['color'] },
                 default: {
                     type: 'string',
+                },
+            },
+        },
+        elementSetting: {
+            type: 'object',
+            properties: {
+                type: { enum: ['element'] },
+                typeMeta: {
+                    type: 'object',
+                    properties: {
+                        controls: {
+                            type: 'object',
+                        },
+                        advanced: {
+                            type: 'object',
+                        },
+                    },
                 },
             },
         },

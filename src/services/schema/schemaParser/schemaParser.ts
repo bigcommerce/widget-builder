@@ -29,10 +29,30 @@ export enum ParseType {
     Float = 'float',
 }
 
+export const enum ThumbnailType {
+    IMAGE = 'image',
+    COLOR = 'color',
+    UNKNOWN = 'unknown',
+}
+
 export type SchemaElement = TabSchemaElement | ArraySchemaElement | HiddenSchemaElement;
 
 export interface WidgetConfiguration {
     [key: string]: any;
+}
+
+export type Thumbnail = ConditionalThumbnail | SimpleThumbnail;
+
+export interface ConditionalThumbnail {
+    conditionKey: string; // background.type
+    thumbnailConditions: {
+        [conditionValue: string]: SimpleThumbnail; // image: {valueKey: 'background.imageUrl.src', type: 'image'}
+    };
+}
+
+export interface SimpleThumbnail {
+    valueKey: string; // 'background.imageUrl.src'
+    type: ThumbnailType;
 }
 
 export interface ArraySchemaElement {
@@ -41,7 +61,7 @@ export interface ArraySchemaElement {
     id: string; //  ex: slides
     defaultCount?: number;
     entryLabel: string;
-    thumbnail?: string;
+    thumbnail?: Thumbnail;
     schema: (TabSchemaElement|ArraySchemaElement)[];
 }
 
@@ -54,6 +74,20 @@ export interface TabSchemaElement {
     type: SchemaElementType.TAB | string;
     label: string;
     sections: SchemaSection[];
+}
+
+export interface AdvancedControlType {
+    label: string;
+    settings: LabeledSchemaSetting[];
+}
+
+export interface VisibilityControlType {
+    default: 'show' | 'hide';
+}
+
+export interface ElementControlType {
+    advanced?: AdvancedControlType;
+    visibility?: VisibilityControlType;
 }
 
 export interface SchemaSection {
@@ -118,13 +152,14 @@ export interface RegExPattern {
 }
 
 export interface SchemaSettingTypeMetaData {
+    controls?: ElementControlType;
     reference?: string;
     regExPatterns?: RegExPattern[];
     conditionalSettings?: ConditionalSettingsValue[];
     tags?: SchemaSettingTag[];
     selectOptions?: SelectOptionValue[]; // applicable for select type
     settings?: LabeledSchemaSetting[]; // applicable for array type
-    display?: string; // applicable for alignment type
+    display?: AlignmentSettingDisplay; // applicable for alignment type
     helpInfo?: string; // show a help text bubble next to the setting with additional info
     language?: CodeSyntaxHighlightLanguage; // applicable for the code type
     placeholder?: string;
@@ -169,8 +204,7 @@ function parseRegExPatternsDefaults(id: string, defaultValue: string = '', regEx
         const { pattern, matchIndex = 0, configKey } = regExPattern;
         const re = new RegExp(pattern);
         const matchResult = defaultValue.match(re);
-        const matchValue = matchResult ? matchResult[matchIndex] : null;
-        partsConfig[configKey] = matchValue;
+        partsConfig[configKey] = matchResult ? matchResult[matchIndex] : null;
     });
 
     config[value] = defaultValue;
@@ -193,8 +227,25 @@ function parseConditionalDefaults(selectOptions: ConditionalSettingsValue[]) {
     return conditionalConfigurations;
 }
 
+function parseElementDefaults(controls: ElementControlType) {
+    const elementConfigurations = {};
+    Object.keys(controls).forEach((control) => {
+        const content = controls[control];
+        if (content && content.settings) {
+            content.settings.forEach((setting: BaseSchemaSetting) => {
+                elementConfigurations[setting.id] = setting.default;
+            });
+        } else {
+            elementConfigurations[control] = content.default;
+        }
+    });
+
+    return elementConfigurations;
+}
+
 function buildSettingsDefaults(settings: BaseSchemaSetting[]) {
     let configuration: WidgetConfiguration = {};
+
     settings.forEach((setting: BaseSchemaSetting) => {
         if (setting.typeMeta) {
             if (setting.typeMeta.conditionalSettings) {
@@ -203,6 +254,17 @@ function buildSettingsDefaults(settings: BaseSchemaSetting[]) {
                 configuration = {
                     ...configuration,
                     ...parsedDefaults,
+                };
+            }
+
+            if (setting.typeMeta.controls) {
+                const parsedDefaults = parseElementDefaults(setting.typeMeta.controls);
+
+                configuration = {
+                    ...configuration,
+                    ...{
+                        [setting.id]: parsedDefaults,
+                    },
                 };
             }
 
@@ -220,7 +282,7 @@ function buildSettingsDefaults(settings: BaseSchemaSetting[]) {
             }
         }
 
-        if (setting.default !== undefined) {
+        if (setting.default) {
             configuration[`${setting.id}`] = setting.default;
         }
     });
@@ -230,6 +292,7 @@ function buildSettingsDefaults(settings: BaseSchemaSetting[]) {
 
 function parseTabSchemaDefaults(tabSections: SchemaSection[]) {
     let configuration = {};
+
     tabSections.forEach((section: SchemaSection) => {
         const settingsDefaults = buildSettingsDefaults(section.settings);
         configuration = {
@@ -252,22 +315,11 @@ export function parseArraySchemaDefaults(arraySchemaElement: ArraySchemaElement)
     arraySchema.forEach((schemaElement: SchemaElement) => {
         if (schemaElement.type === SchemaElementType.TAB) {
             const tabSchemaElement = schemaElement as TabSchemaElement;
-
-            tabSchemaElement.sections.forEach((section: SchemaSection) => {
-                section.settings.forEach((setting: LabeledSchemaSetting) => {
-                    if (setting.typeMeta && setting.typeMeta.conditionalSettings) {
-                        const parsedDefaults = parseConditionalDefaults(setting.typeMeta.conditionalSettings);
-
-                        arrayElementConfiguration[`${setting.id}`] = setting.default;
-                        arrayElementConfiguration = {
-                            ...arrayElementConfiguration,
-                            ...parsedDefaults,
-                        };
-                    } else if (setting.default !== undefined) {
-                        arrayElementConfiguration[`${setting.id}`] = setting.default;
-                    }
-                });
-            });
+            const tabSettingDefaults = parseTabSchemaDefaults(tabSchemaElement.sections);
+            arrayElementConfiguration = {
+                ...arrayElementConfiguration,
+                ...tabSettingDefaults,
+            };
         }
 
         if (schemaElement.type === SchemaElementType.HIDDEN) {
@@ -300,7 +352,7 @@ export function parseArraySchemaDefaults(arraySchemaElement: ArraySchemaElement)
 }
 
 export function generateWidgetConfiguration(schema: (TabSchemaElement|ArraySchemaElement|HiddenSchemaElement)[]) {
-    let configuration = {};
+    let configuration: WidgetConfiguration = {};
     schema.forEach((schemaElement: SchemaElement) => {
         if (schemaElement.type === SchemaElementType.TAB) {
             const tabSchemaElement = schemaElement as TabSchemaElement;
@@ -332,5 +384,5 @@ export function generateWidgetConfiguration(schema: (TabSchemaElement|ArraySchem
         }
     });
 
-    return configuration;
+    return { ...configuration };
 }

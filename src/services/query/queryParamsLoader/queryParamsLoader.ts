@@ -8,9 +8,16 @@ export default function queryParamsLoader(widgetDir: string): Promise<FileLoader
         fs.readFile(
             `${widgetDir}/${WidgetFileType.QUERY_PARAMS}`,
             'utf8',
-            (error: Error, data: string) => {
-                if (!data || error) {
-                    reject(messages.invalidQueryParams());
+            (error, data: string) => {
+                if (error) {
+                    if (error.code === 'ENOENT') {
+                        resolve({
+                            type: WidgetFileType.QUERY,
+                            data: '',
+                        });
+                    } else {
+                        reject(messages.invalidQueryParams());
+                    }
                 }
 
                 resolve({
