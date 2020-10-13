@@ -22,6 +22,7 @@ export interface WidgetPreviewRenderRequest {
     widget_uuid: string;
     storefront_api_query: string;
     storefront_api_query_params: object;
+    channel_id: number;
 }
 
 export function getWidget(data: WidgetPreviewRenderRequest): Promise<string> {

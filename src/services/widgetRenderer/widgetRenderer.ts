@@ -7,6 +7,8 @@ import widgetConfigLoader from '../widgetConfig/widgetConfigLoader/widgetConfigL
 import queryLoader from '../query/queryLoader/queryLoader';
 import queryParamsLoader from '../query/queryParamsLoader/queryParamsLoader';
 
+const channelId = process.env.WIDGET_BUILDER_CHANNEL_ID ? parseInt(process.env.WIDGET_BUILDER_CHANNEL_ID, 10) : 1;
+
 const getInitialRenderingPayload = (): WidgetPreviewRenderRequest => ({
     widget_configuration: {},
     widget_template: '',
@@ -14,6 +16,7 @@ const getInitialRenderingPayload = (): WidgetPreviewRenderRequest => ({
     widget_uuid: uuid(),
     storefront_api_query: '',
     storefront_api_query_params: {},
+    channel_id: channelId,
 });
 
 export function generateRenderPayloadFromFileLoaderResults(results: FileLoaderResponse[]): WidgetPreviewRenderRequest {
