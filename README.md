@@ -14,13 +14,13 @@ The widget builder reads the credentials from environment variables. You will ne
 
 - `WIDGET_BUILDER_AUTH_ID` - The primary identifier of this set of credentials (Client ID).
 - `WIDGET_BUILDER_AUTH_TOKEN` - The private authorization token (Auth token).
-
+- `WIDGET_BUILDER_CHANNEL_ID` - The channel id of the storefront that is being tested.
 - `WIDGET_BUILDER_STORE_HASH` - The primary hash identifier of the store the credentials belong to.
 
 You can also run using a format like the following:
 
 ```
-WIDGET_BUILDER_AUTH_ID=REDACTED WIDGET_BUILDER_AUTH_TOKEN=REDACTED WIDGET_BUILDER_STORE_HASH=REDACTED widget-builder
+WIDGET_BUILDER_AUTH_ID=REDACTED WIDGET_BUILDER_AUTH_TOKEN=REDACTED WIDGET_BUILDER_STORE_HASH=REDACTED WIDGET_BUILDER_CHANNEL_ID=REDACTED widget-builder
 ```
 
 ### Running the builder

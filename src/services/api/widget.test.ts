@@ -26,6 +26,7 @@ describe('widget API', () => {
             widget_uuid: '67890',
             storefront_api_query: '',
             storefront_api_query_params: {},
+            channel_id: 1,
         };
 
         const headers = {
