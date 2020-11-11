@@ -28,7 +28,7 @@
     "babel-polyfill": "^6.26.0",
     "better-ajv-errors": "^0.6.7",
     "chalk": "^2.4.2",
-    "chokidar": "^3.2.3",
+    "chokidar": "^3.4.3",
     "commander": "^4.0.0",
     "express": "^4.16.3",
     "lodash": "^4.17.15",
