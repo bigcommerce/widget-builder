@@ -32,7 +32,7 @@
     "commander": "^4.0.0",
     "express": "^4.16.3",
     "lodash": "^4.17.15",
-    "open": "^7.0.0",
+    "open": "^7.3.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-redux": "^5.0.7",
