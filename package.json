@@ -29,7 +29,7 @@
     "better-ajv-errors": "^0.6.7",
     "chalk": "^2.4.2",
     "chokidar": "^3.2.3",
-    "commander": "^4.0.0",
+    "commander": "^4.1.1",
     "express": "^4.16.3",
     "lodash": "^4.17.15",
     "open": "^7.0.0",
