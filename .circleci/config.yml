@@ -12,7 +12,7 @@ workspace_root: &workspace_root
 executor_defaults: &executor_defaults
   executor:
     name: node/node
-    node-version: "10"
+    node-version: "14"
 
 #####################################################
 # Commands

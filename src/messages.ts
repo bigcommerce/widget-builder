@@ -36,5 +36,6 @@ export const messages = {
     queryParamsWriteError: () => 'There was a problem writing to the queryParams.json file.',
     socketConnected: () => 'Socket connected.',
     socketDisconnected: () => 'Socket disconnected.',
+    unauthorizedAccess: () => 'Unauthorized access, please check your credentials again',
 };
 /* eslint-enable max-len */
