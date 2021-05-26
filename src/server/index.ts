@@ -116,8 +116,14 @@ export default function startWidgetBuilder(directory: string, options: Options) 
                     },
                 });
             })
-            .catch((error: string) => {
-                log.error(error);
+            .catch((error) => {
+                const { message } = error.toJSON();
+
+                if (message.match('401')) {
+                    log.error(messages.unauthorizedAccess());
+                } else {
+                    log.error(message);
+                }
             });
     });
 
