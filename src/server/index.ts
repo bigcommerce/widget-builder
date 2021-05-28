@@ -117,12 +117,14 @@ export default function startWidgetBuilder(directory: string, options: Options) 
                 });
             })
             .catch((error) => {
-                const { message } = error.toJSON();
+                try {
+                    const { message } = error.toJSON();
 
-                if (message.match('401')) {
-                    log.error(messages.unauthorizedAccess());
-                } else {
-                    log.error(message);
+                    if (message.match('401')) {
+                        log.error(messages.unauthorizedAccess());
+                    }
+                } catch {
+                    log.error(error);
                 }
             });
     });

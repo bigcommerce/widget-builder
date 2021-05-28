@@ -43,5 +43,10 @@ module.exports = {
         "no-undef": "off"
       }
     }
-  ]
+  ],
+  settings: {
+    react: {
+      version: "detect"
+    }
+  }
 };

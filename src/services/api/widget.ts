@@ -37,8 +37,8 @@ export function getWidget(data: WidgetPreviewRenderRequest): Promise<string> {
             },
             data,
             url: widgetApi.widgetPreviewRender(AUTH_CONFIG.storeHash as string),
-        }).then((response: AxiosResponse<WidgetPreviewRenderResponse>) => {
-            resolve(response.data.data.html);
+        }).then(({ data: { data: { html } } }: AxiosResponse<WidgetPreviewRenderResponse>) => {
+            resolve(html);
         }).catch((err: Error) => reject(err));
     });
 }

@@ -37,5 +37,11 @@ export const messages = {
     socketConnected: () => 'Socket connected.',
     socketDisconnected: () => 'Socket disconnected.',
     unauthorizedAccess: () => 'Unauthorized access, please check your credentials again',
+    createWidgetTemplate: {
+        createError: (fileName: string, directory?: string) => `There was a problem creating ${fileName} ${directory ? `in ${directory}` : ''}`,
+        createSuccess: (fileName: string, directory?: string) => `Successfully created ${fileName} ${directory ? `in ${directory}` : ''}`,
+        removeError: (path: string) => `There was a problem removing ${path}, you may have to delete this manually`,
+        removeSuccess: (path: string) => `Successfully removed ${path}`,
+    },
 };
 /* eslint-enable max-len */
