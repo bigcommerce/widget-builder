@@ -5,7 +5,7 @@ import path from 'path';
 import { Command } from 'commander';
 
 import createStarterWidgetTemplate from '../../services/widgetTemplate/widgetTemplateCreate/createStarterTemplate';
-import { log } from '../../messages';
+import { log, messages } from '../../messages';
 import startWidgetBuilder from '../../server';
 
 const createStarterTemplate = () => {
@@ -19,7 +19,7 @@ const createStarterTemplate = () => {
         .usage('<widget-template-name>')
         .action((name) => {
             if (!name) {
-                log.error('Please enter a valid name');
+                log.error(messages.createWidgetTemplate.invalidName);
 
                 return;
             }

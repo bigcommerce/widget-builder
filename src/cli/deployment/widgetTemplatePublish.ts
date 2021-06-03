@@ -3,7 +3,7 @@
 import { Command } from 'commander';
 
 import publishWidgetTemplate from '../../services/widgetTemplate/publish';
-import { log } from '../../messages';
+import { log, messages } from '../../messages';
 
 const widgetTemplatePublish = () => {
     const program = new Command('publish');
@@ -14,7 +14,7 @@ const widgetTemplatePublish = () => {
         .usage('<widget-template>')
         .action((widgetTemplate) => {
             if (!widgetTemplate) {
-                log.error('Please provide a valid widget-template');
+                log.error(messages.widgetRelease.invalidName);
                 return;
             }
 

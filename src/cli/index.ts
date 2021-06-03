@@ -8,6 +8,7 @@ import AUTH_CONFIG from '../services/auth/authConfig';
 import createStarterTemplate from './create/starterTemplate';
 import start from './run/start';
 import widgetTemplatePublish from './deployment/widgetTemplatePublish';
+import validateCommands from './run/validate';
 
 const { version } = require('../../package.json');
 
@@ -20,10 +21,9 @@ cli
     .version(version)
     .option('--gen-config', 'generate a config.json file')
     .option('--gen-query-params', 'generate a queryParams.json file')
-    .option('--validate-schema', 'validate schema.json file')
-    .option('--validate-query-params-builder', 'validate queryParamsBuilder.json file')
     .option('--auto-open <flag>', 'open browser automatically to the builder preview', 'true')
     .addCommand(start())
+    .addCommand(validateCommands())
     .addCommand(createStarterTemplate())
     .addCommand(widgetTemplatePublish());
 

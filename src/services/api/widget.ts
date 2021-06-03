@@ -7,7 +7,7 @@ export const API_GATEWAY_BASE = process.env.WIDGET_BUILDER_API_GATEWAY_BASE || '
 const baseUrl = `${API_GATEWAY_BASE}/stores/${AUTH_CONFIG.storeHash}`;
 export const widgetApi = {
     widgetPreviewRender: `${baseUrl}/v3/content/widget-templates/preview`,
-    widgetRelease: `${baseUrl}/v3/content/widget-templates`,
+    widgetTemplatePublish: `${baseUrl}/v3/content/widget-templates`,
 };
 
 interface WidgetPreviewRenderResponse {
@@ -44,7 +44,7 @@ export function getWidget(data: WidgetPreviewRenderRequest): Promise<string> {
     });
 }
 
-export const releaseWidget = (widgetData: any): Promise<any> => new Promise((resolve, reject) => {
+export const publishWidget = (widgetData: any): Promise<any> => new Promise((resolve, reject) => {
     Axios({
         method: 'post',
         headers: {
@@ -54,6 +54,6 @@ export const releaseWidget = (widgetData: any): Promise<any> => new Promise((res
             'X-Auth-Token': AUTH_CONFIG.authToken,
         },
         data: widgetData,
-        url: widgetApi.widgetRelease,
+        url: widgetApi.widgetTemplatePublish,
     }).then(({ data: { data } }: AxiosResponse<any>) => resolve(data)).catch(error => reject(error));
 });

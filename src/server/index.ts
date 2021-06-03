@@ -49,9 +49,7 @@ function setupFileWatcher({ directory, sockets, options }: Watcher) {
                 break;
 
             case WidgetFileType.QUERY_PARAMS_BUILDER:
-                if (options.validateQueryParamsBuilder) {
-                    validateQueryParamsBuilder(directory);
-                }
+                validateQueryParamsBuilder(directory);
 
                 liveReload({
                     directory, sockets, fileEvent, filePath, options,
@@ -61,9 +59,7 @@ function setupFileWatcher({ directory, sockets, options }: Watcher) {
             // When the schema changes
             case WidgetFileType.SCHEMA:
                 // Validate the schema against json schema
-                if (options.validateSchema) {
-                    validateSchema(directory);
-                }
+                validateSchema(directory);
 
                 // Check whether we need to regenerate a config file
                 if (options.generateConfig) {
@@ -135,14 +131,6 @@ export default function startWidgetBuilder(directory: string, options: Options) 
         });
     } else if (options.generateConfig) {
         generateConfig(directory);
-    }
-
-    if (options.validateSchema) {
-        validateSchema(directory);
-    }
-
-    if (options.validateQueryParamsBuilder) {
-        validateQueryParamsBuilder(directory);
     }
 
     setupFileWatcher({

@@ -40,12 +40,14 @@ export const messages = {
     createWidgetTemplate: {
         createError: (fileName: string, directory?: string) => `There was a problem creating ${fileName} ${directory ? `in ${directory}` : ''}`,
         createSuccess: (fileName: string, directory?: string) => `Successfully created ${fileName} ${directory ? `in ${directory}` : ''}`,
+        invalidName: 'Please enter a valid name',
         removeError: (path: string) => `There was a problem removing ${path}, you may have to delete this manually`,
         removeSuccess: (path: string) => `Successfully removed ${path}`,
     },
     widgetRelease: {
         success: (dateCreated: string, storeHash: string = '', widgetName: string) => `${dateCreated}: ${widgetName} successfully released to store ${storeHash}`,
         failure: 'Unable to generate data to release, please check the widget template config or template data',
+        invalidName: 'Please provide a valid widget-template',
     },
 };
 /* eslint-enable max-len */

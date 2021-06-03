@@ -5,7 +5,7 @@ import { log, messages } from '../../messages';
 import widgetConfigLoader from '../widgetConfig/widgetConfigLoader/widgetConfigLoader';
 import queryLoader from '../query/queryLoader/queryLoader';
 import queryParamsLoader from '../query/queryParamsLoader/queryParamsLoader';
-import { releaseWidget } from '../api/widget';
+import { publishWidget } from '../api/widget';
 import WidgetFileType, { FileLoaderResponse } from '../../types';
 import AUTH_CONFIG from '../auth/authConfig';
 
@@ -61,7 +61,7 @@ const publishWidgetTemplate = async (widgetName: string) => {
             }, widgetTemplatePayload(widgetName),
         ));
 
-        const { date_created: dateCreated } = await releaseWidget(widgetConfiguration);
+        const { date_created: dateCreated } = await publishWidget(widgetConfiguration);
 
         log.success(messages.widgetRelease.success(dateCreated, AUTH_CONFIG.storeHash, widgetName));
     } catch {

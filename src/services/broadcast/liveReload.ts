@@ -16,8 +16,6 @@ interface WidgetChangeBroadcast {
 export interface Options {
     generateConfig?: boolean;
     generateQueryParams?: boolean;
-    validateSchema?: boolean;
-    validateQueryParamsBuilder?: boolean;
     autoOpen?: boolean;
 }
 
