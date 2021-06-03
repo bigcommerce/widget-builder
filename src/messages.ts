@@ -43,5 +43,9 @@ export const messages = {
         removeError: (path: string) => `There was a problem removing ${path}, you may have to delete this manually`,
         removeSuccess: (path: string) => `Successfully removed ${path}`,
     },
+    widgetRelease: {
+        success: (dateCreated: string, storeHash: string = '', widgetName: string) => `${dateCreated}: ${widgetName} successfully released to store ${storeHash}`,
+        failure: 'Unable to generate data to release, please check the widget template config or template data',
+    },
 };
 /* eslint-enable max-len */
