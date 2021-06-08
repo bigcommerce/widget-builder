@@ -4,9 +4,10 @@ import AUTH_CONFIG from '../auth/authConfig';
 
 export const API_GATEWAY_BASE = process.env.WIDGET_BUILDER_API_GATEWAY_BASE || 'https://api.bigcommerce.com';
 
+const baseUrl = `${API_GATEWAY_BASE}/stores/${AUTH_CONFIG.storeHash}`;
 export const widgetApi = {
-    widgetPreviewRender:
-        (storeHash: string): string => `${API_GATEWAY_BASE}/stores/${storeHash}/v3/content/widget-templates/preview`,
+    widgetPreviewRender: `${baseUrl}/v3/content/widget-templates/preview`,
+    widgetTemplatePublish: `${baseUrl}/v3/content/widget-templates`,
 };
 
 interface WidgetPreviewRenderResponse {
@@ -36,9 +37,23 @@ export function getWidget(data: WidgetPreviewRenderRequest): Promise<string> {
                 'X-Auth-Token': AUTH_CONFIG.authToken,
             },
             data,
-            url: widgetApi.widgetPreviewRender(AUTH_CONFIG.storeHash as string),
-        }).then((response: AxiosResponse<WidgetPreviewRenderResponse>) => {
-            resolve(response.data.data.html);
+            url: widgetApi.widgetPreviewRender,
+        }).then(({ data: { data: { html } } }: AxiosResponse<WidgetPreviewRenderResponse>) => {
+            resolve(html);
         }).catch((err: Error) => reject(err));
     });
 }
+
+export const publishWidget = (widgetData: any): Promise<any> => new Promise((resolve, reject) => {
+    Axios({
+        method: 'post',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'X-Auth-Client': AUTH_CONFIG.authId,
+            'X-Auth-Token': AUTH_CONFIG.authToken,
+        },
+        data: widgetData,
+        url: widgetApi.widgetTemplatePublish,
+    }).then(({ data: { data } }: AxiosResponse<any>) => resolve(data)).catch(error => reject(error));
+});

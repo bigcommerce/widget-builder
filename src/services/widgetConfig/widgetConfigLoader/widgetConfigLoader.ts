@@ -1,15 +1,15 @@
-import * as fs from 'fs';
+import { readFile } from 'fs';
 
 import WidgetFileType, { FileLoaderResponse } from '../../../types';
 import { messages } from '../../../messages';
 
 export default function widgetConfigLoader(widgetDir: string): Promise<FileLoaderResponse> {
     return new Promise((resolve, reject) => {
-        fs.readFile(
+        readFile(
             `${widgetDir}/${WidgetFileType.CONFIGURATION}`,
             'utf8',
             (error: Error, data: string) => {
-                if (!data || error) {
+                if (error) {
                     reject(messages.invalidConfig());
                 }
 
