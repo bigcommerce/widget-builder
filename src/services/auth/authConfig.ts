@@ -3,14 +3,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export interface AuthConfig {
-    storeHash?: string;
     authId?: string;
+    apiPath?: string;
     authToken?: string;
 }
 
 const AUTH_CONFIG: AuthConfig = {
-    storeHash: process.env.WIDGET_BUILDER_STORE_HASH,
     authId: process.env.WIDGET_BUILDER_AUTH_ID,
+    apiPath: process.env.WIDGET_BUILDER_API_GATEWAY_BASE,
     authToken: process.env.WIDGET_BUILDER_AUTH_TOKEN,
 };
 

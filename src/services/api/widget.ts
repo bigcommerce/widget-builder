@@ -2,12 +2,9 @@ import Axios, { AxiosResponse } from 'axios';
 
 import AUTH_CONFIG from '../auth/authConfig';
 
-export const API_GATEWAY_BASE = process.env.WIDGET_BUILDER_API_GATEWAY_BASE || 'https://api.bigcommerce.com';
-
-const baseUrl = `${API_GATEWAY_BASE}/stores/${AUTH_CONFIG.storeHash}`;
 export const widgetApi = {
-    widgetPreviewRender: `${baseUrl}/v3/content/widget-templates/preview`,
-    widgetTemplatePublish: `${baseUrl}/v3/content/widget-templates`,
+    widgetPreviewRender: `${AUTH_CONFIG.apiPath}/content/widget-templates/preview`,
+    widgetTemplatePublish: `${AUTH_CONFIG.apiPath}/content/widget-templates`,
 };
 
 interface WidgetPreviewRenderResponse {

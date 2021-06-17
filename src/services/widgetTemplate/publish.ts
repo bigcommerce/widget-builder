@@ -2,12 +2,11 @@ import path from 'path';
 import { existsSync } from 'fs';
 
 import { log, messages } from '../../messages';
-import widgetConfigLoader from '../widgetConfig/widgetConfigLoader/widgetConfigLoader';
 import queryLoader from '../query/queryLoader/queryLoader';
 import queryParamsLoader from '../query/queryParamsLoader/queryParamsLoader';
 import { publishWidget } from '../api/widget';
 import WidgetFileType, { FileLoaderResponse } from '../../types';
-import AUTH_CONFIG from '../auth/authConfig';
+import schemaLoader from '../schema/schemaLoader/schemaLoader';
 
 import widgetTemplateLoader from './widgetTemplateLoader/widgetTemplateLoader';
 
@@ -38,7 +37,7 @@ const publishWidgetTemplate = async (widgetName: string) => {
     try {
         const widgetConfiguration = await Promise.all([
             widgetTemplateLoader(widgetTemplateDir),
-            widgetConfigLoader(widgetTemplateDir),
+            schemaLoader(widgetTemplateDir),
             queryLoader(widgetTemplateDir),
             queryParamsLoader(widgetTemplateDir),
         ]).then(results => results.reduce(
@@ -46,10 +45,10 @@ const publishWidgetTemplate = async (widgetName: string) => {
                 const { data, type } = current;
 
                 if (type === WidgetFileType.TEMPLATE) {
-                    return { ...acc, template: data };
+                    return { ...acc, template: data.replace(/\r\n|\r|\\n/gm, '') };
                 }
 
-                if (type === WidgetFileType.CONFIGURATION) {
+                if (type === WidgetFileType.SCHEMA) {
                     return { ...acc, schema: JSON.parse(data) };
                 }
 
@@ -63,7 +62,7 @@ const publishWidgetTemplate = async (widgetName: string) => {
 
         const { date_created: dateCreated } = await publishWidget(widgetConfiguration);
 
-        log.success(messages.widgetRelease.success(dateCreated, AUTH_CONFIG.storeHash, widgetName));
+        log.success(messages.widgetRelease.success(dateCreated, widgetName));
     } catch {
         log.error(messages.widgetRelease.failure);
     }

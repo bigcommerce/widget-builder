@@ -45,7 +45,7 @@ export const messages = {
         removeSuccess: (path: string) => `Successfully removed ${path}`,
     },
     widgetRelease: {
-        success: (dateCreated: string, storeHash: string = '', widgetName: string) => `${dateCreated}: ${widgetName} successfully released to store ${storeHash}`,
+        success: (dateCreated: string, widgetName: string) => `${dateCreated}: ${widgetName} successfully published!`,
         failure: 'Unable to generate data to release, please check the widget template config or template data',
         invalidName: 'Please provide a valid widget-template',
     },

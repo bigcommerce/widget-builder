@@ -1,26 +1,196 @@
 export const starterSchema = JSON.stringify(
-    {
-        contentSet: [
-            {
-                text: 'Sample with without styling',
-                id: 'without-styling',
-            },
-            {
-                text: 'Simple Text with Styling',
-                id: 'with-styling',
-                style: {
-                    color: 'white',
-                    background_color: '#3C1F8C',
-                    font_size: '45px',
-                    font_weight: 'bold',
-                    font_family: '\'Palatino Linotype\', \'Book Antiqua\', Palatino, serif',
-                    text_align: 'center',
-                    margin_right: '50px',
-                    margin_left: '50px',
-                    padding_top: '25px',
-                    padding_bottom: '25px',
+    [
+        {
+            type: 'tab',
+            label: 'Design',
+            sections: [
+                {
+                    label: 'Sample Text',
+                    settings: [
+                        {
+                            type: 'input',
+                            id: 'content',
+                            label: 'Content',
+                            default: 'I am a sample text',
+                        },
+                        {
+                            type: 'input',
+                            id: 'color',
+                            label: 'Text Color',
+                            default: 'initial',
+                        },
+                        {
+                            type: 'input',
+                            id: 'background_color',
+                            label: 'Background Color',
+                            default: 'initial',
+                        },
+                        {
+                            type: 'number',
+                            id: 'font_size',
+                            label: 'Font Size',
+                            default: {
+                                value: 24,
+                                type: 'px',
+                            },
+                        },
+                        {
+                            type: 'select',
+                            id: 'font_weight',
+                            label: 'Font Weight',
+                            default: '500',
+                            typeMeta: {
+                                selectOptions: [
+                                    {
+                                        label: 'Thin',
+                                        value: '100',
+                                    },
+                                    {
+                                        label: 'Extra Light (Ultra Light)',
+                                        value: '200',
+                                    },
+                                    {
+                                        label: 'Light',
+                                        value: '300',
+                                    },
+                                    {
+                                        label: 'Normal',
+                                        value: '400',
+                                    },
+                                    {
+                                        label: 'Medium',
+                                        value: '500',
+                                    },
+                                    {
+                                        label: 'Semi Bold (Demi Bold)',
+                                        value: '600',
+                                    },
+                                    {
+                                        label: 'Bold',
+                                        value: '700',
+                                    },
+                                    {
+                                        label: 'Extra Bold (Ultra Bold)',
+                                        value: '800',
+                                    },
+                                    {
+                                        label: 'Black (Heavy)',
+                                        value: '900',
+                                    },
+                                ],
+                            },
+                        },
+                        {
+                            type: 'alignment',
+                            label: 'Text Alignment',
+                            id: 'text_align',
+                            default: {
+                                horizontal: 'center',
+                                vertical: 'middle',
+                            },
+                            typeMeta: {
+                                display: 'horizontal',
+                            },
+                        },
+                        {
+                            type: 'boxModel',
+                            label: 'Margin',
+                            id: 'margin',
+                            default: {
+                                top: {
+                                    value: '0',
+                                    type: 'px',
+                                },
+                                right: {
+                                    value: '0',
+                                    type: 'px',
+                                },
+                                bottom: {
+                                    value: '0',
+                                    type: 'px',
+                                },
+                                left: {
+                                    value: '0',
+                                    type: 'px',
+                                },
+                            },
+                        },
+                        {
+                            type: 'boxModel',
+                            label: 'Padding',
+                            id: 'padding',
+                            default: {
+                                top: {
+                                    value: '8',
+                                    type: 'px',
+                                },
+                                right: {
+                                    value: '24',
+                                    type: 'px',
+                                },
+                                bottom: {
+                                    value: '8',
+                                    type: 'px',
+                                },
+                                left: {
+                                    value: '24',
+                                    type: 'px',
+                                },
+                            },
+                        },
+                    ],
                 },
-            }],
+            ],
+        },
+    ],
+);
+
+export const starterConfiguration = JSON.stringify(
+    {
+        text: 'Simple Text with Styling',
+        '_.id': '1',
+        color: 'white',
+        background_color: '#3C1F8C',
+        font_size: { value: 24, type: 'px' },
+        font_weight: 'bold',
+        text_align: { horizontal: 'center' },
+        margin: {
+            top: {
+                value: '0',
+                type: 'px',
+            },
+            right: {
+                value: '0',
+                type: 'px',
+            },
+            bottom: {
+                value: '0',
+                type: 'px',
+            },
+            left: {
+                value: '0',
+                type: 'px',
+            },
+        },
+        padding: {
+            top: {
+                value: '8',
+                type: 'px',
+            },
+            right: {
+                value: '24',
+                type: 'px',
+            },
+            bottom: {
+                value: '8',
+                type: 'px',
+            },
+            left: {
+                value: '24',
+                type: 'px',
+            },
+        },
+        content: 'I am a sample text',
     },
     null, 2,
 ).trim();
@@ -28,34 +198,29 @@ export const starterSchema = JSON.stringify(
 
 export const starterHtmlTemplate = (widgetTemplateName: string) => `
 <style>
-        {{#each contentSet}}
-            {{#if style}}
-                #bc-simple-text-{{id}} {
-                    color: {{style.color}};
-                    background: {{style.background_color}};
-                    font-size: {{style.font_size}};
-                    font-style: {{style.font_style}};
-                    font-weight: {{style.font_weight}};
-                    font-family: {{style.font_family}};
-                    text-align: {{style.text_align}};
-                    margin-top: {{style.margin_top}};
-                    margin-bottom: {{style.margin_bottom}};
-                    margin-left: {{style.margin_left}};
-                    margin-right: {{style.margin_right}};
-                    padding-top: {{style.padding_top}};
-                    padding-bottom: {{style.padding_bottom}};
-                }
-            {{/if}}
-        {{/each}}
+        #bc-simple-text-{{_.id}} {
+            color: {{color}};
+            background: {{background_color}};
+            font-size: {{font_size.value}}{{font_size.type}};
+            font-weight: {{font_weight}};
+            text-align: {{text_align.horizontal}};
+            padding-top: {{padding.top.value}}{{padding.top.type}};
+            padding-right: {{padding.right.value}}{{padding.right.type}};
+            padding-bottom: {{padding.bottom.value}}{{padding.bottom.type}};
+            padding-left: {{padding.left.value}}{{padding.left.type}};
+            margin-top: {{margin.top.value}}{{margin.top.type}};
+            margin-right: {{margin.right.value}}{{margin.right.type}};
+            margin-bottom: {{margin.bottom.value}}{{margin.bottom.type}};
+            margin-left: {{margin.left.value}}{{margin.left.type}};
+        }
         
         #widget-template-title {
             text-transform: capitalize;
+            text-align: center;
         }
     </style>
     
-    <h1 id="widget-template-title">${widgetTemplateName.replace('-', ' ')}</h1>
-    {{#each contentSet}}
-        <p id='bc-simple-text-{{id}}'>{{text}}</p>
-    {{/each}}
+    <h1 id='widget-template-title'>${widgetTemplateName.replace('-', ' ')}</h1>
+    <p id='bc-simple-text-{{_.id}}'>{{content}}</p>
 
-`.trim();
+`;
