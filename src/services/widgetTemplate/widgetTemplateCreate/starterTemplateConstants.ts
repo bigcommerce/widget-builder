@@ -17,13 +17,13 @@ export const starterSchema = JSON.stringify(
                             type: 'input',
                             id: 'color',
                             label: 'Text Color',
-                            default: 'initial',
+                            default: '#FFFFFF',
                         },
                         {
                             type: 'input',
                             id: 'background_color',
                             label: 'Background Color',
-                            default: 'initial',
+                            default: '#3C1F8C',
                         },
                         {
                             type: 'number',
@@ -142,7 +142,7 @@ export const starterSchema = JSON.stringify(
                 },
             ],
         },
-    ],
+    ], null, 2,
 );
 
 export const starterConfiguration = JSON.stringify(

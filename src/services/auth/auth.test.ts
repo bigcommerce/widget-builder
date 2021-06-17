@@ -15,7 +15,7 @@ describe('Auth credential status check', () => {
         const checkStatus = checkCredentials({
             authId: 'abc123',
             authToken: '',
-            apiPath: 'https://api.bigcommerce.com/stores/123jhas/v3'
+            apiPath: 'https://api.bigcommerce.com/stores/123jhas/v3',
         });
 
         expect(checkStatus).toEqual(false);

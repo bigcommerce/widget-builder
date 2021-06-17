@@ -1,6 +1,3 @@
-import path from 'path';
-import { existsSync } from 'fs';
-
 import { log, messages } from '../../messages';
 import queryLoader from '../query/queryLoader/queryLoader';
 import queryParamsLoader from '../query/queryParamsLoader/queryParamsLoader';
@@ -9,6 +6,7 @@ import WidgetFileType, { FileLoaderResponse } from '../../types';
 import schemaLoader from '../schema/schemaLoader/schemaLoader';
 
 import widgetTemplateLoader from './widgetTemplateLoader/widgetTemplateLoader';
+import track from './track';
 
 interface CreateWidgetTemplateReq {
     name: string;
@@ -26,13 +24,8 @@ const widgetTemplatePayload = (widgetName: string): CreateWidgetTemplateReq => (
     channel_id: 1,
 });
 
-const publishWidgetTemplate = async (widgetName: string) => {
-    const widgetTemplateDir = path.resolve(`./${widgetName}`);
-
-    if (!existsSync(widgetTemplateDir)) {
-        log.error('Widget Template doesn\'t exist');
-        return;
-    }
+const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: string) => {
+    const widgetTemplateUuid = track.isTracked(widgetTemplateDir);
 
     try {
         const widgetConfiguration = await Promise.all([
@@ -45,7 +38,7 @@ const publishWidgetTemplate = async (widgetName: string) => {
                 const { data, type } = current;
 
                 if (type === WidgetFileType.TEMPLATE) {
-                    return { ...acc, template: data.replace(/\r\n|\r|\\n/gm, '') };
+                    return { ...acc, template: data };
                 }
 
                 if (type === WidgetFileType.SCHEMA) {
@@ -60,9 +53,14 @@ const publishWidgetTemplate = async (widgetName: string) => {
             }, widgetTemplatePayload(widgetName),
         ));
 
-        const { date_created: dateCreated } = await publishWidget(widgetConfiguration);
+        const { uuid } = await publishWidget(widgetConfiguration, widgetTemplateUuid);
 
-        log.success(messages.widgetRelease.success(dateCreated, widgetName));
+        if (!widgetTemplateUuid) {
+            track.startTracking(widgetTemplateDir, uuid);
+            log.success(messages.widgetRelease.success(widgetName));
+        } else {
+            log.success(`Successfully updated ${widgetName}`);
+        }
     } catch {
         log.error(messages.widgetRelease.failure);
     }

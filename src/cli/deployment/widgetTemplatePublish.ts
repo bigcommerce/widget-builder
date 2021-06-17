@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+import { existsSync } from 'fs';
+import path from 'path';
+
 import { Command } from 'commander';
 
 import publishWidgetTemplate from '../../services/widgetTemplate/publish';
@@ -15,6 +18,7 @@ const widgetTemplatePublish = () => {
         .description('Releases the widget template to the store belonging to the env config')
         .usage('<widget-template>')
         .action((widgetTemplate) => {
+            const widgetTemplateDir = path.resolve(`./${widgetTemplate}`);
             if (!checkCredentials(AUTH_CONFIG)) {
                 process.exit(1);
             }
@@ -24,7 +28,12 @@ const widgetTemplatePublish = () => {
                 return;
             }
 
-            publishWidgetTemplate(widgetTemplate);
+            if (!existsSync(widgetTemplateDir)) {
+                log.error('Widget Template doesn\'t exist');
+                return;
+            }
+
+            publishWidgetTemplate(widgetTemplate, widgetTemplateDir);
         });
 };
 

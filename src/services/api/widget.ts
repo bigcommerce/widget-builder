@@ -41,9 +41,12 @@ export function getWidget(data: WidgetPreviewRenderRequest): Promise<string> {
     });
 }
 
-export const publishWidget = (widgetData: any): Promise<any> => new Promise((resolve, reject) => {
+export const publishWidget = (
+    widgetData: any,
+    uuid: string | null,
+): Promise<any> => new Promise((resolve, reject) => {
     Axios({
-        method: 'post',
+        method: uuid ? 'put' : 'post',
         headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
@@ -51,6 +54,6 @@ export const publishWidget = (widgetData: any): Promise<any> => new Promise((res
             'X-Auth-Token': AUTH_CONFIG.authToken,
         },
         data: widgetData,
-        url: widgetApi.widgetTemplatePublish,
+        url: `${widgetApi.widgetTemplatePublish}${uuid ? `/${uuid}` : ''}`,
     }).then(({ data: { data } }: AxiosResponse<any>) => resolve(data)).catch(error => reject(error));
 });
