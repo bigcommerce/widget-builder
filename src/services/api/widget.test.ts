@@ -13,7 +13,6 @@ describe('widget API', () => {
     });
 
     it('properly performs a POST request to render a widget', (done) => {
-        AUTH_CONFIG.storeHash = 'abcdefg';
         AUTH_CONFIG.authId = 'authId';
         AUTH_CONFIG.authToken = 'authToken';
 

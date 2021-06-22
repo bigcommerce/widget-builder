@@ -6,7 +6,7 @@ import {
 
 import { log, messages } from '../../../messages';
 
-import { starterHtmlTemplate, starterSchema } from './starterTemplateConstants';
+import { starterHtmlTemplate, starterConfiguration, starterSchema } from './starterTemplateConstants';
 
 class CreateStarterTemplate {
     // Name of the widget template supplied by the user
@@ -17,6 +17,9 @@ class CreateStarterTemplate {
 
     // Name of the configuration file
     _configFile: string = 'config.json';
+
+    // Name of the schema file
+    _schemaFile: string = 'schema.json';
 
     // Name of the html template
     _templateFile: string = 'widget.html';
@@ -40,9 +43,23 @@ class CreateStarterTemplate {
     }
 
     createSchemaFile() {
-        const configPath = `${this._widgetTemplateDir}/${this._configFile}`;
+        const configPath = `${this._widgetTemplateDir}/${this._schemaFile}`;
+
         try {
             writeFileSync(configPath, starterSchema);
+            log.success(messages.createWidgetTemplate.createSuccess(this._schemaFile, configPath));
+        } catch {
+            throw new Error(messages.createWidgetTemplate.createError(this._schemaFile, configPath));
+        }
+
+        return this;
+    }
+
+    createConfigurationFile() {
+        const configPath = `${this._widgetTemplateDir}/${this._configFile}`;
+
+        try {
+            writeFileSync(configPath, starterConfiguration);
             log.success(messages.createWidgetTemplate.createSuccess(this._configFile, configPath));
         } catch {
             throw new Error(messages.createWidgetTemplate.createError(this._configFile, configPath));
@@ -53,6 +70,7 @@ class CreateStarterTemplate {
 
     createTemplateFile() {
         const templatePath = `${this._widgetTemplateDir}/${this._templateFile}`;
+
         try {
             writeFileSync(templatePath, starterHtmlTemplate(this._widgetTemplateName));
             log.success(messages.createWidgetTemplate.createSuccess(this._templateFile, templatePath));
@@ -82,6 +100,7 @@ const generate = (widgetTemplateName: string) => {
         blankTemplate
             .createDirectory()
             .createSchemaFile()
+            .createConfigurationFile()
             .createTemplateFile();
     } catch (e) {
         blankTemplate.removeDirectory();

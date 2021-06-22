@@ -5,6 +5,8 @@ import path from 'path';
 import { Command } from 'commander';
 
 import startWidgetBuilder from '../../server';
+import checkCredentials from '../../services/auth/checkAuth';
+import AUTH_CONFIG from '../../services/auth/authConfig';
 
 const startCommand = () => {
     const program = new Command('start');
@@ -18,6 +20,10 @@ const startCommand = () => {
         .usage('/[widgetPath] || \'\'')
         .action((widgetPath: string, options) => {
             let widgetDir = path.resolve('.');
+
+            if (!checkCredentials(AUTH_CONFIG)) {
+                process.exit(1);
+            }
 
             if (widgetPath) {
                 widgetDir += `/${widgetPath}`;
