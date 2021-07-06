@@ -6,6 +6,7 @@ enum WidgetFileType {
     QUERY = 'query.graphql',
     QUERY_PARAMS = 'queryParams.json',
     QUERY_PARAMS_BUILDER = 'queryParamsBuilder.json',
+    TRANSLATION = 'schema_translations.json',
 }
 
 export interface FileLoaderResponse {
