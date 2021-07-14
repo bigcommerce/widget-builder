@@ -6,6 +6,7 @@ import { Command } from 'commander';
 
 import validateSchema from '../../services/schema/schemaValidator/validateSchema';
 import validateQueryParamsBuilder from '../../services/query/queryParamsBuilderValidator/validateQueryParamsBuilder';
+import validateTranslation from '../../services/translation/validate';
 
 const helperText = `
 Usage:
@@ -20,8 +21,9 @@ const validateCommands = () => {
         .arguments('<file>')
         .option('--schema', 'validates schema.json file')
         .option('--query-params', 'validates queryParamsBuilder.json file')
+        .option('--translation', 'validates schema_translation.json file')
         .addHelpText('afterAll', helperText)
-        .action((options) => {
+        .action((name, options) => {
             const directory = path.resolve('.');
             if (options.validateSchema) {
                 validateSchema(directory);
@@ -29,6 +31,10 @@ const validateCommands = () => {
 
             if (options.validateQueryParamsBuilder) {
                 validateQueryParamsBuilder(directory);
+            }
+
+            if (options.translation) {
+                validateTranslation(directory);
             }
         });
 };
