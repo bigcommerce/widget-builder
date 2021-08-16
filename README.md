@@ -4,29 +4,34 @@ Widget builder is a developer tool that can be used while developing a widget.
 ## Getting started
 
 ### Prerequisite
-```aidl
+```
 node 14
 npm 6.14
-
 ```
 ### Installation
-```aidl
-1. npm install; npm run install-cli;
+```sh
+npm run install-cli;
 ```
 
 After installation is complete, you may move to any directory in order to test by running: `widget-builder -h`
 to render the usage information. It should look something like:
-```aidl
-Usage: widget-builder [options]
+```
+Usage: widget-builder [options] [command]
 
 Options:
-  -V, --version                    output the version number
-  --gen-config                     generate a config.json file
-  --gen-query-params               generate a queryParams.json file
-  --validate-schema                validate schema.json file
-  --validate-query-params-builder  validate queryParamsBuilder.json file
-  --auto-open <flag>               open browser automatically to the builder preview (default: "true")
-  -h, --help                       output usage information
+  -V, --version                  output the version number
+  --gen-config                   generate a config.json file
+  --gen-query-params             generate a queryParams.json file
+  --auto-open <flag>             open browser automatically to the builder preview (default: "true")
+  -h, --help                     display help for command
+
+Commands:
+  init                           Initialization of widget builder configuration
+  start [options] [widgetPath]   starts the widget builder locally
+  validate [options] <file>
+  create <widget-template-name>  Create a blank widget template
+  publish <widget-template>      Releases the widget template to the store belonging to the env config
+  help [command]                 display help for command
 ```
 
 ### Authentication
@@ -35,45 +40,99 @@ when creating your store API credentials.<br/>
 
 The following the [Obtaining store API Credentials](https://developer.bigcommerce.com/api-docs/getting-started/authentication/rest-api-authentication#obtaining-store-api-credentials#obtaining-store-api-credentials) will help you get started.<br/>
 
-**<span style="color: red">!!</span> Warning <span style="color: red">!!</span>** You cannot run the widget builder without
+**<span style="color: red;">!!</span> Warning <span style="color: red;">!!</span>** You cannot run the widget builder without
 the proper API Credentials.
 
-### Configuration
-For your convenience, we've provided a file called `.env-sample`. Please copy and rename it
-to `.env` into any directory that you wish to develop your widget in and replace the values with your credentials
-
-- `WIDGET_BUILDER_AUTH_ID` - The primary identifier of this set of credentials (Client ID).
-- `WIDGET_BUILDER_AUTH_TOKEN` - The private authorization token (Auth token).
-- `WIDGET_BUILDER_CHANNEL_ID` - The channel id of the storefront that is being tested.
-- `WIDGET_BUILDER_STORE_HASH` - The primary hash identifier of the store the credentials belong to.
-
-You may also run the widget builder with inline config if you choose by running:
-
+### Configurations
+For your convenience, We've provided a walk through to set up your stores environment. Simply run:
+```sh
+widget-builder init
 ```
-WIDGET_BUILDER_AUTH_ID={AUTH_STRING} WIDGET_BUILDER_AUTH_TOKEN={AUTH_TOKEN} WIDGET_BUILDER_STORE_HASH={STORE_HASH} WIDGET_BUILDER_CHANNEL_ID={CHANNEL_ID} widget-builder
+
+Output:
 ```
+Thank you for using Widget Builder
+
+            
+This guide will help you get your enviornment set up.
+
+Before continuing, please make sure you've created or have been provided a Store API account.
+You'll need those credentials in order to generate the appropriate configurations.
+You can find more information here. https://support.bigcommerce.com/s/article/Store-API-Accounts#creating
+
+? Are you ready to continue? You may press any key to continue Yes
+? What is the Client ID? xxxxxxxxxxxxx
+? What is the Access Token? xxxxxxxxxxxx
+? What is the API Path? https://api.bigcommerce.com/stores/xxxxx/v3/
+[2021-08-16T20:35:02.652Z] Successfully created your configuration, you're all set!
+```
+Once you're done, the `.env` file will be created for you with the necessary parameter assignment.
+
+#### Resetting Configurations
+If for any reason you need to reset the configurations, simply re-run the command again, and the configurations will be overwritten by the new configurations.
+
+#### Different store configurations
+If you're managing more than one store, you can create another directory and re-run the init command with that particular store's configuration.
+Each directory that you've initialized will have its own `.env` allowing you to create many directories of widget templates for different stores.
 
 ### Usage
-Simply run `widget-builder` in a directory containing the files that make up a widget template.
+Simply run `widget-builder start [path to widget template]` in a directory containing the files that make up a widget template.
 
 For help on which commands to run, you can use `-h or --help`.
 
 ```
-$ widget-builder --help
-Usage: widget-builder [options]
+Usage: widget-builder start /[widgetPath] || ''
+
+starts the widget builder locally
+
+Arguments:
+  widgetPath   Path to widget template, default resolves to current directory
 
 Options:
-  -V, --version       output the version number
-  --gen-config        generate a config.json file
-  --validate-schema   validate schema.json file
-  --auto-open <flag>  open browser automatically to the builder preview (default: "true")
-  -h, --help          output usage information
+  --auto-open  automatically open the browser (default: true)
+  -h, --help   display help for command
 ```
 
-## Development
-For instructions to build and develop locally, please refer to: [building CLI for local testing](https://github.com/bigcommerce/widget-builder/wiki/Building-CLI-for-local-testing).
+## Getting Started
+For ease of getting started, we provide a blank template out of the box with the appropriate files needed to start building your widget immediately.
+Simply run:
+```sh
+widget-builder create [widget template-name]
+```
 
-## Contribution
+Output:
+```
+widget-builder create sample-widget-template-two
+
+[2021-08-16T20:23:56.300Z] Successfully created ./sample-widget-template-two
+[2021-08-16T20:23:56.302Z] Successfully created schema.json in ./sample-widget-template-two/schema.json
+[2021-08-16T20:23:56.302Z] Successfully created config.json in ./sample-widget-template-two/config.json
+[2021-08-16T20:23:56.303Z] Successfully created widget.html in ./sample-widget-template-two/widget.html
+[2021-08-16T20:23:56.359Z] Starting widget-builder at http://localhost:8080!
+```
+
+Your default browser should open, and you should be off and running!
+
+### Publishing to stores
+If you're finished and ready to publish to the store, run the command:
+```
+widget-builder publish [path to widget-template
+```
+
+Output
+```
+[2021-08-16T20:53:11.631Z] New publishes now will update instead of creating a new instance
+[2021-08-16T20:53:11.631Z] sample-widget-template successfully published!
+```
+
+Once the widget template has been published, every subsequent publish will update the widget template instead to avoid having many instance of the same widget.
+
+Update Output:
+```
+[2021-08-16T20:54:09.223Z] Successfully updated sample-widget-template
+```
+
+## Contributions
 
 If you wish to contribute, please refer to our [contribution guide](CONTRIBUTING.md)
 and [code of conduct](CODE_OF_CONDUCT.md) for this project.
