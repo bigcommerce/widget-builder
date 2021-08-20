@@ -34,13 +34,7 @@ function setupFileWatcher({ directory, sockets, options }: Watcher) {
         log.info(messages.fileChangeDetected(fileName));
 
         switch (fileName) {
-            // When the widget template or configuration changes, we should live reload
             case WidgetFileType.TEMPLATE:
-                liveReload({
-                    directory, sockets, fileEvent, filePath,
-                });
-                break;
-
             case WidgetFileType.CONFIGURATION:
             case WidgetFileType.QUERY:
                 liveReload({
@@ -60,20 +54,19 @@ function setupFileWatcher({ directory, sockets, options }: Watcher) {
             case WidgetFileType.SCHEMA:
                 // Validate the schema against json schema
                 validateSchema(directory);
+                generateConfig(directory);
 
-                // Check whether we need to regenerate a config file
-                if (options.generateConfig) {
-                    generateConfig(directory);
-                }
+                liveReload({
+                    directory, sockets, fileEvent, filePath, options,
+                });
+
                 break;
 
             case WidgetFileType.META:
                 // We are not currently handling this file type
                 break;
 
-            default:
-                // Do nothing
-                break;
+            default: break;
         }
     });
 }
