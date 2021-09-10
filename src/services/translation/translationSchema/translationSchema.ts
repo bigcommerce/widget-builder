@@ -8,7 +8,7 @@ const translationSchema = {
             patternProperties: {
                 '^[a-z]{2}(-[a-zA-Z0-9]{2,})?$': { type: 'string' },
             },
-            additionalProperties: false,
+            additionalProperties: true,
         },
     },
 };

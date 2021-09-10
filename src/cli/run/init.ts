@@ -11,7 +11,7 @@ import generate from '../../services/auth/generate';
 
 const urlRegex = /^(http|https):\/\/(api.bigcommerce.com\/stores\/)(\w+)\/v3\//;
 
-const configQuestionaire = [
+const configQuestionnaire = [
     {
         type: 'input',
         name: 'clientId',
@@ -48,7 +48,7 @@ const init = () => {
             
 This guide will help you get your environment set up.
 
-Before continuing, please make sure you've created or have been provided a Store API account.
+Before continuing, please make sure you've created or received a Store API account.
 You'll need those credentials in order to generate the appropriate configurations.
 You can find more information here. https://support.bigcommerce.com/s/article/Store-API-Accounts#creating
 `);
@@ -71,7 +71,7 @@ Please re-run the init walk through when you are ready!
                     return;
                 }
 
-                inquirer.prompt(configQuestionaire)
+                inquirer.prompt(configQuestionnaire)
                     .then((answers) => {
                         generate.configurations(answers);
                     })

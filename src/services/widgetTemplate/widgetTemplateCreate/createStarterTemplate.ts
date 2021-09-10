@@ -8,7 +8,7 @@ import { log, messages } from '../../../messages';
 
 import { starterHtmlTemplate, starterConfiguration, starterSchema } from './starterTemplateConstants';
 
-class CreateStarterTemplate {
+export class CreateStarterTemplate {
     // Name of the widget template supplied by the user
     _widgetTemplateName: string;
 

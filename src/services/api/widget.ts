@@ -55,5 +55,7 @@ export const publishWidget = (
         },
         data: widgetData,
         url: `${widgetApi.widgetTemplatePublish}${uuid ? `/${uuid}` : ''}`,
-    }).then(({ data: { data } }: AxiosResponse<any>) => resolve(data)).catch(error => reject(error));
+    })
+        .then(({ data: { data } }: AxiosResponse<any>) => resolve(data))
+        .catch(error => reject(error));
 });
