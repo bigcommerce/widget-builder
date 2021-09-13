@@ -1,45 +1,106 @@
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
-
 import AUTH_CONFIG from '../auth/authConfig';
 
-import * as widget from './widget';
+import { widgetApi } from './widget';
 
-const mock = new MockAdapter(axios);
+const axios = require('axios');
+const MockAdapter = require('axios-mock-adapter');
+
+const { getWidget, publishWidget } = require('./widget');
+
+const axiosMock = new MockAdapter(axios);
 
 describe('widget API', () => {
-    afterEach(() => {
-        mock.reset();
+    AUTH_CONFIG.authId = 'authId';
+    AUTH_CONFIG.authToken = 'authToken';
+
+    const request = {
+        widget_configuration: { fred: 1 },
+        widget_template: '<div></div>',
+        placement_uuid: '12345',
+        widget_uuid: '67890',
+        storefront_api_query: '',
+        storefront_api_query_params: {},
+        channel_id: 1,
+    };
+
+    const headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Auth-Client': 'authId',
+        'X-Auth-Token': 'authToken',
+    };
+
+    describe('getWidget', () => {
+        describe('when POST succeeds', () => {
+            afterEach(() => {
+                jest.restoreAllMocks();
+                axiosMock.reset();
+            });
+
+            it('properly performs a POST request to render a widget', (done) => {
+                axiosMock.onPost(widgetApi.widgetPreviewRender, request, headers)
+                    .reply(200, { data: { html: 'widgetHtml' } });
+
+                getWidget(request).then((result: any) => {
+                    expect(result).toBe('widgetHtml');
+                    done();
+                });
+            });
+        });
+
+        describe('when POST fails', () => {
+            afterEach(() => {
+                jest.restoreAllMocks();
+                axiosMock.reset();
+            });
+
+            it('should return an error', (done) => {
+                axiosMock.onPost(widgetApi.widgetPreviewRender, request, headers)
+                    .reply(400);
+
+                getWidget(request).catch((result: any) => {
+                    expect(result).toEqual(new Error('Request failed with status code 400'));
+                    done();
+                });
+            });
+        });
     });
 
-    it('properly performs a POST request to render a widget', (done) => {
-        AUTH_CONFIG.authId = 'authId';
-        AUTH_CONFIG.authToken = 'authToken';
+    describe('publishWidget', () => {
+        describe('when POST succeeds', () => {
+            afterEach(() => {
+                jest.restoreAllMocks();
+                axiosMock.reset();
+            });
 
-        const url = 'https://api.bigcommerce.com/stores/abcdefg/v3/content/widget-templates/preview';
+            it('should return the result of posted template', (done) => {
+                const uuid = null;
 
-        const request = {
-            widget_configuration: { fred: 1 },
-            widget_template: '<div></div>',
-            placement_uuid: '12345',
-            widget_uuid: '67890',
-            storefront_api_query: '',
-            storefront_api_query_params: {},
-            channel_id: 1,
-        };
+                axiosMock.onPost(widgetApi.widgetTemplatePublish, request, headers)
+                    .reply(200, { data: 'result' });
 
-        const headers = {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'X-Auth-Client': 'authId',
-            'X-Auth-Token': 'authToken',
-        };
+                publishWidget(request, uuid).then((result: any) => {
+                    expect(result).toBe('result');
+                    done();
+                });
+            });
+        });
 
-        mock.onPost(url, request, headers).reply(200, { data: { html: 'widgetHtml' } });
+        describe('when POST fails', () => {
+            afterEach(() => {
+                jest.restoreAllMocks();
+                axiosMock.reset();
+            });
 
-        widget.getWidget(request).then((result) => {
-            expect(result).toBe('widgetHtml');
-            done();
+            it('should return an error', (done) => {
+                axiosMock.onPost(widgetApi.widgetTemplatePublish, request, headers)
+                    .reply(400);
+
+                publishWidget(request, null).catch((result: any) => {
+                    expect(result).toEqual(new Error('Request failed with status code 400'));
+                    done();
+                });
+            });
         });
     });
 });

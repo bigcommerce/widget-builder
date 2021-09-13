@@ -2,11 +2,11 @@ import fs from 'fs';
 
 import { log, messages } from '../../../messages';
 
-import SchemaValidator from './schemaValidator';
+import TranslationValidator from './translationValidator';
 
-const schemaData = fs.readFileSync('src/services/__fixtures__/schema.json', 'utf8').toString();
+const schemaData = fs.readFileSync('src/services/__fixtures__/schema_translations.json', 'utf8').toString();
 
-describe('Schema Validator', () => {
+describe('Schema Translations Validator', () => {
     beforeEach(() => {
         jest
             .spyOn(log, 'info')
@@ -18,8 +18,8 @@ describe('Schema Validator', () => {
     });
 
     it('succeeds with valid schema json', () => {
-        const validator = new SchemaValidator(JSON.parse(schemaData));
-        const spy = jest.spyOn(messages, 'schemaValidated');
+        const validator = new TranslationValidator(JSON.parse(schemaData));
+        const spy = jest.spyOn(messages, 'translationSchemaValidated');
 
         validator.validate();
         expect(spy).toBeCalled();
@@ -27,9 +27,9 @@ describe('Schema Validator', () => {
 
     it('fails if schema is not valid', () => {
         const parsedSchema = JSON.parse(schemaData);
-        parsedSchema[1].sections[0].settings[0].id = null;
+        parsedSchema['i18n.LineColor'].default = undefined;
 
-        const validator = new SchemaValidator(parsedSchema);
+        const validator = new TranslationValidator(parsedSchema);
         const spy = jest.spyOn(log, 'error').mockImplementation(jest.fn());
         validator.validate();
         expect(spy).toBeCalled();

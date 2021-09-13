@@ -1,6 +1,14 @@
+import { log } from '../../messages';
+
 import checkCredentials from './checkAuth';
 
 describe('Auth credential status check', () => {
+    beforeEach(() => {
+        jest
+            .spyOn(log, 'error')
+            .mockImplementation(jest.fn());
+    });
+
     it('succeeds if credentials are present', () => {
         const checkStatus = checkCredentials({
             authId: 'abc123',

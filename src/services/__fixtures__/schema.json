@@ -932,7 +932,7 @@
         "id": "products",
         "defaultCount": 3,
         "entryLabel": "Product",
-        "thumbnail": "productImage",
+        "thumbnail": {},
         "schema": [
             {
                 "type": "tab",

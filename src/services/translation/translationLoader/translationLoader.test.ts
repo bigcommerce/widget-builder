@@ -2,11 +2,11 @@ import fs from 'fs';
 
 import { messages } from '../../../messages';
 
-import schemaLoader, { handleSchemaLoader } from './schemaLoader';
+import translationLoader, { handleSchemaLoader } from './translationLoader';
 
-const schemaData = fs.readFileSync('src/services/__fixtures__/schema.json', 'utf8').toString();
+const schemaData = fs.readFileSync('src/services/__fixtures__/schema_translations.json', 'utf8').toString();
 
-describe('Schema Loader Handler', () => {
+describe('Translation Schema Loader Handler', () => {
     it('properly returns schema object to resolve', () => {
         const { data } = handleSchemaLoader(null, schemaData);
 
@@ -23,7 +23,7 @@ describe('Schema Loader Handler', () => {
 describe('Schema Loader', () => {
     describe('when handleSchema return schemaResult', () => {
         it('should resolve with schemaResult', () => {
-            const result = schemaLoader('src/services/__fixtures__');
+            const result = translationLoader('src/services/__fixtures__');
 
             expect(result).resolves.toEqual(handleSchemaLoader(null, schemaData));
         });
@@ -31,9 +31,9 @@ describe('Schema Loader', () => {
 
     describe('when handleSchema return schemaResult', () => {
         it('should return with no data', () => {
-            const result = schemaLoader('dummyPath');
+            const result = translationLoader('dummyPath');
 
-            expect(result).rejects.toEqual(messages.invalidSchema());
+            expect(result).rejects.toEqual(messages.invalidTranslationSchema());
         });
     });
 });
