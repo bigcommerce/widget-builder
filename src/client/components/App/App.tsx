@@ -1,5 +1,5 @@
 import React, { Component, createRef } from 'react';
-import io from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import {
     Flex,
     GlobalStyles,
@@ -13,7 +13,7 @@ import { SocketData } from '../../../types';
 export class App extends Component<{}, {}> {
     private widgetFrameRef: React.RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
 
-    socket?: SocketIOClient.Socket;
+    socket?: Socket;
 
     componentDidMount() {
         this.socket = io(`${host}:${port}`);
