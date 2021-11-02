@@ -11,11 +11,9 @@ import init from './run/init';
 const { version } = require('../../package.json');
 
 const cli = new Command();
+
 cli
     .version(version)
-    .option('--gen-config', 'generate a config.json file')
-    .option('--gen-query-params', 'generate a queryParams.json file')
-    .option('--auto-open <flag>', 'open browser automatically to the builder preview', 'true')
     .addCommand(init())
     .addCommand(start())
     .addCommand(validateCommands())
