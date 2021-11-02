@@ -14,8 +14,8 @@ interface WidgetChangeBroadcast {
 }
 
 export interface Options {
-    generateConfig?: boolean;
-    generateQueryParams?: boolean;
+    genConfig?: boolean;
+    genQueryParams?: boolean;
     autoOpen?: boolean;
 }
 
@@ -46,7 +46,7 @@ const broadcastWidgetChange = ({
 export default function liveReload({
     directory, sockets, fileEvent, filePath, options,
 }: LiveReloadPayload) {
-    if (options && options.generateQueryParams) {
+    if (options && options.genQueryParams) {
         generateQueryParams(directory)
             .then(() => {
                 broadcastWidgetChange({

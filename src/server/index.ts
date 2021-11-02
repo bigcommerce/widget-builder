@@ -27,7 +27,7 @@ interface Watcher {
 
 function setupFileWatcher({ directory, sockets, options }: Watcher) {
     chokidar.watch(directory).on('all', (fileEvent: string, filePath: string) => {
-        // We only care about change events
+    // We only care about change events
         if (fileEvent !== 'change') { return; }
 
         const fileName = path.basename(filePath);
@@ -50,7 +50,7 @@ function setupFileWatcher({ directory, sockets, options }: Watcher) {
                 });
                 break;
 
-            // When the schema changes
+                // When the schema changes
             case WidgetFileType.SCHEMA:
                 // Validate the schema against json schema
                 validateSchema(directory);
@@ -118,11 +118,11 @@ export default function startWidgetBuilder(directory: string, options: Options) 
             });
     });
 
-    if (options.generateQueryParams) {
+    if (options.genQueryParams) {
         generateConfig(directory).then(() => {
             generateQueryParams(directory);
         });
-    } else if (options.generateConfig) {
+    } else if (options.genConfig) {
         generateConfig(directory);
     }
 

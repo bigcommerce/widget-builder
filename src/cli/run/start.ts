@@ -16,6 +16,8 @@ const startCommand = () => {
         .description('starts the widget builder locally', {
             widgetPath: 'Path to widget template, default resolves to current directory',
         })
+        .option('--gen-config', 'generate a config.json file')
+        .option('--gen-query-params', 'generate a queryParams.json file')
         .option('--auto-open', 'automatically open the browser', true)
         .usage('/[widgetPath] || \'\'')
         .action((widgetPath: string, options) => {
@@ -29,7 +31,7 @@ const startCommand = () => {
                 widgetDir += `/${widgetPath}`;
             }
 
-            startWidgetBuilder(widgetDir, { autoOpen: options.autoOpen });
+            startWidgetBuilder(widgetDir, options);
         });
 };
 
