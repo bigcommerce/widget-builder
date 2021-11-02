@@ -34,39 +34,39 @@ function setupFileWatcher({ directory, sockets, options }: Watcher) {
         log.info(messages.fileChangeDetected(fileName));
 
         switch (fileName) {
-            case WidgetFileType.TEMPLATE:
-            case WidgetFileType.CONFIGURATION:
-            case WidgetFileType.QUERY:
-                liveReload({
-                    directory, sockets, fileEvent, filePath, options,
-                });
-                break;
+        case WidgetFileType.TEMPLATE:
+        case WidgetFileType.CONFIGURATION:
+        case WidgetFileType.QUERY:
+            liveReload({
+                directory, sockets, fileEvent, filePath, options,
+            });
+            break;
 
-            case WidgetFileType.QUERY_PARAMS_BUILDER:
-                validateQueryParamsBuilder(directory);
+        case WidgetFileType.QUERY_PARAMS_BUILDER:
+            validateQueryParamsBuilder(directory);
 
-                liveReload({
-                    directory, sockets, fileEvent, filePath, options,
-                });
-                break;
+            liveReload({
+                directory, sockets, fileEvent, filePath, options,
+            });
+            break;
 
-                // When the schema changes
-            case WidgetFileType.SCHEMA:
-                // Validate the schema against json schema
-                validateSchema(directory);
-                generateConfig(directory);
+            // When the schema changes
+        case WidgetFileType.SCHEMA:
+            // Validate the schema against json schema
+            validateSchema(directory);
+            generateConfig(directory);
 
-                liveReload({
-                    directory, sockets, fileEvent, filePath, options,
-                });
+            liveReload({
+                directory, sockets, fileEvent, filePath, options,
+            });
 
-                break;
+            break;
 
-            case WidgetFileType.META:
-                // We are not currently handling this file type
-                break;
+        case WidgetFileType.META:
+            // We are not currently handling this file type
+            break;
 
-            default: break;
+        default: break;
         }
     });
 }

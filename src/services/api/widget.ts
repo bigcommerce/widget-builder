@@ -1,6 +1,7 @@
 import Axios, { AxiosResponse } from 'axios';
 
 import AUTH_CONFIG from '../auth/authConfig';
+import { WidgetConfiguration } from '../schema/schemaParser/schemaParser';
 
 export const widgetApi = {
     widgetPreviewRender: `${AUTH_CONFIG.apiPath}/content/widget-templates/preview`,
@@ -41,10 +42,14 @@ export function getWidget(data: WidgetPreviewRenderRequest): Promise<string> {
     });
 }
 
+interface PublishWidetResponse {
+    uuid: string;
+}
+
 export const publishWidget = (
-    widgetData: any,
+    widgetData: WidgetConfiguration,
     uuid: string | null,
-): Promise<any> => new Promise((resolve, reject) => {
+): Promise<PublishWidetResponse> => new Promise((resolve, reject) => {
     Axios({
         method: uuid ? 'put' : 'post',
         headers: {
@@ -56,6 +61,6 @@ export const publishWidget = (
         data: widgetData,
         url: `${widgetApi.widgetTemplatePublish}${uuid ? `/${uuid}` : ''}`,
     })
-        .then(({ data: { data } }: AxiosResponse<any>) => resolve(data))
+        .then(({ data: { data } }) => resolve(data))
         .catch(error => reject(error));
 });
