@@ -34,6 +34,11 @@ module.exports = {
       }
     ]
   },
+  mode: 'development',
+  performance: {
+    maxEntrypointSize: 438000,
+    maxAssetSize: 438000
+  },
   resolve: {
     extensions: ['*', '.js', '.jsx', '.ts', '.tsx']
   },

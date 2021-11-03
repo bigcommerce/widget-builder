@@ -31,16 +31,19 @@ module.exports = {
     "@typescript-eslint/no-var-requires": "off",
     "import/no-extraneous-dependencies": "off",
     "@typescript-eslint/camelcase": "off",
+    "indent": ["error", 4],
     "max-len": [1, 120, 4],
     "no-plusplus": "off",
     "global-require": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
+    "import/extensions": "off"
   },
   overrides: [
     {
-      files: ['*.test.tsx'],
+      files: ['*.test.tsx', '*.test.ts'],
       rules: {
-        "no-undef": "off"
+        "no-undef": "off",
+        "@typescript-eslint/no-explicit-any": "off"
       }
     }
   ],

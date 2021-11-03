@@ -16,13 +16,13 @@ export class CreateStarterTemplate {
     _widgetTemplateDir: string;
 
     // Name of the configuration file
-    _configFile: string = 'config.json';
+    _configFile = 'config.json';
 
     // Name of the schema file
-    _schemaFile: string = 'schema.json';
+    _schemaFile = 'schema.json';
 
     // Name of the html template
-    _templateFile: string = 'widget.html';
+    _templateFile = 'widget.html';
 
     constructor(templateName: string) {
         this._widgetTemplateName = templateName;

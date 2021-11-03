@@ -99,16 +99,16 @@ export default class QueryParamFactory {
         }
 
         switch (pureDataType) {
-            case 'Boolean':
-                return !!dataToRead;
-            case 'Float':
-                return parseFloat(dataToRead);
-            case 'Int':
-                return parseInt(dataToRead, 10);
-            case 'String':
-                return typeof dataToRead === 'string' ? dataToRead : JSON.stringify(dataToRead);
-            default:
-                return dataToRead;
+        case 'Boolean':
+            return !!dataToRead;
+        case 'Float':
+            return parseFloat(dataToRead);
+        case 'Int':
+            return parseInt(dataToRead, 10);
+        case 'String':
+            return typeof dataToRead === 'string' ? dataToRead : JSON.stringify(dataToRead);
+        default:
+            return dataToRead;
         }
     }
 

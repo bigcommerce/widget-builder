@@ -193,7 +193,7 @@ export interface CategoryEntry {
     widget_templates: WidgetTemplateEntry[];
 }
 
-function parseRegExPatternsDefaults(id: string, defaultValue: string = '', regExPatterns: RegExPattern[]) {
+function parseRegExPatternsDefaults(id: string, defaultValue = '', regExPatterns: RegExPattern[]) {
     const regExPatternConfigurations: WidgetConfiguration = {};
     const config: WidgetConfiguration = {};
     const partsConfig: WidgetConfiguration = {};
