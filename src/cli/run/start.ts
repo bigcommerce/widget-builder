@@ -18,7 +18,7 @@ const startCommand = () => {
         })
         .option('--gen-config', 'generate a config.json file')
         .option('--gen-query-params', 'generate a queryParams.json file')
-        .option('--auto-open', 'automatically open the browser', true)
+        .option('--auto-open <flag>', 'automatically open the browser', true)
         .usage('/[widgetPath] || \'\'')
         .action((widgetPath: string, options) => {
             let widgetDir = path.resolve('.');
