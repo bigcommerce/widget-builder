@@ -30,7 +30,7 @@
     "ajv": "^6.10.2",
     "axios": "^0.24.0",
     "babel-polyfill": "^6.26.0",
-    "better-ajv-errors": "^0.6.7",
+    "better-ajv-errors": "^1.1.0",
     "chalk": "^2.4.2",
     "chokidar": "^3.2.3",
     "commander": "^7.2.0",

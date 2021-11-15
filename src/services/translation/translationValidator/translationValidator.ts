@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import Ajv from 'ajv';
-import betterAjvErrors from 'better-ajv-errors';
 
 import { log, messages } from '../../../messages';
 import translationSchema from '../translationSchema/translationSchema';
+
+const { default: betterAjvErrors } = require('better-ajv-errors');
 
 export default class TranslationValidator {
     readonly schema: any;

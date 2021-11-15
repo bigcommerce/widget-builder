@@ -1,9 +1,10 @@
 import Ajv from 'ajv';
-import betterAjvErrors from 'better-ajv-errors';
 
 import { log, messages } from '../../../messages';
 
 import jsonQueryParamsBuilder from './jsonQueryParamsBuilder';
+
+const { default: betterAjvErrors } = require('better-ajv-errors');
 
 export default class QueryParamsBuilderValidator {
     readonly queryParamsBuilder: object;
