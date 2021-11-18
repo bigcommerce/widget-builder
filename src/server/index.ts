@@ -111,6 +111,8 @@ export default function startWidgetBuilder(directory: string, options: Options) 
 
                     if (message.match('401')) {
                         log.error(messages.unauthorizedAccess());
+                    } else {
+                        log.error(messages.generalError(message));
                     }
                 } catch {
                     log.error(error);

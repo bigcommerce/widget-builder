@@ -9,7 +9,7 @@ import chalk from 'chalk';
 
 import generate from '../../services/auth/generate';
 
-const urlRegex = /^(http|https):\/\/(api.bigcommerce.com\/stores\/)(\w+)\/v3\//;
+const urlRegex = /^(http|https):\/\/(api.bigcommerce.com\/stores\/)(\w+)\/v3/;
 
 const configQuestionnaire = [
     {

@@ -1,11 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import Ajv from 'ajv';
-import betterAjvErrors from 'better-ajv-errors';
 
 import { log, messages } from '../../../messages';
 
 import jsonSchema from './jsonSchema';
+
+const { default: betterAjvErrors } = require('better-ajv-errors');
 
 export default class SchemaValidator {
     readonly schema: any;

@@ -12,8 +12,8 @@ export default function queryParamsLoader(widgetDir: string): Promise<FileLoader
                 if (error) {
                     if (error.code === 'ENOENT') {
                         resolve({
-                            type: WidgetFileType.QUERY,
-                            data: '',
+                            type: WidgetFileType.QUERY_PARAMS,
+                            data: '{}',
                         });
                     } else {
                         reject(messages.invalidQueryParams());
