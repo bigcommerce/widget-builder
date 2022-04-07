@@ -5,6 +5,7 @@ import WidgetFileType, { FileLoaderResponse } from '../../types';
 import { generateRenderPayloadFromFileLoaderResults } from './widgetRenderer';
 
 const configurationData = fs.readFileSync('src/services/__fixtures__/config.json', 'utf8').toString();
+const translationsData = fs.readFileSync('src/services/__fixtures__/schema_translations.json', 'utf8').toString();
 const htmlData = fs.readFileSync('src/services/__fixtures__/widget.html', 'utf8').toString();
 const query = fs.readFileSync('src/services/__fixtures__/query.graphql', 'utf8').toString();
 const queryParams = fs.readFileSync('src/services/__fixtures__/queryParams.json', 'utf8').toString();
@@ -26,6 +27,10 @@ const fileLoaderResponseData: FileLoaderResponse[] = [
         type: WidgetFileType.QUERY_PARAMS,
         data: queryParams,
     },
+    {
+        type: WidgetFileType.TRANSLATION,
+        data: translationsData,
+    },
 ];
 
 describe('Widget Renderer', () => {
@@ -38,6 +43,7 @@ describe('Widget Renderer', () => {
             widget_uuid,
             storefront_api_query,
             storefront_api_query_params,
+            schema_translations,
         } = generateRenderPayloadFromFileLoaderResults(fileLoaderResponseData);
 
 
@@ -47,5 +53,6 @@ describe('Widget Renderer', () => {
         expect(storefront_api_query_params).toEqual(JSON.parse(queryParams));
         expect(placement_uuid).not.toBeNull();
         expect(widget_uuid).not.toBeNull();
+        expect(schema_translations).toEqual(JSON.parse(translationsData));
     });
 });

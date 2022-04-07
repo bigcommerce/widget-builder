@@ -6,6 +6,7 @@ import WidgetFileType, { FileLoaderResponse } from '../../types';
 import schemaLoader from '../schema/schemaLoader/schemaLoader';
 
 import widgetTemplateLoader from './widgetTemplateLoader/widgetTemplateLoader';
+import translationsLoader from '../translation/translationLoader/translationLoader';
 import track from './track';
 
 interface CreateWidgetTemplateReq {
@@ -14,6 +15,7 @@ interface CreateWidgetTemplateReq {
     template: string;
     storefront_api_query: string;
     channel_id: number;
+    schema_translations?: string;
 }
 
 const widgetTemplatePayload = (widgetName: string): CreateWidgetTemplateReq => ({
@@ -22,6 +24,7 @@ const widgetTemplatePayload = (widgetName: string): CreateWidgetTemplateReq => (
     template: '',
     storefront_api_query: '',
     channel_id: 1,
+    schema_translations: ''
 });
 
 const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: string) => {
@@ -30,6 +33,7 @@ const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: stri
     try {
         const widgetConfiguration = await Promise.all([
             widgetTemplateLoader(widgetTemplateDir),
+            translationsLoader(widgetTemplateDir),
             schemaLoader(widgetTemplateDir),
             queryLoader(widgetTemplateDir),
             queryParamsLoader(widgetTemplateDir),
@@ -47,6 +51,10 @@ const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: stri
 
                 if (type === WidgetFileType.QUERY) {
                     return { ...acc, storefront_api_query: data };
+                }
+
+                if (type === WidgetFileType.TRANSLATION) {
+                    return { ...acc, schema_translations: data };
                 }
 
                 return acc;
