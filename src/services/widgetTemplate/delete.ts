@@ -7,10 +7,10 @@ const deleteWidgetTemplate = async (widgetName: string, widgetTemplateDir: strin
 
     try {
         await deleteWidget(widgetTemplateUuid);
-        log.success(messages.widgetDelete.success(widgetName));
+        log.success(messages.widgetTemplateDelete.success(widgetName));
 
     } catch {
-        log.error(messages.widgetDelete.failure);
+        log.error(messages.widgetTemplateDelete.failure);
     }
 };
 
