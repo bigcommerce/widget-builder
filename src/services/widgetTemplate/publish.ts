@@ -1,13 +1,12 @@
 import { log, messages } from '../../messages';
 import queryLoader from '../query/queryLoader/queryLoader';
 import queryParamsLoader from '../query/queryParamsLoader/queryParamsLoader';
-import { publishWidget } from '../api/widget';
+import { publishWidget, getWidgetTemplate } from '../api/widget';
 import WidgetFileType, { FileLoaderResponse } from '../../types';
 import schemaLoader from '../schema/schemaLoader/schemaLoader';
 
 import widgetTemplateLoader from './widgetTemplateLoader/widgetTemplateLoader';
 import translationsLoader from '../translation/translationLoader/translationLoader';
-import track from './track';
 
 interface CreateWidgetTemplateReq {
     name: string;
@@ -28,7 +27,7 @@ const widgetTemplatePayload = (widgetName: string): CreateWidgetTemplateReq => (
 });
 
 const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: string) => {
-    const widgetTemplateUuid = track.isTracked(widgetTemplateDir);
+    const widgetTemplateUuid = await getWidgetTemplate(widgetName);
 
     try {
         const widgetConfiguration = await Promise.all([
@@ -61,10 +60,9 @@ const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: stri
             }, widgetTemplatePayload(widgetName),
         ));
 
-        const { uuid } = await publishWidget(widgetConfiguration, widgetTemplateUuid);
+        await publishWidget(widgetConfiguration, widgetTemplateUuid);
 
         if (!widgetTemplateUuid) {
-            track.startTracking(widgetTemplateDir, uuid);
             log.success(messages.widgetRelease.success(widgetName));
         } else {
             log.success(`Successfully updated ${widgetName}`);

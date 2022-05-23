@@ -6,6 +6,7 @@ import { WidgetConfiguration } from '../schema/schemaParser/schemaParser';
 export const widgetApi = {
     widgetPreviewRender: `${AUTH_CONFIG.apiPath}/content/widget-templates/preview`,
     widgetTemplatePublish: `${AUTH_CONFIG.apiPath}/content/widget-templates`,
+    widgetTemplateList: `${AUTH_CONFIG.apiPath}/content/widget-templates`,
 };
 
 interface WidgetPreviewRenderResponse {
@@ -65,3 +66,52 @@ export const publishWidget = (
         .then(({ data: { data } }) => resolve(data))
         .catch(error => reject(error));
 });
+
+export const getWidgetTemplate = (
+    name: string
+): Promise<string> => new Promise((resolve, reject) => 
+    getAllTemplates()
+        .then((data) => {
+            const match = data.find(
+                template => name === template.name,
+              );
+            
+            resolve(match?.uuid || '');
+        })
+        .catch(error => reject(error)))
+
+export interface WidgetTemplateResult {
+    name: string;
+    schema: any[];
+    template: string;
+    storefront_api_query: string;
+    uuid: string;
+    kind: string;
+    date_created: string;
+    date_modified: string;
+    current_version_uuid: string;
+    icon_name: string;
+  }
+
+const getAllTemplates = async (page: number = 1): Promise<WidgetTemplateResult[]> => {
+    let listResults: WidgetTemplateResult[] = [];
+    let done = false;
+
+    while (!done) {
+        const { data } = (await Axios({
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'X-Auth-Client': AUTH_CONFIG.authId,
+                'X-Auth-Token': AUTH_CONFIG.authToken,
+            },
+            url: `${widgetApi.widgetTemplateList}?limit=250&page=${page}`,
+        })).data;
+
+        done = data.length === 0;
+        page++;
+        listResults = listResults.concat(data);
+    }
+
+    return listResults;
+}
