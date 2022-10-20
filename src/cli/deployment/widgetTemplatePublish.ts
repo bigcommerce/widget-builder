@@ -12,6 +12,7 @@ import AUTH_CONFIG from '../../services/auth/authConfig';
 
 const widgetTemplatePublish = () => {
     const program = new Command('publish');
+    const channelIdsToPublish = process.env.WIDGET_BUILDER_CHANNEL_ID ? process.env.WIDGET_BUILDER_CHANNEL_ID.split(',') : ['1'];
 
     return program
         .arguments('<widget-template>')
@@ -33,7 +34,9 @@ const widgetTemplatePublish = () => {
                 return;
             }
 
-            publishWidgetTemplate(widgetTemplate, widgetTemplateDir);
+            channelIdsToPublish.forEach((channelId) => {
+                publishWidgetTemplate(widgetTemplate, widgetTemplateDir, channelId);
+            });
         });
 };
 
