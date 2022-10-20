@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+import { toInteger } from 'lodash';
+
 import { log, messages } from '../../messages';
 import queryLoader from '../query/queryLoader/queryLoader';
 import queryParamsLoader from '../query/queryParamsLoader/queryParamsLoader';
@@ -5,8 +8,10 @@ import { publishWidget } from '../api/widget';
 import WidgetFileType, { FileLoaderResponse } from '../../types';
 import schemaLoader from '../schema/schemaLoader/schemaLoader';
 
-import widgetTemplateLoader from './widgetTemplateLoader/widgetTemplateLoader';
 import track from './track';
+import widgetTemplateLoader from './widgetTemplateLoader/widgetTemplateLoader';
+
+dotenv.config();
 
 interface CreateWidgetTemplateReq {
     name: string;
@@ -16,17 +21,16 @@ interface CreateWidgetTemplateReq {
     channel_id: number;
 }
 
-const widgetTemplatePayload = (widgetName: string): CreateWidgetTemplateReq => ({
+const widgetTemplatePayload = (widgetName: string, channelId: string): CreateWidgetTemplateReq => ({
     name: widgetName,
     schema: [],
     template: '',
     storefront_api_query: '',
-    channel_id: 1,
+    channel_id: toInteger(channelId),
 });
 
-const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: string) => {
+const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: string, channelId: string) => {
     const widgetTemplateUuid = track.isTracked(widgetTemplateDir);
-
     try {
         const widgetConfiguration = await Promise.all([
             widgetTemplateLoader(widgetTemplateDir),
@@ -50,7 +54,7 @@ const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: stri
                 }
 
                 return acc;
-            }, widgetTemplatePayload(widgetName),
+            }, widgetTemplatePayload(widgetName, channelId),
         ));
 
         const { uuid } = await publishWidget(widgetConfiguration, widgetTemplateUuid);
@@ -59,7 +63,7 @@ const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: stri
             track.startTracking(widgetTemplateDir, uuid);
             log.success(messages.widgetRelease.success(widgetName));
         } else {
-            log.success(`Successfully updated ${widgetName}`);
+            log.success(`Successfully updated ${widgetName} - Channel ID: ${channelId}`);
         }
     } catch {
         log.error(messages.widgetRelease.failure);
