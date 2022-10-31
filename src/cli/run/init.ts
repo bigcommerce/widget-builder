@@ -37,9 +37,9 @@ const configQuestionnaire = [
     {
         type: 'input',
         name: 'channelId',
-        message: `What is the Channel ID or ID\'s you would like to publish your widgets to? 
-        Seperate channel ID\'s with comma.`,
-    }    
+        message: `What is the Channel ID or ID's you would like to publish your widgets to?
+        Seperate channel ID's with comma.`,
+    },
 ];
 
 const init = () => {
