@@ -4,6 +4,7 @@ import queryParamsLoader from '../query/queryParamsLoader/queryParamsLoader';
 import { publishWidget } from '../api/widget';
 import WidgetFileType, { FileLoaderResponse } from '../../types';
 import schemaLoader from '../schema/schemaLoader/schemaLoader';
+import { channelId } from '../../config';
 
 import widgetTemplateLoader from './widgetTemplateLoader/widgetTemplateLoader';
 import track from './track';
@@ -21,7 +22,7 @@ const widgetTemplatePayload = (widgetName: string): CreateWidgetTemplateReq => (
     schema: [],
     template: '',
     storefront_api_query: '',
-    channel_id: 1,
+    channel_id: channelId,
 });
 
 const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: string) => {
