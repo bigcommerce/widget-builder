@@ -6,12 +6,13 @@ import { Command } from 'commander';
 
 import validateSchema from '../../services/schema/schemaValidator/validateSchema';
 import validateQueryParamsBuilder from '../../services/query/queryParamsBuilderValidator/validateQueryParamsBuilder';
-import validateTranslation from '../../services/translation/validate';
+import validateTranslation from '../../services/translation/translationValidator/validateTranslation';
 
 const helperText = `
 Usage:
-    --validate-schema sample-widget/schema.json
-    --validate-query-params sample-widget/queryParamsBuilder.json
+    widget-builder validate --schema sample-widget
+    widget-builder validate --query-params sample-widget
+    widget-builder validate --translation sample-widget
 `;
 
 const validateCommands = () => {
@@ -24,12 +25,13 @@ const validateCommands = () => {
         .option('--translation', 'validates schema_translation.json file')
         .addHelpText('afterAll', helperText)
         .action((name, options) => {
-            const directory = path.resolve('.');
-            if (options.validateSchema) {
+            const directory = path.resolve('.', name);
+            
+            if (options.schema) {
                 validateSchema(directory);
             }
 
-            if (options.validateQueryParamsBuilder) {
+            if (options.queryParams) {
                 validateQueryParamsBuilder(directory);
             }
 

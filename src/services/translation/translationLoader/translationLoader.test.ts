@@ -1,8 +1,6 @@
 import fs from 'fs';
 
-import { messages } from '../../../messages';
-
-import translationLoader, { handleSchemaLoader } from './translationLoader';
+import translationLoader, { handleSchemaLoader, translationDefaultPayload } from './translationLoader';
 
 const schemaData = fs.readFileSync('src/services/__fixtures__/schema_translations.json', 'utf8').toString();
 
@@ -33,7 +31,7 @@ describe('Schema Loader', () => {
         it('should return with no data', () => {
             const result = translationLoader('dummyPath');
 
-            expect(result).rejects.toEqual(messages.invalidTranslationSchema());
+            expect(result).resolves.toEqual(translationDefaultPayload);
         });
     });
 });

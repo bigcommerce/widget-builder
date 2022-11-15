@@ -7,6 +7,7 @@ import widgetConfigLoader from '../widgetConfig/widgetConfigLoader/widgetConfigL
 import queryLoader from '../query/queryLoader/queryLoader';
 import queryParamsLoader from '../query/queryParamsLoader/queryParamsLoader';
 import { channelId } from '../../config';
+import translationsLoader from '../translation/translationLoader/translationLoader';
 
 const getInitialRenderingPayload = (): WidgetPreviewRenderRequest => ({
     widget_configuration: {},
@@ -16,6 +17,7 @@ const getInitialRenderingPayload = (): WidgetPreviewRenderRequest => ({
     storefront_api_query: '',
     storefront_api_query_params: {},
     channel_id: channelId,
+    schema_translations: '',
 });
 
 export function generateRenderPayloadFromFileLoaderResults(results: FileLoaderResponse[]): WidgetPreviewRenderRequest {
@@ -39,6 +41,10 @@ export function generateRenderPayloadFromFileLoaderResults(results: FileLoaderRe
                 return { ...acc, storefront_api_query_params: JSON.parse(data) };
             }
 
+            if (type === WidgetFileType.TRANSLATION) {
+                return { ...acc, schema_translations: JSON.parse(data) };
+            }
+
             return acc;
         }, getInitialRenderingPayload(),
     );
@@ -50,6 +56,7 @@ export default function renderWidget(widgetDir: string): Promise<string> {
         widgetConfigLoader(widgetDir),
         queryLoader(widgetDir),
         queryParamsLoader(widgetDir),
+        translationsLoader(widgetDir),
     ]).then(
         (results: FileLoaderResponse[]) => getWidget(
             generateRenderPayloadFromFileLoaderResults(results),

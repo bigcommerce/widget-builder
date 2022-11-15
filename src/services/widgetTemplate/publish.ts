@@ -1,13 +1,14 @@
 import { log, messages } from '../../messages';
 import queryLoader from '../query/queryLoader/queryLoader';
 import queryParamsLoader from '../query/queryParamsLoader/queryParamsLoader';
-import { publishWidget } from '../api/widget';
+import { publishWidget, getWidgetTemplate } from '../api/widget';
 import WidgetFileType, { FileLoaderResponse } from '../../types';
 import schemaLoader from '../schema/schemaLoader/schemaLoader';
 import { channelId } from '../../config';
+import translationsLoader from '../translation/translationLoader/translationLoader';
 
 import widgetTemplateLoader from './widgetTemplateLoader/widgetTemplateLoader';
-import track from './track';
+
 
 interface CreateWidgetTemplateReq {
     name: string;
@@ -15,6 +16,7 @@ interface CreateWidgetTemplateReq {
     template: string;
     storefront_api_query: string;
     channel_id: number;
+    schema_translations?: string;
 }
 
 const widgetTemplatePayload = (widgetName: string): CreateWidgetTemplateReq => ({
@@ -23,14 +25,16 @@ const widgetTemplatePayload = (widgetName: string): CreateWidgetTemplateReq => (
     template: '',
     storefront_api_query: '',
     channel_id: channelId,
+    schema_translations: '',
 });
 
 const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: string) => {
-    const widgetTemplateUuid = track.isTracked(widgetTemplateDir);
+    const widgetTemplateUuid = await getWidgetTemplate(widgetName);
 
     try {
         const widgetConfiguration = await Promise.all([
             widgetTemplateLoader(widgetTemplateDir),
+            translationsLoader(widgetTemplateDir),
             schemaLoader(widgetTemplateDir),
             queryLoader(widgetTemplateDir),
             queryParamsLoader(widgetTemplateDir),
@@ -50,14 +54,17 @@ const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: stri
                     return { ...acc, storefront_api_query: data };
                 }
 
+                if (type === WidgetFileType.TRANSLATION) {
+                    return { ...acc, schema_translations: data };
+                }
+
                 return acc;
             }, widgetTemplatePayload(widgetName),
         ));
 
-        const { uuid } = await publishWidget(widgetConfiguration, widgetTemplateUuid);
+        await publishWidget(widgetConfiguration, widgetTemplateUuid);
 
         if (!widgetTemplateUuid) {
-            track.startTracking(widgetTemplateDir, uuid);
             log.success(messages.widgetRelease.success(widgetName));
         } else {
             log.success(`Successfully updated ${widgetName}`);
