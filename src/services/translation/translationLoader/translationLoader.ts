@@ -3,17 +3,20 @@ import * as fs from 'fs';
 import WidgetFileType, { FileLoaderResponse } from '../../../types';
 import { messages } from '../../../messages';
 
-export function handleSchemaLoader(error: Error | null, schemaData: string): FileLoaderResponse {
-    const payload = {
-        type: WidgetFileType.TRANSLATION,
-        data: '',
-    };
+export const translationDefaultPayload = {
+    type: WidgetFileType.TRANSLATION,
+    data: '{}',
+};
 
+export function handleSchemaLoader(error: Error | null, schemaData: string): FileLoaderResponse {
     if (schemaData && !error) {
-        payload.data = schemaData;
+        return {
+            ...translationDefaultPayload,
+            data: schemaData,
+        }
     }
 
-    return payload;
+    return translationDefaultPayload;
 }
 
 export default function translationLoader(widgetDir: string): Promise<FileLoaderResponse> {
@@ -21,7 +24,11 @@ export default function translationLoader(widgetDir: string): Promise<FileLoader
         fs.readFile(
             `${widgetDir}/${WidgetFileType.TRANSLATION}`,
             'utf8',
-            (error: Error, schemaData: string) => {
+            (error: NodeJS.ErrnoException, schemaData: string) => {
+                if (error && error.code === 'ENOENT') {
+                    resolve(translationDefaultPayload);
+                }
+
                 const schemaResults = handleSchemaLoader(error, schemaData);
 
                 if (!schemaResults.data) {
