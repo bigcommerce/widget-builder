@@ -16,6 +16,7 @@ import generateQueryParams from '../services/query/generateQueryParams';
 import validateQueryParamsBuilder from '../services/query/queryParamsBuilderValidator/validateQueryParamsBuilder';
 import renderWidget from '../services/widgetRenderer/widgetRenderer';
 import generateConfig from '../services/widgetConfig/generateConfig';
+import validateTranslation from '../services/translation/translationValidator/validateTranslation';
 
 const BUILDER_ADDRESS = `${host}:${port}`;
 
@@ -60,6 +61,14 @@ function setupFileWatcher({ directory, sockets, options }: Watcher) {
                 directory, sockets, fileEvent, filePath, options,
             });
 
+            break;
+
+        case WidgetFileType.TRANSLATION:
+            validateTranslation(directory);
+
+            liveReload({
+                directory, sockets, fileEvent, filePath, options,
+            });
             break;
 
         case WidgetFileType.META:

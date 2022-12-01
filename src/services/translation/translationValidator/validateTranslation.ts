@@ -1,8 +1,8 @@
-import { FileLoaderResponse } from '../../types';
-import { log } from '../../messages';
+import { FileLoaderResponse } from '../../../types';
+import { log } from '../../../messages';
 
-import TranslationValidator from './translationValidator/translationValidator';
-import translationLoader from './translationLoader/translationLoader';
+import TranslationValidator from './translationValidator';
+import translationLoader from '../translationLoader/translationLoader';
 
 export default function validateTranslation(directory: string) {
     return translationLoader(directory)

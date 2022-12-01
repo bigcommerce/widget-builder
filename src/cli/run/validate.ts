@@ -6,7 +6,7 @@ import { Command } from 'commander';
 
 import validateSchema from '../../services/schema/schemaValidator/validateSchema';
 import validateQueryParamsBuilder from '../../services/query/queryParamsBuilderValidator/validateQueryParamsBuilder';
-import validateTranslation from '../../services/translation/validate';
+import validateTranslation from '../../services/translation/translationValidator/validateTranslation';
 
 const helperText = `
 Usage:
