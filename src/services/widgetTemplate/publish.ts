@@ -30,7 +30,7 @@ const widgetTemplatePayload = (widgetName: string, channelId: string): CreateWid
 });
 
 const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: string, channelId: string) => {
-    const widgetTemplateUuid = track.isTracked(widgetTemplateDir);
+    const widgetTemplateUuid = track.isTracked(widgetTemplateDir, channelId);
     try {
         const widgetConfiguration = await Promise.all([
             widgetTemplateLoader(widgetTemplateDir),
@@ -60,7 +60,7 @@ const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: stri
         const { uuid } = await publishWidget(widgetConfiguration, widgetTemplateUuid);
 
         if (!widgetTemplateUuid) {
-            track.startTracking(widgetTemplateDir, uuid);
+            track.startTracking(widgetTemplateDir, uuid, channelId);
             log.success(messages.widgetRelease.success(widgetName));
         } else {
             log.success(`Successfully updated ${widgetName} - Channel ID: ${channelId}`);
