@@ -18,6 +18,7 @@ export interface SocketData {
     event: string;
     html: string;
     path: string;
+    themeHost: string;
 }
 
 export default WidgetFileType;

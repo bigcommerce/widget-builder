@@ -18,6 +18,7 @@ WIDGET_BUILDER_AUTH_ID=${config.clientId}
 WIDGET_BUILDER_AUTH_TOKEN=${config.accessToken}
 WIDGET_BUILDER_CHANNEL_ID=1
 WIDGET_BUILDER_API_GATEWAY_BASE=${config.apiPath.replace(/\/$/, '')}
+WIDGET_BUILDER_THEME_HOST=http://localhost:3000
 `;
 
 

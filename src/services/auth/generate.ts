@@ -20,6 +20,7 @@ WIDGET_BUILDER_AUTH_ID=${clientId}
 WIDGET_BUILDER_AUTH_TOKEN=${accessToken}
 WIDGET_BUILDER_CHANNEL_ID=1
 WIDGET_BUILDER_API_GATEWAY_BASE=${apiPath.replace(/\/$/, '')}
+WIDGET_BUILDER_THEME_HOST=http://localhost:3000
 `;
 
     try {

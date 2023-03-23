@@ -10,6 +10,7 @@ import startWidgetBuilder from '../../server';
 
 const createStarterTemplate = () => {
     const program = new Command('create');
+    const themeHost = process.env.WIDGET_BUILDER_THEME_HOST ? process.env.WIDGET_BUILDER_THEME_HOST : 'http://localhost:3000';
 
     program
         .arguments('<widget-template-name>')
@@ -27,7 +28,7 @@ const createStarterTemplate = () => {
             try {
                 const widgetTemplateDir = path.resolve(`./${name}`);
                 createStarterWidgetTemplate.generate(name);
-                startWidgetBuilder(widgetTemplateDir, { autoOpen: true });
+                startWidgetBuilder(widgetTemplateDir, { autoOpen: true }, themeHost);
             } catch (e) {
                 log.error(e.message);
             }
