@@ -11,6 +11,7 @@ interface WidgetChangeBroadcast {
     sockets: Socket[];
     fileEvent: string;
     filePath: string;
+    themeHost: string;
 }
 
 export interface Options {
@@ -24,7 +25,7 @@ interface LiveReloadPayload extends WidgetChangeBroadcast {
 }
 
 const broadcastWidgetChange = ({
-    directory, sockets, fileEvent, filePath,
+    directory, sockets, fileEvent, filePath, themeHost,
 }: WidgetChangeBroadcast) => {
     renderWidget(directory)
         .then((html: string) => {
@@ -34,6 +35,7 @@ const broadcastWidgetChange = ({
                     event: fileEvent,
                     html,
                     path: filePath,
+                    themeHost,
                 },
             });
             log.info(messages.rerenderWidget());
@@ -44,13 +46,13 @@ const broadcastWidgetChange = ({
 };
 
 export default function liveReload({
-    directory, sockets, fileEvent, filePath, options,
+    directory, sockets, fileEvent, filePath, options, themeHost,
 }: LiveReloadPayload) {
     if (options && options.genQueryParams) {
         generateQueryParams(directory)
             .then(() => {
                 broadcastWidgetChange({
-                    directory, sockets, fileEvent, filePath,
+                    directory, sockets, fileEvent, filePath, themeHost,
                 });
             });
 
@@ -58,6 +60,6 @@ export default function liveReload({
     }
 
     broadcastWidgetChange({
-        directory, sockets, fileEvent, filePath,
+        directory, sockets, fileEvent, filePath, themeHost,
     });
 }

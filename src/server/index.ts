@@ -23,9 +23,12 @@ interface Watcher {
     directory: string;
     sockets: Socket[];
     options: Options;
+    themeHost: string;
 }
 
-function setupFileWatcher({ directory, sockets, options }: Watcher) {
+function setupFileWatcher({
+    directory, sockets, options, themeHost,
+}: Watcher) {
     chokidar.watch(directory).on('all', (fileEvent: string, filePath: string) => {
     // We only care about change events
         if (fileEvent !== 'change') { return; }
@@ -38,7 +41,7 @@ function setupFileWatcher({ directory, sockets, options }: Watcher) {
         case WidgetFileType.CONFIGURATION:
         case WidgetFileType.QUERY:
             liveReload({
-                directory, sockets, fileEvent, filePath, options,
+                directory, sockets, fileEvent, filePath, options, themeHost,
             });
             break;
 
@@ -46,7 +49,7 @@ function setupFileWatcher({ directory, sockets, options }: Watcher) {
             validateQueryParamsBuilder(directory);
 
             liveReload({
-                directory, sockets, fileEvent, filePath, options,
+                directory, sockets, fileEvent, filePath, options, themeHost,
             });
             break;
 
@@ -57,7 +60,7 @@ function setupFileWatcher({ directory, sockets, options }: Watcher) {
             generateConfig(directory);
 
             liveReload({
-                directory, sockets, fileEvent, filePath, options,
+                directory, sockets, fileEvent, filePath, options, themeHost,
             });
 
             break;
@@ -71,7 +74,7 @@ function setupFileWatcher({ directory, sockets, options }: Watcher) {
     });
 }
 
-export default function startWidgetBuilder(directory: string, options: Options) {
+export default function startWidgetBuilder(directory: string, options: Options, themeHost: string) {
     const app = express();
     app.use(express.static(path.join(__dirname, '../', 'client')));
 
@@ -102,6 +105,7 @@ export default function startWidgetBuilder(directory: string, options: Options) 
                         event: 'initialize',
                         html,
                         path: '',
+                        themeHost,
                     },
                 });
             })
@@ -132,5 +136,6 @@ export default function startWidgetBuilder(directory: string, options: Options) 
         directory,
         sockets,
         options,
+        themeHost,
     });
 }

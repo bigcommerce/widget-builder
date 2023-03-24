@@ -25,6 +25,17 @@ export class App extends Component<{}, {}> {
         this.socket.on('disconnect', () => {
             this.socket = undefined;
         });
+
+        this.socket.on('event', (data: SocketData) => {
+            // const stylesheetTag = document.createElement('link');
+            // stylesheetTag.rel = 'stylesheet';
+            // stylesheetTag.href = `${data.themeHost}/stencil/00000000-0000-0000-0000-000000000001/css/theme-00000000-0000-0000-0000-000000000001.css`;
+            // document.head.appendChild(stylesheetTag);
+            const elem = document.getElementById('theme-host-stylesheet');
+            if (elem) {
+                elem.setAttribute('href', `${data.themeHost}/stencil/00000000-0000-0000-0000-000000000001/css/theme-00000000-0000-0000-0000-000000000001.css`);
+            }
+        });
     }
 
     mountWidget(html: string) {

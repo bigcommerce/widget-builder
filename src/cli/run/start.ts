@@ -10,6 +10,7 @@ import AUTH_CONFIG from '../../services/auth/authConfig';
 
 const startCommand = () => {
     const program = new Command('start');
+    const themeHost = process.env.WIDGET_BUILDER_THEME_HOST ? process.env.WIDGET_BUILDER_THEME_HOST : 'http://localhost:3000';
 
     return program
         .arguments('[widgetPath]')
@@ -31,7 +32,7 @@ const startCommand = () => {
                 widgetDir += `/${widgetPath}`;
             }
 
-            startWidgetBuilder(widgetDir, options);
+            startWidgetBuilder(widgetDir, options, themeHost);
         });
 };
 
