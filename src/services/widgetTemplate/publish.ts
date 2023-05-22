@@ -16,12 +16,14 @@ interface CreateWidgetTemplateReq {
     channel_id: number;
 }
 
+const channelId = process.env.WIDGET_BUILDER_CHANNEL_ID ? parseInt(process.env.WIDGET_BUILDER_CHANNEL_ID, 10) : 1;
+
 const widgetTemplatePayload = (widgetName: string): CreateWidgetTemplateReq => ({
     name: widgetName,
     schema: [],
     template: '',
     storefront_api_query: '',
-    channel_id: 1,
+    channel_id: channelId,
 });
 
 const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: string) => {
