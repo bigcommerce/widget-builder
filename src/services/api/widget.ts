@@ -14,6 +14,10 @@ interface WidgetPreviewRenderResponse {
     };
 }
 
+interface widgetBuilderDeleteResponse {
+    data: {};
+}
+
 export interface WidgetPreviewRenderRequest {
     widget_configuration: object;
     widget_template: string;
@@ -60,6 +64,22 @@ export const publishWidget = (
         },
         data: widgetData,
         url: `${widgetApi.widgetTemplatePublish}${uuid ? `/${uuid}` : ''}`,
+    })
+        .then(({ data: { data } }) => resolve(data))
+        .catch(error => reject(error));
+});
+
+export const deleteWidget = (
+    uuid: string | null,
+): Promise<widgetBuilderDeleteResponse> => new Promise((resolve, reject) => {
+    Axios({
+        method: 'delete',
+        headers: {
+            Accept: 'application/json',
+            'X-Auth-Client': AUTH_CONFIG.authId,
+            'X-Auth-Token': AUTH_CONFIG.authToken,
+        },
+        url: `${widgetApi.widgetTemplatePublish}${`/${uuid}`}`,
     })
         .then(({ data: { data } }) => resolve(data))
         .catch(error => reject(error));
