@@ -4,7 +4,7 @@ import WidgetFileType from '../../../types';
 import { messages } from '../../../messages';
 
 export default function widgetConfigWriter(widgetDir: string, data: string) {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
         fs.writeFile(
             `${widgetDir}/${WidgetFileType.CONFIGURATION}`,
             data,

@@ -6,15 +6,13 @@ import { generateWidgetConfiguration } from '../schema/schemaParser/schemaParser
 import widgetConfigWriter from './widgetConfigWriter/widgetConfigWriter';
 
 export default function generateConfig(directory: string) {
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
         schemaLoader(directory)
             .then(({ data }: FileLoaderResponse) => {
                 log.info(messages.parseSchema());
                 const schema = JSON.parse(data);
                 const widgetConfiguration = generateWidgetConfiguration(schema);
-                const widgetConfigurationJson = JSON.stringify(
-                    widgetConfiguration, null, 2,
-                );
+                const widgetConfigurationJson = JSON.stringify(widgetConfiguration, null, 2);
                 widgetConfigWriter(directory, widgetConfigurationJson).then(() => {
                     log.info(messages.configFileWritten());
                     resolve();

@@ -4,7 +4,6 @@ import { log } from '../../../messages';
 
 import QueryParamsBuilderValidator from './queryParamsBuilderValidator';
 
-
 describe('validateQueryParamsBuilder', () => {
     it('returns true for valid queryParamsBuilder', () => {
         const queryParamsBuilder = JSON.parse(fs.readFileSync('src/services/__fixtures__/queryParamsBuilder.json')

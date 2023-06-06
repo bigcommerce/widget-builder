@@ -9,7 +9,7 @@ orbs:
 executors:
   node:
     docker:
-      - image: cimg/node:14.18
+      - image: cimg/node:18.16.0
 
 #####################################################
 # Commands
