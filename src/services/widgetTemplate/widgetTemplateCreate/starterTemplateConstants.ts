@@ -1,149 +1,147 @@
-export const starterSchema = JSON.stringify(
-    [
-        {
-            type: 'tab',
-            label: 'Design',
-            sections: [
-                {
-                    label: 'Sample Text',
-                    settings: [
-                        {
-                            type: 'input',
-                            id: 'content',
-                            label: 'Content',
-                            default: 'I am a sample text',
+export const starterSchema = JSON.stringify([
+    {
+        type: 'tab',
+        label: 'Design',
+        sections: [
+            {
+                label: 'Sample Text',
+                settings: [
+                    {
+                        type: 'input',
+                        id: 'content',
+                        label: 'Content',
+                        default: 'I am a sample text',
+                    },
+                    {
+                        type: 'input',
+                        id: 'color',
+                        label: 'Text Color',
+                        default: '#FFFFFF',
+                    },
+                    {
+                        type: 'input',
+                        id: 'background_color',
+                        label: 'Background Color',
+                        default: '#3C1F8C',
+                    },
+                    {
+                        type: 'number',
+                        id: 'font_size',
+                        label: 'Font Size',
+                        default: {
+                            value: 24,
+                            type: 'px',
                         },
-                        {
-                            type: 'input',
-                            id: 'color',
-                            label: 'Text Color',
-                            default: '#FFFFFF',
+                    },
+                    {
+                        type: 'select',
+                        id: 'font_weight',
+                        label: 'Font Weight',
+                        default: '500',
+                        typeMeta: {
+                            selectOptions: [
+                                {
+                                    label: 'Thin',
+                                    value: '100',
+                                },
+                                {
+                                    label: 'Extra Light (Ultra Light)',
+                                    value: '200',
+                                },
+                                {
+                                    label: 'Light',
+                                    value: '300',
+                                },
+                                {
+                                    label: 'Normal',
+                                    value: '400',
+                                },
+                                {
+                                    label: 'Medium',
+                                    value: '500',
+                                },
+                                {
+                                    label: 'Semi Bold (Demi Bold)',
+                                    value: '600',
+                                },
+                                {
+                                    label: 'Bold',
+                                    value: '700',
+                                },
+                                {
+                                    label: 'Extra Bold (Ultra Bold)',
+                                    value: '800',
+                                },
+                                {
+                                    label: 'Black (Heavy)',
+                                    value: '900',
+                                },
+                            ],
                         },
-                        {
-                            type: 'input',
-                            id: 'background_color',
-                            label: 'Background Color',
-                            default: '#3C1F8C',
+                    },
+                    {
+                        type: 'alignment',
+                        label: 'Text Alignment',
+                        id: 'text_align',
+                        default: {
+                            horizontal: 'center',
+                            vertical: 'middle',
                         },
-                        {
-                            type: 'number',
-                            id: 'font_size',
-                            label: 'Font Size',
-                            default: {
-                                value: 24,
+                        typeMeta: {
+                            display: 'horizontal',
+                        },
+                    },
+                    {
+                        type: 'boxModel',
+                        label: 'Margin',
+                        id: 'margin',
+                        default: {
+                            top: {
+                                value: '0',
+                                type: 'px',
+                            },
+                            right: {
+                                value: '0',
+                                type: 'px',
+                            },
+                            bottom: {
+                                value: '0',
+                                type: 'px',
+                            },
+                            left: {
+                                value: '0',
                                 type: 'px',
                             },
                         },
-                        {
-                            type: 'select',
-                            id: 'font_weight',
-                            label: 'Font Weight',
-                            default: '500',
-                            typeMeta: {
-                                selectOptions: [
-                                    {
-                                        label: 'Thin',
-                                        value: '100',
-                                    },
-                                    {
-                                        label: 'Extra Light (Ultra Light)',
-                                        value: '200',
-                                    },
-                                    {
-                                        label: 'Light',
-                                        value: '300',
-                                    },
-                                    {
-                                        label: 'Normal',
-                                        value: '400',
-                                    },
-                                    {
-                                        label: 'Medium',
-                                        value: '500',
-                                    },
-                                    {
-                                        label: 'Semi Bold (Demi Bold)',
-                                        value: '600',
-                                    },
-                                    {
-                                        label: 'Bold',
-                                        value: '700',
-                                    },
-                                    {
-                                        label: 'Extra Bold (Ultra Bold)',
-                                        value: '800',
-                                    },
-                                    {
-                                        label: 'Black (Heavy)',
-                                        value: '900',
-                                    },
-                                ],
+                    },
+                    {
+                        type: 'boxModel',
+                        label: 'Padding',
+                        id: 'padding',
+                        default: {
+                            top: {
+                                value: '8',
+                                type: 'px',
+                            },
+                            right: {
+                                value: '24',
+                                type: 'px',
+                            },
+                            bottom: {
+                                value: '8',
+                                type: 'px',
+                            },
+                            left: {
+                                value: '24',
+                                type: 'px',
                             },
                         },
-                        {
-                            type: 'alignment',
-                            label: 'Text Alignment',
-                            id: 'text_align',
-                            default: {
-                                horizontal: 'center',
-                                vertical: 'middle',
-                            },
-                            typeMeta: {
-                                display: 'horizontal',
-                            },
-                        },
-                        {
-                            type: 'boxModel',
-                            label: 'Margin',
-                            id: 'margin',
-                            default: {
-                                top: {
-                                    value: '0',
-                                    type: 'px',
-                                },
-                                right: {
-                                    value: '0',
-                                    type: 'px',
-                                },
-                                bottom: {
-                                    value: '0',
-                                    type: 'px',
-                                },
-                                left: {
-                                    value: '0',
-                                    type: 'px',
-                                },
-                            },
-                        },
-                        {
-                            type: 'boxModel',
-                            label: 'Padding',
-                            id: 'padding',
-                            default: {
-                                top: {
-                                    value: '8',
-                                    type: 'px',
-                                },
-                                right: {
-                                    value: '24',
-                                    type: 'px',
-                                },
-                                bottom: {
-                                    value: '8',
-                                    type: 'px',
-                                },
-                                left: {
-                                    value: '24',
-                                    type: 'px',
-                                },
-                            },
-                        },
-                    ],
-                },
-            ],
-        },
-    ], null, 2,
-);
+                    },
+                ],
+            },
+        ],
+    },
+], null, 2);
 
 export const starterConfiguration = JSON.stringify(
     {
@@ -192,9 +190,9 @@ export const starterConfiguration = JSON.stringify(
         },
         content: 'I am a sample text',
     },
-    null, 2,
+    null,
+    2,
 ).trim();
-
 
 export const starterHtmlTemplate = (widgetTemplateName: string) => `
 <style>

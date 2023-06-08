@@ -193,6 +193,7 @@ export interface CategoryEntry {
     widget_templates: WidgetTemplateEntry[];
 }
 
+// eslint-disable-next-line default-param-last
 function parseRegExPatternsDefaults(id: string, defaultValue = '', regExPatterns: RegExPattern[]) {
     const regExPatternConfigurations: WidgetConfiguration = {};
     const config: WidgetConfiguration = {};

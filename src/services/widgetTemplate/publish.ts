@@ -35,25 +35,23 @@ const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: stri
             schemaLoader(widgetTemplateDir),
             queryLoader(widgetTemplateDir),
             queryParamsLoader(widgetTemplateDir),
-        ]).then(results => results.reduce(
-            (acc: CreateWidgetTemplateReq, current: FileLoaderResponse): CreateWidgetTemplateReq => {
-                const { data, type } = current;
+        ]).then((results) => results.reduce((acc: CreateWidgetTemplateReq, current: FileLoaderResponse): CreateWidgetTemplateReq => {
+            const { data, type } = current;
 
-                if (type === WidgetFileType.TEMPLATE) {
-                    return { ...acc, template: data };
-                }
+            if (type === WidgetFileType.TEMPLATE) {
+                return { ...acc, template: data };
+            }
 
-                if (type === WidgetFileType.SCHEMA) {
-                    return { ...acc, schema: JSON.parse(data) };
-                }
+            if (type === WidgetFileType.SCHEMA) {
+                return { ...acc, schema: JSON.parse(data) };
+            }
 
-                if (type === WidgetFileType.QUERY) {
-                    return { ...acc, storefront_api_query: data };
-                }
+            if (type === WidgetFileType.QUERY) {
+                return { ...acc, storefront_api_query: data };
+            }
 
-                return acc;
-            }, widgetTemplatePayload(widgetName),
-        ));
+            return acc;
+        }, widgetTemplatePayload(widgetName)));
 
         const { uuid } = await publishWidget(widgetConfiguration, widgetTemplateUuid);
 
@@ -67,6 +65,5 @@ const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: stri
         log.error(messages.widgetRelease.failure);
     }
 };
-
 
 export default publishWidgetTemplate;

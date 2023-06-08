@@ -18,6 +18,7 @@ const isTracked = (dir: string): string | null => {
 };
 
 const startTracking = (dir: string, uuid: string) => {
+    // eslint-disable-next-line no-useless-catch
     try {
         writeFileSync(filePath(dir), uuid);
         log.success('New publishes now will update instead of creating a new instance');

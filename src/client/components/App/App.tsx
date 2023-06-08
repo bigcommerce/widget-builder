@@ -10,7 +10,7 @@ import { host, port } from '../../../config';
 import { createElementFromHTML, executeWidgetScripts } from '../../utils/widget';
 import { SocketData } from '../../../types';
 
-export class App extends Component<{}, {}> {
+export class App extends Component {
     private widgetFrameRef: React.RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
 
     socket?: Socket;

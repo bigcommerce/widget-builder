@@ -36,7 +36,10 @@ module.exports = {
     "no-plusplus": "off",
     "global-require": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
-    "import/extensions": "off"
+    "import/extensions": "off",
+    "no-use-before-define": "off",
+    "no-shadow": "off",
+    "camelcase": "off"
   },
   overrides: [
     {

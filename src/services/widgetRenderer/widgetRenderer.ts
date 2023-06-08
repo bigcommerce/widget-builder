@@ -20,29 +20,30 @@ const getInitialRenderingPayload = (): WidgetPreviewRenderRequest => ({
 });
 
 export function generateRenderPayloadFromFileLoaderResults(results: FileLoaderResponse[]): WidgetPreviewRenderRequest {
-    return results.reduce(
-        (acc: WidgetPreviewRenderRequest, current: FileLoaderResponse): WidgetPreviewRenderRequest => {
-            const { data, type } = current;
+    return results.reduce((
+        acc: WidgetPreviewRenderRequest,
+        current: FileLoaderResponse,
+    ): WidgetPreviewRenderRequest => {
+        const { data, type } = current;
 
-            if (type === WidgetFileType.TEMPLATE) {
-                return { ...acc, widget_template: data };
-            }
+        if (type === WidgetFileType.TEMPLATE) {
+            return { ...acc, widget_template: data };
+        }
 
-            if (type === WidgetFileType.CONFIGURATION) {
-                return { ...acc, widget_configuration: JSON.parse(data) };
-            }
+        if (type === WidgetFileType.CONFIGURATION) {
+            return { ...acc, widget_configuration: JSON.parse(data) };
+        }
 
-            if (type === WidgetFileType.QUERY) {
-                return { ...acc, storefront_api_query: data };
-            }
+        if (type === WidgetFileType.QUERY) {
+            return { ...acc, storefront_api_query: data };
+        }
 
-            if (type === WidgetFileType.QUERY_PARAMS) {
-                return { ...acc, storefront_api_query_params: JSON.parse(data) };
-            }
+        if (type === WidgetFileType.QUERY_PARAMS) {
+            return { ...acc, storefront_api_query_params: JSON.parse(data) };
+        }
 
-            return acc;
-        }, getInitialRenderingPayload(),
-    );
+        return acc;
+    }, getInitialRenderingPayload());
 }
 
 export default function renderWidget(widgetDir: string): Promise<string> {

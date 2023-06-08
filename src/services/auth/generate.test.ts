@@ -4,7 +4,6 @@ import { log } from '../../messages';
 
 import generate from './generate';
 
-
 const fs = require('fs');
 
 const config = {
@@ -19,7 +18,6 @@ WIDGET_BUILDER_AUTH_TOKEN=${config.accessToken}
 WIDGET_BUILDER_CHANNEL_ID=1
 WIDGET_BUILDER_API_GATEWAY_BASE=${config.apiPath.replace(/\/$/, '')}
 `;
-
 
 describe('generate config', () => {
     it('should write .env file', () => {
