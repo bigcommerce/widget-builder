@@ -1,6 +1,6 @@
 {
   "name": "widget-builder",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "main": "src/server/index.ts",
   "engines": {
     "node": ">=18.0.0",
