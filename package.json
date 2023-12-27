@@ -18,7 +18,7 @@
     "build-server": "cd src/server && tsc -p tsconfig.server.json",
     "build-cli": "cd src/cli && tsc -p tsconfig.cli.json",
     "build": "npm run build-cli && npm run build-server && npm run build-client",
-    "install-cli": "npm install; npm run build && npm install -g",
+    "install-cli": "npm install && npm run build && npm install -g",
     "server": "nodemon dist/server/index.js",
     "start": "npm run build && npm run server",
     "dev-client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
