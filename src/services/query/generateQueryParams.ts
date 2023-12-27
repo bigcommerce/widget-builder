@@ -8,7 +8,7 @@ import QueryParamFactory from './queryParamsWriter/queryParamFactory';
 import queryParamsWriter from './queryParamsWriter/queryParamsWriter';
 
 export default function generateQueryParams(directory: string) {
-    return new Promise((resolve) => {
+    return new Promise<void>((resolve) => {
         Promise.all([
             queryLoader(directory),
             queryParamsBuilderLoader(directory),
@@ -24,9 +24,7 @@ export default function generateQueryParams(directory: string) {
                 JSON.parse(queryParamsBuilderData),
                 JSON.parse(widgetConfigData),
             ).render();
-            const queryParamsJson = JSON.stringify(
-                queryParams, null, 2,
-            );
+            const queryParamsJson = JSON.stringify(queryParams, null, 2);
             queryParamsWriter(directory, queryParamsJson).then(() => {
                 log.info(messages.queryParamsWritten());
                 resolve();

@@ -13,7 +13,6 @@ interface WidgetPreviewRenderResponse {
         html: string;
     };
 }
-
 export interface WidgetPreviewRenderRequest {
     widget_configuration: object;
     widget_template: string;
@@ -62,5 +61,5 @@ export const publishWidget = (
         url: `${widgetApi.widgetTemplatePublish}${uuid ? `/${uuid}` : ''}`,
     })
         .then(({ data: { data } }) => resolve(data))
-        .catch(error => reject(error));
+        .catch((error) => reject(error));
 });

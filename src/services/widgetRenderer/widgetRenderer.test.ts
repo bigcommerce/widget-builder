@@ -40,7 +40,6 @@ describe('Widget Renderer', () => {
             storefront_api_query_params,
         } = generateRenderPayloadFromFileLoaderResults(fileLoaderResponseData);
 
-
         expect(widget_configuration).toEqual(JSON.parse(configurationData));
         expect(widget_template).toEqual(htmlData);
         expect(storefront_api_query).toEqual(query);
