@@ -113,6 +113,7 @@ const jsonSchema = {
                 { $ref: '#/definitions/rangeSetting' },
                 { $ref: '#/definitions/regexInputSetting' },
                 { $ref: '#/definitions/selectSetting' },
+                { $ref: '#/definitions/textSetting' },
                 { $ref: '#/definitions/toggleSetting' },
                 { $ref: '#/definitions/typographySetting' },
                 { $ref: '#/definitions/visibilitySetting' },
