@@ -11,12 +11,13 @@ import checkCredentials from '../../services/auth/checkAuth';
 import AUTH_CONFIG from '../../services/auth/authConfig';
 
 const widgetTemplatePublish = () => {
-    const program = new Command('publish');
+    const program = new Command('push');
 
     return program
         .arguments('<widget-template>')
         .description('Releases the widget template to the store belonging to the env config')
         .usage('<widget-template>')
+        .alias('publish')
         .action((widgetTemplate) => {
             const widgetTemplateDir = path.resolve(`./${widgetTemplate}`);
             if (!checkCredentials(AUTH_CONFIG)) {
@@ -24,7 +25,7 @@ const widgetTemplatePublish = () => {
             }
 
             if (!widgetTemplate) {
-                log.error(messages.widgetRelease.invalidName);
+                log.error(messages.pushWidgetTemplate.invalidName);
                 return;
             }
 

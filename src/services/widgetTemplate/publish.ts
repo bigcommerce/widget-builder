@@ -57,12 +57,12 @@ const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: stri
 
         if (!widgetTemplateUuid) {
             track.startTracking(widgetTemplateDir, uuid);
-            log.success(messages.widgetRelease.success(widgetName));
+            log.success(messages.pushWidgetTemplate.success(widgetName));
         } else {
             log.success(`Successfully updated ${widgetName}`);
         }
     } catch {
-        log.error(messages.widgetRelease.failure);
+        log.error(messages.pushWidgetTemplate.failure);
     }
 };
 

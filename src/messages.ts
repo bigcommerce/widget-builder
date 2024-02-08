@@ -47,7 +47,7 @@ export const messages = {
         removeError: (path: string) => `There was a problem removing ${path}, you may have to delete this manually`,
         removeSuccess: (path: string) => `Successfully removed ${path}`,
     },
-    widgetRelease: {
+    pushWidgetTemplate: {
         success: (widgetName: string) => `${widgetName} successfully published!`,
         failure: 'Unable to generate data to release, please check the widget template config or template data',
         invalidName: 'Please provide a valid widget-template',
