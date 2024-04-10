@@ -25,7 +25,7 @@
     "dev-server": "cd src/server && tsc -p tsconfig.server.json --watch",
     "lint": "eslint \"src/**/*\"",
     "lint-fix": "eslint --fix \"src/**/*\"",
-    "test": "jest --coverage || true",
+    "test": "jest --coverage",
     "test:updateSnapshot": "jest --updateSnapshot --silent"
   },
   "license": "MIT",

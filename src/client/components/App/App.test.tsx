@@ -3,6 +3,12 @@ import { mount } from 'enzyme';
 
 import { App } from './App';
 
+jest.mock('socket.io-client', () => ({
+    io: () => ({
+        on: () => ({}),
+    }),
+}));
+
 it('renders', () => {
     const app = mount(<App/>);
     expect(app.getDOMNode()).toMatchSnapshot();
