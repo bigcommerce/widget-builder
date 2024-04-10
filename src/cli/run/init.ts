@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint no-console: off */
 
 import { existsSync } from 'fs';
 import path from 'path';
