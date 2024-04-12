@@ -4,7 +4,7 @@
   "main": "src/server/index.ts",
   "engines": {
     "node": ">=18.0.0",
-    "npm": "^9.5.1"
+    "npm": ">=9.5.1"
   },
   "repository": {
     "type": "git",
