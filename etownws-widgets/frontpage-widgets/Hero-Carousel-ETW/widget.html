@@ -15,6 +15,10 @@
         border-radius: 5%;
         overflow: hidden;
       }
+
+      #hero-carousel:hover {
+        cursor: pointer;
+      }
       
       #hero-carousel img {
         position: absolute;
@@ -29,7 +33,13 @@
       #hero-carousel img.active {
         opacity: 1;
       }
-    
+
+      .carousel-link  {
+        img:not(.active) {
+        display:none !important;
+        }
+      }
+      
       .carousel-dots {
         position: absolute;
         bottom: 10px;
@@ -89,7 +99,7 @@
 <div id="widget-container">
     <div id="hero-carousel">
       {{#each heroImages}}
-      <div id="carousel-item">
+      <div id="carousel-item" class="carousel-link">
         <img src="{{imageUrl.src}}" alt="{{imageAlt}}" class="desktop-image {{#if @first}}active{{/if}}" data-redirect="{{redirectLink}}">
         <img class="mobile-image {{#if @first}}active{{/if}}" src="{{mobileImageUrl.src}}" alt="{{imageAlt}}" data-redirect="{{redirectLink}}">
         <img class="tablet-image {{#if @first}}active{{/if}}" src="{{tabletImageUrl.src}}" alt="{{imageAlt}}" data-redirect="{{redirectLink}}">
@@ -121,7 +131,6 @@
         carouselDots[slideIndex].classList.add('active');
 
         const redirectLink = desktopImages[slideIndex].getAttribute('data-redirect');
-        console.log(redirectLink);
 
         desktopImages[slideIndex].addEventListener('click', function(image){
           window.open(redirectLink, '_blank');
