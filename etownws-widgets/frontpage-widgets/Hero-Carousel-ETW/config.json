@@ -4,27 +4,54 @@
       "imageUrl": {
         "src": "https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/original/image-manager/flavor1.jpg?t=1715192998",
         "type": "IMAGE_MANAGER"
-      }
-    },
-    {
-      "imageUrl": {
-        "src": "https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/original/image-manager/flavor1.jpg?t=1715192998",
+      },
+      "redirectLink": "https://etownws.com/",
+      "mobileImageUrl": {
+        "src": "",
+        "type": "IMAGE_MANAGER"
+      },
+      "tabletImageUrl": {
+        "src": "",
         "type": "IMAGE_MANAGER"
       }
     },
     {
       "imageUrl": {
         "src": "https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/original/image-manager/flavor1.jpg?t=1715192998",
+        "type": "IMAGE_MANAGER"
+      },
+      "redirectLink": "https://etownws.com/",
+      "mobileImageUrl": {
+        "src": "",
+        "type": "IMAGE_MANAGER"
+      },
+      "tabletImageUrl": {
+        "src": "",
+        "type": "IMAGE_MANAGER"
+      }
+    },
+    {
+      "imageUrl": {
+        "src": "https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/original/image-manager/flavor1.jpg?t=1715192998",
+        "type": "IMAGE_MANAGER"
+      },
+      "redirectLink": "https://etownws.com/",
+      "mobileImageUrl": {
+        "src": "",
+        "type": "IMAGE_MANAGER"
+      },
+      "tabletImageUrl": {
+        "src": "",
         "type": "IMAGE_MANAGER"
       }
     }
   ],
   "carouselWidth": {
-    "value": 1097,
+    "value": 1500,
     "type": "px"
   },
   "carouselHeight": {
-    "value": 664,
+    "value": 580,
     "type": "px"
   }
 }

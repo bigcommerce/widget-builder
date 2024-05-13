@@ -5,7 +5,10 @@
      "id": "heroImages",
      "defaultCount": 3,
      "entryLabel": "Image",
-     "thumbnail": "imageUrl.src",
+     "thumbnail": {
+      "type": "image",
+      "valueKey": "imageUrl.src"
+      },
      "schema": [
        {
          "type": "tab",
@@ -22,10 +25,34 @@
                  }
                },
                {
+                "label": "Image Redirect Link",
+                "type":"input",
+                "id": "redirectLink",
+                "default":"https://etownws.com/"
+               },
+               {
                  "label": "Image Alt Text",
                  "type": "input",
                  "id": "imageAlt",
                  "default": ""
+               },
+               {
+                "label": "Mobile Image",
+                "id": "mobileImageUrl",
+                "type": "imageManager",
+                "default": {
+                  "src": "",
+                  "type": "IMAGE_MANAGER"
+                }
+               },
+               {
+                "label": "Tablet Image",
+                "id": "tabletImageUrl",
+                "type": "imageManager",
+                "default": {
+                  "src": "",
+                  "type": "IMAGE_MANAGER"
+                }
                }
              ]
            }
@@ -44,7 +71,7 @@
            "type": "number",
            "id": "carouselWidth",
            "default": {
-             "value": 1200,
+             "value": 1500,
              "type": "px"
            }
          },

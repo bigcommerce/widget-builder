@@ -54,12 +54,46 @@
       .carousel-dot.active {
         background-color: rgba(255, 255, 255, 1);
       }
+
+      @media (max-width: 449px) {
+        #hero-carousel .desktop-image,
+        #hero-carousel .tablet-image {
+          display: none;
+        }
+        #hero-carousel .mobile-image {
+          display: block;
+        }
+      }
+      
+      @media (min-width: 450px) and (max-width: 899px) {
+        #hero-carousel .desktop-image,
+        #hero-carousel .mobile-image {
+          display: none;
+        }
+        #hero-carousel .tablet-image {
+          display: block;
+        }
+      }
+      
+      @media (min-width: 900px) {
+        #hero-carousel .mobile-image,
+        #hero-carousel .tablet-image {
+          display: none;
+        }
+        #hero-carousel .desktop-image {
+          display: block;
+        }
+      }
 </style>
     
 <div id="widget-container">
     <div id="hero-carousel">
       {{#each heroImages}}
-      <img src="{{imageUrl.src}}" alt="{{imageAlt}}" class="{{#if @first}}active{{/if}}">
+      <div id="carousel-item">
+        <img src="{{imageUrl.src}}" alt="{{imageAlt}}" class="desktop-image {{#if @first}}active{{/if}}" data-redirect="{{redirectLink}}">
+        <img class="mobile-image {{#if @first}}active{{/if}}" src="{{mobileImageUrl.src}}" alt="{{imageAlt}}" data-redirect="{{redirectLink}}">
+        <img class="tablet-image {{#if @first}}active{{/if}}" src="{{tabletImageUrl.src}}" alt="{{imageAlt}}" data-redirect="{{redirectLink}}">
+      </div>
       {{/each}}
       <div class="carousel-dots">
         {{#each heroImages}}
@@ -69,39 +103,58 @@
     </div>
 </div>
 
+
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-    let carousel = document.getElementById('hero-carousel');
-    let carouselImages = carousel.getElementsByTagName('img');
-    let carouselDots = document.querySelectorAll('.carousel-dot');
+    const carousel = document.getElementById('hero-carousel');
+    const desktopImages = carousel.getElementsByClassName('desktop-image');
+    const mobileImages = carousel.getElementsByClassName('mobile-image');
+    const tabletImages = carousel.getElementsByClassName('tablet-image');
+    const carouselDots = document.querySelectorAll('.carousel-dot');
     let currentSlide = 0;
     let slideInterval = setInterval(nextSlide, 3000);
 
-    function nextSlide() {
-      carouselImages[currentSlide].classList.remove('active');
-      carouselDots[currentSlide].classList.remove('active');    
-      currentSlide = (currentSlide + 1) % carouselImages.length;
-      carouselImages[currentSlide].classList.add('active');
-      carouselDots[currentSlide].classList.add('active');
+    function setActiveSlide(slideIndex) {
+        desktopImages[slideIndex].classList.add('active');
+        mobileImages[slideIndex].classList.add('active');
+        tabletImages[slideIndex].classList.add('active');
+        carouselDots[slideIndex].classList.add('active');
+
+        const redirectLink = desktopImages[slideIndex].getAttribute('data-redirect');
+        console.log(redirectLink);
+
+        desktopImages[slideIndex].addEventListener('click', function(image){
+          window.open(redirectLink, '_blank');
+        })
     }
 
-    carouselDots.forEach(function(dot){
-      dot.addEventListener('click', function() {
-        var slideIndex = parseInt(this.getAttribute('data-index'));
-        goToSlide(slideIndex);
-      });
+    function removeActiveSlide(slideIndex) {
+        desktopImages[slideIndex].classList.remove('active');
+        mobileImages[slideIndex].classList.remove('active');
+        tabletImages[slideIndex].classList.remove('active');
+        carouselDots[slideIndex].classList.remove('active');
+    }
+
+    function nextSlide() {
+        removeActiveSlide(currentSlide);
+        currentSlide = (currentSlide + 1) % desktopImages.length;
+        setActiveSlide(currentSlide);
+    }
+
+    carouselDots.forEach(function(dot) {
+        dot.addEventListener('click', function() {
+            const slideIndex = parseInt(this.getAttribute('data-index'), 10);
+            goToSlide(slideIndex);
+        });
     });
 
     function goToSlide(slideIndex) {
-      clearInterval(slideInterval);
-      carouselImages[currentSlide].classList.remove('active');
-      carouselDots[currentSlide].classList.remove('active');
-      currentSlide = slideIndex;
-      carouselImages[currentSlide].classList.add('active');
-      carouselDots[currentSlide].classList.add('active');
-      slideInterval = setInterval(nextSlide, 3000);
+        clearInterval(slideInterval);
+        removeActiveSlide(currentSlide);
+        currentSlide = slideIndex;
+        setActiveSlide(currentSlide);
+        slideInterval = setInterval(nextSlide, 3000);
     }
-
   });
 </script>
 
