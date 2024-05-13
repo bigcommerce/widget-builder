@@ -1,0 +1,107 @@
+
+<style>
+    #widget-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #hero-carousel {
+        position: relative;
+        width: {{carouselWidth.value}}px;
+        height: {{carouselHeight.value}}px;
+        margin-left: 0px;
+        margin-right: 0px;
+        border-radius: 5%;
+        overflow: hidden;
+      }
+      
+      #hero-carousel img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
+  
+      #hero-carousel img.active {
+        opacity: 1;
+      }
+    
+      .carousel-dots {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    
+      .carousel-dot {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        outline: rgba(255, 255, 255) solid 2px;
+        background-color: rgba(255, 255, 255, 0.336);
+        margin: 0 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+    
+      .carousel-dot.active {
+        background-color: rgba(255, 255, 255, 1);
+      }
+</style>
+    
+<div id="widget-container">
+    <div id="hero-carousel">
+      {{#each heroImages}}
+      <img src="{{imageUrl.src}}" alt="{{imageAlt}}" class="{{#if @first}}active{{/if}}">
+      {{/each}}
+      <div class="carousel-dots">
+        {{#each heroImages}}
+          <div class="carousel-dot {{#if @first}}active{{/if}}" data-index="{{@index}}"></div>
+        {{/each}}
+      </div>
+    </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    let carousel = document.getElementById('hero-carousel');
+    let carouselImages = carousel.getElementsByTagName('img');
+    let carouselDots = document.querySelectorAll('.carousel-dot');
+    let currentSlide = 0;
+    let slideInterval = setInterval(nextSlide, 3000);
+
+    function nextSlide() {
+      carouselImages[currentSlide].classList.remove('active');
+      carouselDots[currentSlide].classList.remove('active');    
+      currentSlide = (currentSlide + 1) % carouselImages.length;
+      carouselImages[currentSlide].classList.add('active');
+      carouselDots[currentSlide].classList.add('active');
+    }
+
+    carouselDots.forEach(function(dot){
+      dot.addEventListener('click', function() {
+        var slideIndex = parseInt(this.getAttribute('data-index'));
+        goToSlide(slideIndex);
+      });
+    });
+
+    function goToSlide(slideIndex) {
+      clearInterval(slideInterval);
+      carouselImages[currentSlide].classList.remove('active');
+      carouselDots[currentSlide].classList.remove('active');
+      currentSlide = slideIndex;
+      carouselImages[currentSlide].classList.add('active');
+      carouselDots[currentSlide].classList.add('active');
+      slideInterval = setInterval(nextSlide, 3000);
+    }
+
+  });
+</script>
+

@@ -1,0 +1,30 @@
+{
+  "heroImages": [
+    {
+      "imageUrl": {
+        "src": "https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/original/image-manager/flavor1.jpg?t=1715192998",
+        "type": "IMAGE_MANAGER"
+      }
+    },
+    {
+      "imageUrl": {
+        "src": "https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/original/image-manager/flavor1.jpg?t=1715192998",
+        "type": "IMAGE_MANAGER"
+      }
+    },
+    {
+      "imageUrl": {
+        "src": "https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/original/image-manager/flavor1.jpg?t=1715192998",
+        "type": "IMAGE_MANAGER"
+      }
+    }
+  ],
+  "carouselWidth": {
+    "value": 1097,
+    "type": "px"
+  },
+  "carouselHeight": {
+    "value": 664,
+    "type": "px"
+  }
+}

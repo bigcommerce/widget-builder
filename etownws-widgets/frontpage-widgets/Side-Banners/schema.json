@@ -1,0 +1,129 @@
+[
+  {
+     "type":"array",
+     "label":"Left Side Banners",
+     "id":"leftBanners",
+     "defaultCount":3,
+     "entryLabel":"Banner",
+     "thumbnail":"imageUrl.src",
+     "schema":[
+        {
+           "type":"tab",
+           "label":"Content",
+           "sections":[
+              {
+                 "settings":[
+                    {
+                      "type": "select",
+                      "id": "mediaType",
+                      "label":"Media Type",
+                      "default": "image",
+                      "typeMeta":{
+                        "selectOptions" : [
+                          {
+                            "label": "Image",
+                            "value": "image"
+                          },
+                          {
+                            "label":"Video (MP4)",
+                            "value":"video"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                       "type":"imageManager",
+                       "id":"imageUrl",
+                       "default":{
+                          "src":"https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/original/image-manager/flavor1.jpg?t=1715192998",
+                          "type":"IMAGE_MANAGER"
+                       },
+                       "conditional": {
+                        "key": "mediaType",
+                        "operator": "IN",
+                        "value":"image"
+                       }
+                    },
+                    {
+                      "type": "input",
+                      "id": "videoUrl",
+                      "label": "Video URL (MP4)",
+                      "default": "",
+                      "conditional": {
+                        "key": "mediaType",
+                        "operator": "IN",
+                        "value": "video"
+                      }
+                    },
+                    {
+                       "label":"Border Radius %",
+                       "type":"number",
+                       "id":"borderRadius",
+                       "default": {
+                        "value": 5,
+                        "type": ""
+                       }
+                    },
+                    {
+                      "label":"Image Width",
+                      "type":"number",
+                      "id":"imageWidth",
+                      "default": {
+                      "value": 315,
+                      "type": "px"
+                      }
+                    },
+                    {
+                      "label":"Image Height",
+                      "type":"number",
+                      "id":"imageHeight",
+                      "default": {
+                      "value": 191,
+                      "type": "px"
+                      }
+                    },
+                    {
+                      "label":"Redirect Link",
+                      "type":"input",
+                      "id":"redirectLink",
+                      "default":"https://etownws.com/"
+                    }
+                 ]
+              }
+           ]
+        }
+     ]
+  },
+  {
+    "type": "tab",
+    "label": "Additional Settings",
+    "sections": [
+      {
+        "settings": [
+          {
+            "type": "select",
+            "id": "alignBanners",
+            "label":"Align Banners",
+            "default": "center",
+            "typeMeta":{
+              "selectOptions" : [
+                {
+                  "label": "Left",
+                  "value": "left"
+                },
+                {
+                  "label":"Center",
+                  "value":"center"
+                },
+                {
+                  "label": "Right",
+                  "value": "right"
+                }
+              ]
+            }
+          } 
+        ]
+      }
+    ]
+  }
+]

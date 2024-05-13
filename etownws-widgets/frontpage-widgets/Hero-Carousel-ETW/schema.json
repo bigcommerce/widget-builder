@@ -1,0 +1,64 @@
+[
+  {
+     "type": "array",
+     "label": "Hero Carousel",
+     "id": "heroImages",
+     "defaultCount": 3,
+     "entryLabel": "Image",
+     "thumbnail": "imageUrl.src",
+     "schema": [
+       {
+         "type": "tab",
+         "label": "Content",
+         "sections": [
+           {
+             "settings": [
+               {
+                 "type": "imageManager",
+                 "id": "imageUrl",
+                 "default": {
+                   "src": "https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/original/image-manager/flavor1.jpg?t=1715192998",
+                   "type": "IMAGE_MANAGER"
+                 }
+               },
+               {
+                 "label": "Image Alt Text",
+                 "type": "input",
+                 "id": "imageAlt",
+                 "default": ""
+               }
+             ]
+           }
+         ]
+       }
+     ]
+  },
+ {
+   "type": "tab",
+   "label": "Carousel Settings",
+   "sections": [
+     {
+       "settings": [
+         {
+           "label": "Carousel Width",
+           "type": "number",
+           "id": "carouselWidth",
+           "default": {
+             "value": 1200,
+             "type": "px"
+           }
+         },
+         {
+           "label": "Carousel Height",
+           "type": "number",
+           "id": "carouselHeight",
+           "default": {
+             "value": 580,
+             "type": "px"
+           }
+         }
+       ]
+     }
+   ]
+ }
+]
