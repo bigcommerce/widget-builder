@@ -12,7 +12,7 @@
         height: {{carouselHeight.value}}px;
         margin-left: 0px;
         margin-right: 0px;
-        border-radius: 5%;
+        border-radius: {{borderRadius.value}}%;
         overflow: hidden;
       }
 
@@ -75,7 +75,7 @@
         }
       }
       
-      @media (min-width: 450px) and (max-width: 899px) {
+      @media (min-width: 450px) and (max-width: 1024px) {
         #hero-carousel .desktop-image,
         #hero-carousel .mobile-image {
           display: none;
@@ -85,7 +85,7 @@
         }
       }
       
-      @media (min-width: 900px) {
+      @media (min-width: 1025px) {
         #hero-carousel .mobile-image,
         #hero-carousel .tablet-image {
           display: none;
@@ -129,12 +129,6 @@
         mobileImages[slideIndex].classList.add('active');
         tabletImages[slideIndex].classList.add('active');
         carouselDots[slideIndex].classList.add('active');
-
-        const redirectLink = desktopImages[slideIndex].getAttribute('data-redirect');
-
-        desktopImages[slideIndex].addEventListener('click', function(image){
-          window.open(redirectLink, '_blank');
-        })
     }
 
     function removeActiveSlide(slideIndex) {
@@ -164,6 +158,15 @@
         setActiveSlide(currentSlide);
         slideInterval = setInterval(nextSlide, 3000);
     }
+
+    function attachClickListener(image) {
+      image.addEventListener('click', function() {
+        const redirectLink = this.getAttribute('data-redirect');
+        window.open(redirectLink, '_blank');
+      });
+    }
+
+    [...desktopImages, ...mobileImages, ...tabletImages].forEach(attachClickListener);
   });
 </script>
 

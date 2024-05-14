@@ -83,6 +83,15 @@
              "value": 580,
              "type": "px"
            }
+         },
+         {
+          "label": "Border Radius (Roundness)",
+          "type": "number",
+          "id": "borderRadius",
+          "default": {
+            "value": 2,
+            "type": ""
+          }
          }
        ]
      }

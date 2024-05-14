@@ -53,5 +53,9 @@
   "carouselHeight": {
     "value": 580,
     "type": "px"
+  },
+  "borderRadius": {
+    "value": 2,
+    "type": ""
   }
 }
