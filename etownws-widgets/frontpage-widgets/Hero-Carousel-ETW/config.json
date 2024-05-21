@@ -57,5 +57,6 @@
   "borderRadius": {
     "value": 2,
     "type": ""
-  }
+  },
+  "circleSize": 10
 }
