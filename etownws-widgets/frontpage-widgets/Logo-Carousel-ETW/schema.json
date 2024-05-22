@@ -78,6 +78,20 @@
                 "type": "px"
               }
             }
+          },
+          {
+            "label": "Animation Motion",
+            "id": "translate-x",
+            "type": "range",
+            "default": 45,
+            "typeMeta": {
+              "rangeValues": {
+                "min": 0,
+                "max": 200,
+                "step": 1,
+                "type": "%"
+              }
+            }
           }
         ]
       }

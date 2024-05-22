@@ -76,5 +76,6 @@
     "value": 100,
     "type": "px"
   },
-  "spaceBetweenLogos": 30
+  "spaceBetweenLogos": 30,
+  "translate-x": 45
 }

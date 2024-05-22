@@ -12,12 +12,13 @@
             transform: translateX(0);
         }
         to {
-            transform: translateX(calc(-100vw / 2));
+            transform: translateX(-{{translate-x}}%);
         }
     }
     
     .logo-carousel{
         white-space: nowrap;
+        overflow: hidden;
         padding: 5px 0;
     }
     .logo-carousel:hover .logos {
@@ -44,21 +45,24 @@
     .logos img{
         height: {{logoSize.value}}px;
         margin: 0 {{spaceBetweenLogos}}px;
+        transition: opacity 0.3s ease;
+    }
+    .logos img:hover{
+        transform: scale(1.10);
     }
 </style>
 
-<body>
-    <div id="logo-carousel" class="logo-carousel">
-        <div class="logos">
-            {{#each logos}}
+<div id="logo-carousel" class="logo-carousel">
+    <div id="logos" class="logos">
+        {{#each logos}}
+        <a href="{{redirectLink}}">
             <img src="{{logoUrl.src}}" alt="Logo">
-            {{/each}}
-            {{#each logos}}
+        </a>
+        {{/each}}
+        {{#each logos}}
+        <a href="{{redirectLink}}">
             <img src="{{logoUrl.src}}" alt="Logo">
-            {{/each}}
-        </div>
+        </a>
+        {{/each}}
     </div>
-</body>
-
-
-
+</div>
