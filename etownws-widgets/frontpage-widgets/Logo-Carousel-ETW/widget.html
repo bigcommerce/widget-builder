@@ -1,0 +1,64 @@
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    @keyframes slide {
+        from{
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(calc(-100vw / 2));
+        }
+    }
+    
+    .logo-carousel{
+        white-space: nowrap;
+        padding: 5px 0;
+    }
+    .logo-carousel:hover .logos {
+        animation-play-state: paused;
+    }
+    .logo-carousel:before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 150px;
+        height: 100%;
+        background: linear-gradient(to left, rgba(255,255,255, 0), white);
+        content: "";
+        z-index: 2;
+    }
+    .logos{
+        display: inline-block;
+        animation: {{scrollSpeed}}s slide infinite linear;
+        min-width: 100%;
+    }
+    .logos a {
+        text-decoration: none;
+    }
+    .logos img{
+        height: {{logoSize.value}}px;
+        margin: 0 {{spaceBetweenLogos}}px;
+    }
+</style>
+
+<body>
+    <div id="logo-carousel" class="logo-carousel">
+        <div class="logos">
+            {{#each logos}}
+            <img src="{{logoUrl.src}}" alt="Logo">
+            {{/each}}
+            {{#each logos}}
+            <img src="{{logoUrl.src}}" alt="Logo">
+            {{/each}}
+        </div>
+    </div>
+</body>
+
+
+

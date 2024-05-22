@@ -1,0 +1,86 @@
+[
+  {
+    "type": "array",
+    "label": "Logo Carousel",
+    "id": "logos",
+    "defaultCount": 10,
+    "entryLabel": "Logo",
+    "thumbnail": {
+      "type": "image",
+      "valueKey": "logoUrl.src"
+    },
+    "schema": [
+      {
+        "type": "tab",
+        "label": "Content",
+        "sections": [
+          {
+            "settings": [
+              {
+                "type": "imageManager",
+                "id": "logoUrl",
+                "default": {
+                  "src": "https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/original/image-manager/etown-logo.png?t=1715199953",
+                  "type": "IMAGE_MANAGER"
+                }
+              },
+              {
+                "label": "Logo Redirect Link",
+                "type": "input",
+                "id": "redirectLink",
+                "default": "https://etownws.com/"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "tab",
+    "label": "Carousel Settings",
+    "sections": [
+      {
+        "settings": [
+          {
+            "label": "Carousel Speed (lower numbers are faster: 1=fastest 10=slowest)",
+            "id": "scrollSpeed",
+            "type": "range",
+            "default": 20,
+            "typeMeta": {
+              "rangeValues": {
+                "min": 5,
+                "max": 40,
+                "step": 1,
+                "unit": "s"
+              }
+            }
+          },
+          {
+            "label": "Logo Sizes",
+            "id": "logoSize",
+            "type": "number",
+            "default": {
+              "value": 100,
+              "type": "px"
+            }
+          },
+          {
+            "label": "Space Between Logos",
+            "id": "spaceBetweenLogos",
+            "type": "range",
+            "default": 30,
+            "typeMeta": {
+              "rangeValues": {
+                "min": 0,
+                "max": 50,
+                "step": 1,
+                "type": "px"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
