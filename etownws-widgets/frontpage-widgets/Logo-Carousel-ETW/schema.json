@@ -46,13 +46,13 @@
             "label": "Carousel Speed (lower numbers are faster: 1=fastest 10=slowest)",
             "id": "scrollSpeed",
             "type": "range",
-            "default": 20,
+            "default": 9000,
             "typeMeta": {
               "rangeValues": {
-                "min": 5,
-                "max": 40,
-                "step": 1,
-                "unit": "s"
+                "min": 1000,
+                "max": 20000,
+                "step": 500,
+                "unit": "ms"
               }
             }
           },
@@ -61,7 +61,7 @@
             "id": "logoSize",
             "type": "number",
             "default": {
-              "value": 100,
+              "value": 75,
               "type": "px"
             }
           },
@@ -69,7 +69,7 @@
             "label": "Space Between Logos",
             "id": "spaceBetweenLogos",
             "type": "range",
-            "default": 30,
+            "default": 20,
             "typeMeta": {
               "rangeValues": {
                 "min": 0,
@@ -80,16 +80,16 @@
             }
           },
           {
-            "label": "Animation Motion",
-            "id": "translate-x",
+            "label": "Slides to Show (Slick)",
+            "id": "slidesToShow",
             "type": "range",
-            "default": 45,
+            "default": 6,
             "typeMeta": {
               "rangeValues": {
                 "min": 0,
-                "max": 200,
+                "max": 10,
                 "step": 1,
-                "type": "%"
+                "type": ""
               }
             }
           }

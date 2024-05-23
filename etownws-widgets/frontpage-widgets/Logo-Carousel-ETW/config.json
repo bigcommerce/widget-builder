@@ -71,11 +71,11 @@
       "redirectLink": "https://etownws.com/"
     }
   ],
-  "scrollSpeed": 20,
+  "scrollSpeed": 9000,
   "logoSize": {
-    "value": 100,
+    "value": 75,
     "type": "px"
   },
-  "spaceBetweenLogos": 30,
-  "translate-x": 45
+  "spaceBetweenLogos": 20,
+  "slidesToShow": 6
 }

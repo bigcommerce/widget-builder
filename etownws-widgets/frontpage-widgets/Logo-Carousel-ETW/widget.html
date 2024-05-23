@@ -1,56 +1,42 @@
 
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-    @keyframes slide {
-        from{
-            transform: translateX(0);
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
         }
-        to {
-            transform: translateX(-{{translate-x}}%);
+        .logo-carousel {
+            padding: 5px 0;
         }
-    }
-    
-    .logo-carousel{
-        white-space: nowrap;
-        overflow: hidden;
-        padding: 5px 0;
-    }
-    .logo-carousel:hover .logos {
-        animation-play-state: paused;
-    }
-    .logo-carousel:before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 150px;
-        height: 100%;
-        background: linear-gradient(to left, rgba(255,255,255, 0), white);
-        content: "";
-        z-index: 2;
-    }
-    .logos{
-        display: inline-block;
-        animation: {{scrollSpeed}}s slide infinite linear;
-        min-width: 100%;
-    }
-    .logos a {
-        text-decoration: none;
-    }
-    .logos img{
-        height: {{logoSize.value}}px;
-        margin: 0 {{spaceBetweenLogos}}px;
-        transition: opacity 0.3s ease;
-    }
-    .logos img:hover{
-        transform: scale(1.10);
-    }
-</style>
+        .logo-carousel::before, .logo-carousel::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            width: 150px;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }.logo-carousel::before {
+             left: 0;
+             background: linear-gradient(to right, white, rgba(255, 255, 255, 0));
+         }
+        .logo-carousel::after {
+            right: 0;
+            background: linear-gradient(to left, white, rgba(255, 255, 255, 0));
+        }
+        .logos img {
+            height: {{logoSize.value}}px;
+            margin: 0 {{spaceBetweenLogos}}px;
+            transition: opacity 0.3s ease;
+        }
+        .logos img:hover {
+            transform: scale(1.10);
+        }
+    </style>
 
 <div id="logo-carousel" class="logo-carousel">
     <div id="logos" class="logos">
@@ -59,10 +45,23 @@
             <img src="{{logoUrl.src}}" alt="Logo">
         </a>
         {{/each}}
-        {{#each logos}}
-        <a href="{{redirectLink}}">
-            <img src="{{logoUrl.src}}" alt="Logo">
-        </a>
-        {{/each}}
     </div>
 </div>
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#logos').slick({
+            infinite: true,
+            speed: {{scrollSpeed}},
+            slidesToShow: {{slidesToShow}},
+            autoplay: true,
+            autoplaySpeed: 0, 
+            centerMode: true,
+            variableWidth: true,
+            cssEase: 'linear'
+        });
+    });
+</script>
