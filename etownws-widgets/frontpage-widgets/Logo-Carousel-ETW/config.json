@@ -76,6 +76,6 @@
     "value": 75,
     "type": "px"
   },
-  "spaceBetweenLogos": 20,
+  "spaceBetweenLogos": 30,
   "slidesToShow": 6
 }

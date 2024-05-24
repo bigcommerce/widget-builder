@@ -69,11 +69,11 @@
             "label": "Space Between Logos",
             "id": "spaceBetweenLogos",
             "type": "range",
-            "default": 20,
+            "default": 30,
             "typeMeta": {
               "rangeValues": {
                 "min": 0,
-                "max": 50,
+                "max": 60,
                 "step": 1,
                 "type": "px"
               }

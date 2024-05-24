@@ -9,8 +9,12 @@
             -moz-box-sizing: border-box;
             box-sizing: border-box;
         }
+        body{
+            overflow-x: hidden;
+        }
         .logo-carousel {
             padding: 5px 0;
+            overflow: hidden;
         }
         .logo-carousel::before, .logo-carousel::after {
             content: "";
@@ -28,9 +32,11 @@
             right: 0;
             background: linear-gradient(to left, white, rgba(255, 255, 255, 0));
         }
+        .logos .slick-slide {
+            padding: 0 {{spaceBetweenLogos}}px;
+        }
         .logos img {
             height: {{logoSize.value}}px;
-            margin: 0 {{spaceBetweenLogos}}px;
             transition: opacity 0.3s ease;
         }
         .logos img:hover {
@@ -61,7 +67,9 @@
             autoplaySpeed: 0, 
             centerMode: true,
             variableWidth: true,
-            cssEase: 'linear'
+            cssEase: 'linear',
+            arrows: false,
+            lazyLoad: 'ondemand'
         });
     });
 </script>
