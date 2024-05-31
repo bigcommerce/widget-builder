@@ -1,9 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports['mountWidget correctly mounts a widget 1'] = `
+exports[`mountWidget correctly mounts a widget 1`] = `
 <div>
   <div
-    class="styled__StyledFlex-hcvk8l-0 gzvNmR styled__StyledBox-sj5f1m-0 dWCHjG"
+    class="styled__StyledBox-sc-sj5f1m-0 VUKyh styled__StyledFlex-sc-hcvk8l-0 iBHbGA"
   >
     <img
       height="34"
@@ -11,7 +11,7 @@ exports['mountWidget correctly mounts a widget 1'] = `
     />
        
     <h1
-      class="styled__StyledH1-tqnj75-1 exiPoU"
+      class="styled__StyledH1-sc-tqnj75-1 klUKKw"
     >
       Widget Builder
     </h1>
@@ -24,10 +24,10 @@ exports['mountWidget correctly mounts a widget 1'] = `
 </div>
 `;
 
-exports['renders 1'] = `
+exports[`renders 1`] = `
 <div>
   <div
-    class="styled__StyledFlex-hcvk8l-0 gzvNmR styled__StyledBox-sj5f1m-0 dWCHjG"
+    class="styled__StyledBox-sc-sj5f1m-0 VUKyh styled__StyledFlex-sc-hcvk8l-0 iBHbGA"
   >
     <img
       height="34"
@@ -35,7 +35,7 @@ exports['renders 1'] = `
     />
        
     <h1
-      class="styled__StyledH1-tqnj75-1 exiPoU"
+      class="styled__StyledH1-sc-tqnj75-1 klUKKw"
     >
       Widget Builder
     </h1>
