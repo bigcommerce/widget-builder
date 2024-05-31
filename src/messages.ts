@@ -52,5 +52,10 @@ export const messages = {
         failure: 'Unable to generate data to release, please check the widget template config or template data',
         invalidName: 'Please provide a valid widget-template',
     },
+    widgetRemove: {
+        success: (widgetName: string) => `${widgetName} successfully removed!`,
+        failure: 'Unable to remove widget template',
+        invalidUuid: 'Please provide a valid widget-template uuid',
+    },
 };
 /* eslint-enable max-len */

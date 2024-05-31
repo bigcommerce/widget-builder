@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync, rmSync } from 'fs';
 
 import { log } from '../../messages';
 
@@ -27,7 +27,18 @@ const startTracking = (dir: string, uuid: string) => {
     }
 };
 
+const removeTracking = (dir: string) => {
+    // eslint-disable-next-line no-useless-catch
+    try {
+        rmSync(filePath(dir));
+        log.success('Widget template is no longer being tracked');
+    } catch (e) {
+        throw e;
+    }
+};
+
 export default {
     isTracked,
     startTracking,
+    removeTracking,
 };

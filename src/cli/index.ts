@@ -5,6 +5,7 @@ import { Command } from 'commander';
 import createStarterTemplate from './create/starterTemplate';
 import start from './run/start';
 import widgetTemplatePublish from './deployment/widgetTemplatePublish';
+import widgetTemplateDelete from './delete/widgetTemplateRemove';
 import validateCommands from './run/validate';
 import init from './run/init';
 
@@ -18,6 +19,7 @@ cli
     .addCommand(start())
     .addCommand(validateCommands())
     .addCommand(createStarterTemplate())
-    .addCommand(widgetTemplatePublish());
+    .addCommand(widgetTemplatePublish())
+    .addCommand(widgetTemplateDelete());
 
 cli.parse(process.argv);
