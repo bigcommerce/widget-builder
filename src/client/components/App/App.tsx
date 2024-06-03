@@ -30,7 +30,6 @@ export class App extends Component {
 
     mountWidget(html: string) {
         const widgetFrame = this.widgetFrameRef.current as HTMLDivElement;
-        loadSlick();
 
         while (widgetFrame.firstChild) {
             widgetFrame.removeChild(widgetFrame.firstChild);
@@ -38,6 +37,7 @@ export class App extends Component {
         const widgetElement = createElementFromHTML(html);
         widgetFrame.appendChild(widgetElement);
         executeWidgetScripts(widgetElement, document);
+        loadSlick();
     }
 
     render() {
