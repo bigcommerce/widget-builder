@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
+const CopyPlugin = require('copy-webpack-plugin');
 
 const outputDirectory = 'dist/client';
 
@@ -57,6 +58,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       favicon: './public/favicon.ico'
-    })
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: 'public/slick-style.css', to: 'slick-style.css' }
+      ],
+    }),
   ]
 };

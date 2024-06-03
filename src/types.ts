@@ -1,3 +1,5 @@
+import 'jquery';
+
 enum WidgetFileType {
     TEMPLATE = 'widget.html',
     CONFIGURATION = 'config.json',
@@ -18,6 +20,10 @@ export interface SocketData {
     event: string;
     html: string;
     path: string;
+}
+
+export interface JqueryElement extends JQuery<HTMLElement> {
+    slick(options?: object | string): void;
 }
 
 export default WidgetFileType;

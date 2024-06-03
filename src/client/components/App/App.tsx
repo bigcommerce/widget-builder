@@ -9,6 +9,7 @@ import {
 import { host, port } from '../../../config';
 import { createElementFromHTML, executeWidgetScripts } from '../../utils/widget';
 import { SocketData } from '../../../types';
+import { loadSlick } from '../../utils/slick';
 
 export class App extends Component {
     private widgetFrameRef: React.RefObject<HTMLDivElement> = createRef<HTMLDivElement>();
@@ -29,6 +30,7 @@ export class App extends Component {
 
     mountWidget(html: string) {
         const widgetFrame = this.widgetFrameRef.current as HTMLDivElement;
+        loadSlick();
 
         while (widgetFrame.firstChild) {
             widgetFrame.removeChild(widgetFrame.firstChild);
