@@ -18,6 +18,7 @@
         "value": 191,
         "type": "px"
       },
+      "imageFit": "cover",
       "redirectLink": "https://etownws.com/"
     },
     {
@@ -38,6 +39,7 @@
         "value": 191,
         "type": "px"
       },
+      "imageFit": "cover",
       "redirectLink": "https://etownws.com/"
     },
     {
@@ -58,8 +60,8 @@
         "value": 191,
         "type": "px"
       },
+      "imageFit": "cover",
       "redirectLink": "https://etownws.com/"
     }
-  ],
-  "alignBanners": "center"
+  ]
 }

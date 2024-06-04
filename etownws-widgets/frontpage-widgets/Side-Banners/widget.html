@@ -1,49 +1,48 @@
-
 <style>
-    #widget-container {
-        display: flex;
-        flex-direction: row;
-        justify-content: left;
-        align-items: center;
-    }
-
     .side-banners {
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
     }
 
     .side-banners a {
         display: inline-block;
         transition: transform 0.3s ease;
-        }
-    
+    }
+
     .side-banners a:hover {
         transform: scale(1.05);
     }
-    .side-banners img {
-        width: {{imageWidth.value}}px;
-        height: {{imageHeight.value}}px;
+
+    .side-banners img, .side-banners video {
         margin-top: 2%;
-        margin-bottom:2%
+        margin-bottom: 2%;
         border-radius: {{borderRadius.value}}px;
         transition: opacity 0.3s ease;
+        object-fit: {{imageFit}};
     }
-</style>
+
+    @media only screen and (max-width: 600px) {
+        .side-banners img, .side-banners video {
+            height: auto !important;
+        }
+        .side-banners {
+            width: 100%;
+        }
+    }
     
+</style>
+
 <div id="side-banners" class="side-banners">
     {{#each leftBanners}}
     <a href="{{redirectLink}}">
         {{#if mediaType '===' 'image'}}
-        <img src="{{imageUrl.src}}" alt="{{imageAlt}}" style="border-radius: {{borderRadius.value}}%; width: {{imageWidth.value}}px; height: {{imageHeight.value}}px;">
+        <img src="{{imageUrl.src}}" alt="{{imageAlt}}" style="border-radius: {{borderRadius.value}}px; width: {{imageWidth.value}}px; height: {{imageHeight.value}}px; object-fit: {{imageFit}};">
         {{else}}
-        <video autoplay style="border-radius: {{borderRadius.value}}%; width: {{imageWidth.value}}px; height: {{imageHeight.value}}px;">
-        <source src="{{videoUrl}}" type="video/mp4">
+        <video autoplay style="border-radius: {{borderRadius.value}}px; width: {{imageWidth.value}}px; height: {{imageHeight.value}}px; object-fit: {{imageFit}};">
+            <source src="{{videoUrl}}" type="video/mp4">
         </video>
         {{/if}}
     </a>
     {{/each}}
 </div>
-
-
