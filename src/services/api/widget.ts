@@ -7,6 +7,7 @@ export const widgetApi = {
     widgetPreviewRender: `${AUTH_CONFIG.apiPath}/content/widget-templates/preview`,
     widgetTemplatePublish: `${AUTH_CONFIG.apiPath}/content/widget-templates`,
     widgetTemplateDelete: `${AUTH_CONFIG.apiPath}/content/widget-templates`,
+    widgetTemplateDownload: `${AUTH_CONFIG.apiPath}/content/widget-templates`,
 };
 
 interface WidgetPreviewRenderResponse {
@@ -79,5 +80,20 @@ export const deleteWidget = (uuid: string): Promise<boolean> => new Promise((res
         .then(() => resolve(
             true,
         ))
+        .catch((error) => reject(error));
+});
+
+export const getAllWidgets = (): Promise<WidgetConfiguration[]> => new Promise((resolve, reject) => {
+    Axios({
+        method: 'get',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'X-Auth-Client': AUTH_CONFIG.authId,
+            'X-Auth-Token': AUTH_CONFIG.authToken,
+        },
+        url: widgetApi.widgetTemplatePublish,
+    })
+        .then(({ data: { data } }) => resolve(data))
         .catch((error) => reject(error));
 });
