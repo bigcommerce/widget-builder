@@ -27,6 +27,10 @@ export interface JqueryElement extends JQuery<HTMLElement> {
 }
 
 export interface WidgetResponse {
+    data: Widget[];
+}
+
+export interface Widget {
     uuid: string;
     name: string;
     schema: WidgetResponseSchema[];
@@ -40,7 +44,7 @@ export interface WidgetResponse {
     client_rerender: boolean;
     current_version_uuid: string;
     channel_id: number;
-    schema_translations: SchemaTranslations;
+    schema_translations: object;
 }
 
 export interface WidgetResponseSchema {
@@ -81,9 +85,6 @@ export interface FluffySetting {
     id: string;
     default?: boolean | string;
     placeholder?: string;
-}
-
-export interface SchemaTranslations {
 }
 
 export default WidgetFileType;

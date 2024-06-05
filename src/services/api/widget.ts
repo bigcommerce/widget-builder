@@ -2,6 +2,7 @@ import Axios, { AxiosResponse } from 'axios';
 
 import AUTH_CONFIG from '../auth/authConfig';
 import { WidgetConfiguration } from '../schema/schemaParser/schemaParser';
+import { Widget } from '../../types';
 
 export const widgetApi = {
     widgetPreviewRender: `${AUTH_CONFIG.apiPath}/content/widget-templates/preview`,
@@ -83,7 +84,7 @@ export const deleteWidget = (uuid: string): Promise<boolean> => new Promise((res
         .catch((error) => reject(error));
 });
 
-export const getAllWidgets = (): Promise<WidgetConfiguration[]> => new Promise((resolve, reject) => {
+export const getAllWidgets = (): Promise<Widget[]> => new Promise((resolve, reject) => {
     Axios({
         method: 'get',
         headers: {

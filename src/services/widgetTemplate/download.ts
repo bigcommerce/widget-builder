@@ -1,13 +1,13 @@
-/* import { log, messages } from '../../messages';
-import { deleteWidget } from '../api/widget';
+/* import { log, messages } from '../../messages'; */
+import { Widget } from '../../types';
 
-import track from './track'; */
+/* import track from './track'; */
 
-const downloadWidgetTemplate = async (widgetObject: object, widgetTemplateDir: string) => {
+const downloadWidgetTemplate = async (widgetObject: Widget, widgetTemplateDir: string) => {
     const widgetTemplateUuid = widgetObject.uuid;
     console.log(widgetTemplateUuid); // eslint-disable-line no-console
     console.log(widgetObject); // eslint-disable-line no-console
-
+    console.log(widgetTemplateDir); // eslint-disable-line no-console
     /* try {
         if (!widgetTemplateUuid) {
             log.error(messages.widgetRemove.invalidUuid);
