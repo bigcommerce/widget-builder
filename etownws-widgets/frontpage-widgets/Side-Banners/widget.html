@@ -38,15 +38,14 @@
 
     @media (max-width: 768px) and (min-width: 426px){
         .side-banners{
-            display: flex;
-            flex-direction: row;
+            display: grid;
+            grid-template-columns: repeat( {{leftBanners.length}},1fr);
             justify-content: space-around;
             gap:2%;
         }
 
         .side-banners img{
             width: 100% !important;
-            height: auto !important;
         }
     }
 
