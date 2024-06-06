@@ -111,7 +111,7 @@ export class CreateDownloadedTemplate {
 
     createSchemaTranslationsFile() {
         const schemaTranslationsPath = `${this._widgetTemplateDir}/${this._schemaTranslationsFile}`;
-        if (!this._widget.schema_translations) return;
+        if (!this._widget.schema_translations || Object.keys(this._widget.schema_translations).length === 0) return;
         const downloadedSchemaTranslations = JSON.stringify(this._widget.schema_translations, null, 2);
         try {
             writeFileSync(schemaTranslationsPath, downloadedSchemaTranslations);
