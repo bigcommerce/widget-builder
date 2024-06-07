@@ -18,7 +18,7 @@ const widgetTemplateDelete = () => {
     return program
         .arguments('[widget-template]')
         .description('Delete a widget template')
-        .usage('<widget-template>')
+        .usage('[widget-template]')
         .action((widgetTemplate) => {
             if (!widgetTemplate) {
                 widgetTemplateDeleteWithOutName();
