@@ -83,6 +83,24 @@
                       }
                     },
                     {
+                      "type": "select",
+                      "label": "Image fit",
+                      "id": "imageFit",
+                      "default": "cover",
+                      "typeMeta": {
+                        "selectOptions": [
+                          {
+                            "label": "Fit to box",
+                            "value": "cover"
+                          },
+                          {
+                            "label": "Fill to box",
+                            "value": "fill"
+                          }
+                        ]
+                      }
+                    },
+                    {
                       "label":"Redirect Link",
                       "type":"input",
                       "id":"redirectLink",
@@ -93,37 +111,5 @@
            ]
         }
      ]
-  },
-  {
-    "type": "tab",
-    "label": "Additional Settings",
-    "sections": [
-      {
-        "settings": [
-          {
-            "type": "select",
-            "id": "alignBanners",
-            "label":"Align Banners",
-            "default": "center",
-            "typeMeta":{
-              "selectOptions" : [
-                {
-                  "label": "Left",
-                  "value": "left"
-                },
-                {
-                  "label":"Center",
-                  "value":"center"
-                },
-                {
-                  "label": "Right",
-                  "value": "right"
-                }
-              ]
-            }
-          } 
-        ]
-      }
-    ]
   }
 ]

@@ -43,10 +43,10 @@
       {
         "settings": [
           {
-            "label": "Carousel Speed (lower numbers are faster: 1=fastest 10=slowest)",
+            "label": "Carousel Loop Duration (Lower numbers speed the carousel up)",
             "id": "scrollSpeed",
             "type": "range",
-            "default": 9000,
+            "default": 6000,
             "typeMeta": {
               "rangeValues": {
                 "min": 1000,
@@ -69,7 +69,7 @@
             "label": "Space Between Logos",
             "id": "spaceBetweenLogos",
             "type": "range",
-            "default": 30,
+            "default": 15,
             "typeMeta": {
               "rangeValues": {
                 "min": 0,
@@ -83,7 +83,7 @@
             "label": "Slides to Show (Slick)",
             "id": "slidesToShow",
             "type": "range",
-            "default": 6,
+            "default": 4,
             "typeMeta": {
               "rangeValues": {
                 "min": 0,

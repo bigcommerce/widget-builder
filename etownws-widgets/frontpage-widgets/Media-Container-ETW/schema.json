@@ -1,0 +1,146 @@
+[
+  {
+    "type": "tab",
+    "label": "Design",
+    "sections": [
+      {
+        "label": "Image",
+        "settings":[
+          {
+            "type": "select",
+            "id": "mediaType",
+            "label":"Media Type",
+            "default": "image",
+            "typeMeta":{
+              "selectOptions" : [
+                {
+                  "label": "Image",
+                  "value": "image"
+                },
+                {
+                  "label":"Video (MP4)",
+                  "value":"video"
+                }
+              ]
+            }
+          },
+          {
+            "type":"imageManager",
+            "id":"imageUrl",
+            "default":{
+              "src":"https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/original/image-manager/flavor1.jpg?t=1715192998",
+              "type":"IMAGE_MANAGER"
+            },
+            "conditional": {
+              "key": "mediaType",
+              "operator": "IN",
+              "value":"image"
+            }
+          },
+          {
+            "type": "input",
+            "id": "videoUrl",
+            "label": "Video URL (MP4)",
+            "default": "",
+            "conditional": {
+              "key": "mediaType",
+              "operator": "IN",
+              "value": "video"
+            }
+          },
+          {
+            "type": "number",
+            "label": "Image height",
+            "id": "imageHeight",
+            "default": {
+              "value": 200,
+              "type": "px"
+            }
+          },
+          {
+            "type": "number",
+            "label": "Image width",
+            "id": "imageWidth",
+            "default": {
+              "value": 400,
+              "type": "px"
+            }
+          },
+          {
+            "label":"Edge Roundness",
+            "type":"number",
+            "id":"borderRadius",
+            "default": {
+              "value": 10,
+              "type": "px"
+            }
+          },
+          {
+            "type": "select",
+            "label": "Image fit",
+            "id": "imageFit",
+            "default": "cover",
+            "typeMeta": {
+              "selectOptions": [
+                {
+                  "label": "Fit to box",
+                  "value": "cover"
+                },
+                {
+                  "label": "Fill to box",
+                  "value": "fill"
+                }
+              ]
+            }
+          },
+          {
+            "type": "select",
+            "label": "Alignment",
+            "id": "alignment",
+            "default": "center",
+            "typeMeta": {
+              "selectOptions": [
+                {
+                  "label": "Center",
+                  "value": "center"
+                },
+                {
+                  "label": "Left",
+                  "value": "left"
+                },
+                {
+                  "label": "Right",
+                  "value": "right"
+                }
+              ]
+            }
+          },
+          {
+            "label": "Mobile Image",
+            "id": "mobileImage",
+            "type": "imageManager",
+            "default": {
+              "src": "",
+              "type": "IMAGE_MANAGER"
+            }
+          },
+          {
+            "label": "Tablet Image",
+            "id": "tabletImage",
+            "type": "imageManager",
+            "default": {
+              "src": "",
+              "type": "IMAGE_MANAGER"
+            }
+          },
+          {
+            "label":"Redirect Link",
+            "type":"input",
+            "id":"redirectLink",
+            "default":"https://etownws.com/"
+          }
+        ]
+      }
+    ]
+  }
+]

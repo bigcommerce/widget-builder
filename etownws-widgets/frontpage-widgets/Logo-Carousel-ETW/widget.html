@@ -1,7 +1,4 @@
-
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
-    <style>
+ <style>
         * {
             margin: 0;
             padding: 0;
@@ -37,10 +34,16 @@
         }
         .logos img {
             height: {{logoSize.value}}px;
+            width: auto;
             transition: opacity 0.3s ease;
         }
         .logos img:hover {
             transform: scale(1.10);
+        }
+        @supports (-webkit-touch-callout: none) {
+            .logos .slick-slide {
+                width: 150px;
+            }
         }
     </style>
 
@@ -53,23 +56,20 @@
         {{/each}}
     </div>
 </div>
-
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+ 
 <script>
-    $(document).ready(function(){
-        $('#logos').slick({
+    document.addEventListener("DOMContentLoaded", (event) => {
+        const logosContainer = document.querySelector('#logos');
+        jQueryTheme(logosContainer).slick({
             infinite: true,
             speed: {{scrollSpeed}},
             slidesToShow: {{slidesToShow}},
             autoplay: true,
-            autoplaySpeed: 0, 
+            autoplaySpeed: 0,
             centerMode: true,
             variableWidth: true,
             cssEase: 'linear',
             arrows: false,
-            lazyLoad: 'ondemand'
         });
     });
 </script>

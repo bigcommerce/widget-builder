@@ -1,0 +1,22 @@
+{
+  "mediaType": "image",
+  "imageUrl": {
+    "src": "https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/original/image-manager/flavor1.jpg?t=1715192998",
+    "type": "IMAGE_MANAGER"
+  },
+  "imageHeight": {
+    "value": 200,
+    "type": "px"
+  },
+  "imageWidth": {
+    "value": 400,
+    "type": "px"
+  },
+  "borderRadius": {
+    "value": 10,
+    "type": "px"
+  },
+  "imageFit": "cover",
+  "alignment": "center",
+  "redirectLink": "https://etownws.com/"
+}

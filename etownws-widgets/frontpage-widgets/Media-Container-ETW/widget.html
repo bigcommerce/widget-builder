@@ -1,0 +1,51 @@
+<style>
+   .media-container{
+       display: flex;
+       align-items: center;
+   }
+   .media a {
+       display: inline-block;
+       transition: transform 0.3s ease;
+   }
+   .media a:hover {
+       transform: scale(1.00);
+   }
+   @media only screen and (max-width: 600px) {
+       [data-sub-layout] {
+           padding: 5px 0 5px 0;
+       }
+       .media-container {
+           justify-content: center;
+       }
+   }
+</style>
+
+<div class="media-container" style="justify-content: {{alignment}};">
+    <div class="media">
+        <a href="{{redirectLink}}">
+            {{#if mediaType '===' 'image'}}
+            <picture>
+                <source media="(max-width: 449px)" srcset="{{mobileImage.src}}">
+                <source media="(min-width: 450px) and (max-width: 1024px)" srcset="{{tabletImage.src}}">
+                <source media="(min-width: 1025px)" srcset="{{imageUrl.src}}">
+                <img src="{{imageUrl.src}}" alt="{{imageAlt}}" style="
+                    border-radius: {{borderRadius.value}}px;
+                    object-fit: {{imageFit}};
+                    transition: opacity 0.3s ease;
+                ">
+            </picture>
+            {{else}}
+            <video autoplay style="
+                width: {{imageWidth.value}}px;
+                height: {{imageHeight.value}}px;
+                border-radius: {{borderRadius.value}}px;
+                object-fit: {{imageFit}};
+                transition: opacity 0.3s ease;
+            ">
+                <source src="{{videoUrl}}" type="video/mp4">
+            </video>
+            {{/if}}
+        </a>
+    </div>
+</div>
+
