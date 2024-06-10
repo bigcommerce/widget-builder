@@ -1,0 +1,130 @@
+[
+  {
+    "type": "array",
+    "label": "Carousel Tabs",
+    "id": "tabs",
+    "defaultCount": 0,
+    "entryLabel": "Tab",
+    "schema": [
+      {
+        "type": "tab",
+        "label": "Design",
+        "sections": [
+          {
+            "settings": [
+              {
+                "type": "input",
+                "id": "tab_label",
+                "label": "Tab Name"
+              },
+              {
+                "type": "input",
+                "id": "page_url",
+                "label": "Page URL"
+              },
+              {
+                "type": "select",
+                "id": "sort_by",
+                "label": "Sort By",
+                "default": "",
+                "typeMeta": {
+                  "selectOptions": [
+                    {
+                      "label": "Best Selling",
+                      "value": "bestselling"
+                    },
+                    {
+                      "label": "New Products",
+                      "value": "newest"
+                    },
+                    {
+                      "label": "Default",
+                      "value": ""
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "color",
+                "id": "tab_button_color",
+                "label": "Button Color",
+                "default":"#363636"
+              },
+              {
+                "type": "color",
+                "id": "tab_button_hover",
+                "label": "Button Hover Color",
+                "default": "#263178"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "tab",
+    "label": "Design",
+    "sections": [
+      {
+        "settings": [
+          {
+            "type": "input",
+            "id": "page_count",
+            "label": "Number of pages"
+          },
+          {
+            "type": "input",
+            "id": "products_per_row",
+            "label": "Products per row"
+          },
+          {
+            "type": "input",
+            "id": "product_rows",
+            "label": "Product rows"
+          },
+          {
+            "type": "input",
+            "id": "product_scroll",
+            "label": "Products to scroll"
+          },
+          {
+            "type": "text",
+            "id": "carousel_title",
+            "label": "Title"
+          },
+          {
+            "type": "input",
+            "id": "title_font_size",
+            "label": "Title Font Size (px)"
+          },
+          {
+            "type": "text",
+            "id": "carousel_subheader",
+            "label": "Sub-header"
+          },
+          {
+            "type": "input",
+            "id": "subheader_font_size",
+            "label": "Sub-header Font Size (px)"
+          },
+          {
+            "type": "input",
+            "id": "button_width",
+            "label": "Tab Button Width(%)"
+          },
+          {
+            "type": "input",
+            "id": "button_height",
+            "label": "Tab Button Height(px)"
+          },
+          {
+            "type": "input",
+            "id": "button_border_radius",
+            "label": "Tab Button Border Radius(px)"
+          }
+        ]
+      }
+    ]
+  }
+]

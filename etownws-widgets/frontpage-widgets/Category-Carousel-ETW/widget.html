@@ -1,0 +1,272 @@
+<script>
+    if(!GetCarouselProducts)
+    var GetCarouselProducts = async function GetCarouselProducts(page_url, container) {
+        let parser = new DOMParser();
+        let doc;
+        let pageCount = parseInt({{page_count}});
+        let productRows = parseInt({{product_rows}});
+        let productCount =  parseInt({{products_per_row}});
+        let scrollCount =  parseInt({{product_scroll}});
+        let productsToGrab = pageCount * productRows * productCount;
+        const response = await fetch(page_url+`?limit=${productsToGrab}`);
+        return await response.text().then(response => {
+            doc = parser.parseFromString(response, "text/html");
+            let productCards = doc.querySelectorAll("li.product");
+            productCards.forEach((element,index) => {
+                if(index >= productsToGrab) return;
+                container.appendChild(element);
+            });
+        }).then(reponse => {
+            container.setAttribute("data-slick",`{
+                "slidesToShow":${productCount}, 
+                "slidesToScroll":${scrollCount}, 
+                "rows":${productRows},
+                "initialSlide":0,
+                "responsive":[
+                    {
+                        "breakpoint": 800,
+                        "settings": {
+                            "slidesToShow":${productCount/3}
+                        }
+                    }
+                ]
+            }`);
+        }).then(response => {
+            container.closest(".productCarousel").classList.remove("loading");
+        });
+
+    };
+    if(!setTabContent)
+    var setTabContent = async function setTabContent(tab_label, page_url, widgetId) {
+        let tabContainer = document.querySelector(`#product-carousel-${widgetId} .productCarouselTabs [data-tab-name="${tab_label}"]`);
+        let tabsContainer = document.querySelector(`#product-carousel-${widgetId} .productCarouselTabs`);
+        await GetCarouselProducts(page_url,tabContainer);
+        initializeVisibility(tabsContainer);
+        bindTabButtons(widgetId);
+    }
+    if(!initializeVisibility)
+    var initializeVisibility = function initializeVisibility(carouselTabsContainer) {
+        let tabs = 0;
+        carouselTabsContainer.childNodes.forEach((child,index) => {
+            if(child.tagName === undefined) return;
+            if(child.tagName === "SCRIPT") {
+                child.remove();
+                return;
+            }
+            if(child.tagName === "UL" && tabs == 0) {
+                if(child.classList.contains('hidden')) {
+                    child.classList.remove("hidden");
+                    slickFirstTab(carouselTabsContainer.parentNode.querySelector(".productCarouselTab"));
+                }
+                tabs++;
+            }
+        });
+    }
+    var slickFirstTab = function slickFirstTab(tab) {
+        if(tab.querySelectorAll("article").length < 1) {
+            setTimeout(slickFirstTab,100,tab)
+            return;
+        }
+        let slicked = false;
+        try {
+        jQueryTheme(tab).slick();
+        slicked = true;
+        } catch(e) {
+            setTimeout(slickFirstTab,100,tab);
+        }
+    }
+    if(!bindTabButtons)
+    var bindTabButtons = function bindTabButtons(widgetId) {
+        let tabButtons = document.querySelectorAll(`#product-carousel-${widgetId} .productCarouselNavbar .carouselTabButton`);
+        tabButtons.forEach(button => {
+            button.addEventListener("click",setActiveTab);
+        });
+    }
+    if(!setActiveTab)
+    var setActiveTab = function setActiveTab(event) {
+        let tabs = event.currentTarget.parentNode.parentNode.parentNode.querySelectorAll(`.productCarouselTab`);
+        tabs.forEach(tab => {
+            try {
+                if(tab.getAttribute("data-tab-name") === event.currentTarget.getAttribute("data-tab-name")) {
+                    tab.classList.remove("hidden");
+                    jQueryTheme(tab).slick();
+                    if(tab.getAttribute("data-initial-index") !== null) {
+                        jQueryTheme(tab).slick('slickGoTo',tab.getAttribute("data-initial-index"))
+                    }
+                } else {
+                    if(!tab.classList.contains("hidden")) {
+                        tab.setAttribute("data-initial-index",jQueryTheme(tab).slick('slickCurrentSlide'));
+                        jQueryTheme(tab).slick('unslick');
+                    }
+                    tab.classList.add("hidden");
+                }
+            } catch(e) {
+
+            }
+        });
+    }
+    document.addEventListener("DOMContentLoaded", (event) => {
+        document.querySelectorAll("#product-carousel-{{_.id}} ul.productCarouselTab").forEach(element => {
+            setTabContent(element.getAttribute("data-tab-name"),element.getAttribute("data-page-url"),"{{_.id}}");
+        });
+    });
+</script>
+    
+    <h1 class="productCarouselTitle" style="font-size:{{title_font_size}}px;">{{carousel_title}}</h1>
+    <h2 class="productCarouselSubheader" style="font-size:{{subheader_font_size}}px;">{{carousel_subheader}}</h2>
+    <div id="product-carousel-{{_.id}}" class="productCarousel--maxCol{{{products_per_row}}} productCarousel loading">
+        <div class="container">
+            <div class="productCarouselNavbar">
+                {{#each tabs}}
+                    <div class="carouselTabButton" data-tab-name="{{tab_label}}">{{tab_label}}</div>
+                {{/each}}
+            </div>
+        </div>
+        <div class="container">
+            <div class="productCarouselTabs">
+                {{#each tabs}}
+                <ul class="productCarouselTab hidden" data-tab-name="{{tab_label}}" data-page-url="{{page_url}}">
+
+                </ul>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+    </script>
+
+<style>
+
+        .productCarouselTab {
+            display:flex;
+            flex-direction: row;
+            list-style: none;
+            margin:0;
+            min-width:100%;
+
+            .product {
+                padding: 0 .75rem 0 .75rem;
+                
+
+                .card {
+                    align-content: normal;
+                    margin:0;
+                    height:100%;
+                    padding: .75rem;
+
+                    .card-buttons, .button {
+                        background: none;
+                        color: #1e2d7d;
+                        &:hover {
+                            color: #408b87;
+                        }
+                    }
+                }
+            }
+
+            .productCarouselItem {
+                display:flex;
+                flex-direction:column;
+                min-height:100%;
+
+                li {
+                    min-height:50%;
+                }
+            }
+        }
+
+        .productCarouselTab .slick-prev {
+            left: -30px !important;
+
+            &:before {
+                content:"";
+            }
+        }
+
+        .productCarouselTab .slick-next {
+            right: -30px !important;
+
+            &:before {
+                content:"";
+            }
+        }
+
+        .productCarouselTab .slick-list {
+            display:flex;
+        }
+
+        .productCarouselTab.hidden {
+            display:none !important;
+        }
+    
+    .productCarouselNavbar {
+        display:flex;
+        flex-direction:row;
+        justify-content: left;
+        margin: 0 0 25px 0;
+    }
+
+    .productCarouselTitle {
+        text-align:center;
+        font-weight: bold;
+        margin: 2rem auto 2rem;
+    }
+
+    .productCarousel {
+        .container {
+            border:none;
+        }
+    }
+
+    .productCarouselSubheader {
+        text-align:center;
+    }
+
+    #product-carousel-{{_.id}} {
+        .slick-slide > div {
+            height:calc(100%/{{product_rows}});
+
+            .product {
+                height:100%;
+            }
+        }
+
+        {{#each tabs}}
+            .carouselTabButton[data-tab-name="{{tab_label}}"] {
+                background-color:{{tab_button_color}};
+                &:hover {
+                    background-color:{{tab_button_hover}};
+                }
+            }
+        {{/each}}
+
+        .carouselTabButton {
+            text-align: center;
+            width:{{button_width}}%;
+            height:{{button_height}}px;
+            border-radius:{{button_border_radius}}px;
+            margin: 25px 25px;
+            color:white;
+            align-content:center;
+
+            &:hover {
+                cursor: pointer;
+                animation: carouselNavbarButtonAnimation;
+                animation-duration: .5s;
+                animation-fill-mode: forwards;
+            }
+        }
+    }
+
+    @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+    }
+
+    @keyframes carouselNavbarButtonAnimation {
+        0% {transform:translateY(0px)}
+        100% {transform:translateY(-5px)}
+    }
+</style>
