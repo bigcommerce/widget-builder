@@ -49,6 +49,12 @@
             }
           },
           {
+            "label": "Customize Image Size",
+            "type": "boolean",
+            "id": "customMediaSize",
+            "default": false
+          },
+          {
             "type": "number",
             "label": "Image height",
             "id": "imageHeight",
@@ -113,24 +119,6 @@
                   "value": "right"
                 }
               ]
-            }
-          },
-          {
-            "label": "Mobile Image",
-            "id": "mobileImage",
-            "type": "imageManager",
-            "default": {
-              "src": "",
-              "type": "IMAGE_MANAGER"
-            }
-          },
-          {
-            "label": "Tablet Image",
-            "id": "tabletImage",
-            "type": "imageManager",
-            "default": {
-              "src": "",
-              "type": "IMAGE_MANAGER"
             }
           },
           {

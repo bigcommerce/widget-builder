@@ -18,6 +18,31 @@
            justify-content: center;
        }
    }
+
+   #media-image-{{_.id}}{
+        border-radius: {{borderRadius.value}}px;
+        object-fit: {{imageFit}};
+        transition: opacity 0.3s ease;
+   }
+
+   #custom-media-size-{{_.id}}{
+        border-radius: {{borderRadius.value}}px;
+        object-fit: {{imageFit}};
+        transition: opacity 0.3s ease;
+   }
+
+   #media-video-{{_.id}}{
+        border-radius: {{borderRadius.value}}px;
+        object-fit: {{imageFit}};
+        transition: opacity 0.3s ease;
+   }
+
+   @media (min-width: 1025px){
+        #custom-media-size-{{_.id}}{
+            width: {{imageWidth.value}}px;
+            height: {{imageHeight.value}}px;
+        }
+   }
 </style>
 
 <div class="media-container" style="justify-content: {{alignment}};">
@@ -26,22 +51,12 @@
             {{#if mediaType '===' 'image'}}
             <picture>
                 <source media="(max-width: 449px)" srcset="{{mobileImage.src}}">
-                <source media="(min-width: 450px) and (max-width: 1024px)" srcset="{{tabletImage.src}}">
+                <source media="(min-width: 450px) and (max-width: 1025px)" srcset="{{tabletImage.src}}">
                 <source media="(min-width: 1025px)" srcset="{{imageUrl.src}}">
-                <img src="{{imageUrl.src}}" alt="{{imageAlt}}" style="
-                    border-radius: {{borderRadius.value}}px;
-                    object-fit: {{imageFit}};
-                    transition: opacity 0.3s ease;
-                ">
+                <img id="{{#if customMediaSize}}custom-media-size-{{_.id}}{{else}}media-image-{{_.id}}{{/if}}" src="{{imageUrl.src}}" alt="{{imageAlt}}">
             </picture>
             {{else}}
-            <video autoplay style="
-                width: {{imageWidth.value}}px;
-                height: {{imageHeight.value}}px;
-                border-radius: {{borderRadius.value}}px;
-                object-fit: {{imageFit}};
-                transition: opacity 0.3s ease;
-            ">
+            <video id="{{#if customMediaSize}}custom-media-size-{{_.id}}{{else}}media-video-{{_.id}}{{/if}}" autoplay loop>
                 <source src="{{videoUrl}}" type="video/mp4">
             </video>
             {{/if}}
