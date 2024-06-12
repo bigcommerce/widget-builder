@@ -2,10 +2,13 @@ import Axios, { AxiosResponse } from 'axios';
 
 import AUTH_CONFIG from '../auth/authConfig';
 import { WidgetConfiguration } from '../schema/schemaParser/schemaParser';
+import { Widget } from '../../types';
 
 export const widgetApi = {
     widgetPreviewRender: `${AUTH_CONFIG.apiPath}/content/widget-templates/preview`,
     widgetTemplatePublish: `${AUTH_CONFIG.apiPath}/content/widget-templates`,
+    widgetTemplateDelete: `${AUTH_CONFIG.apiPath}/content/widget-templates`,
+    widgetTemplateDownload: `${AUTH_CONFIG.apiPath}/content/widget-templates`,
 };
 
 interface WidgetPreviewRenderResponse {
@@ -59,6 +62,38 @@ export const publishWidget = (
         },
         data: widgetData,
         url: `${widgetApi.widgetTemplatePublish}${uuid ? `/${uuid}` : ''}`,
+    })
+        .then(({ data: { data } }) => resolve(data))
+        .catch((error) => reject(error));
+});
+
+export const deleteWidget = (uuid: string): Promise<boolean> => new Promise((resolve, reject) => {
+    Axios({
+        method: 'delete',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'X-Auth-Client': AUTH_CONFIG.authId,
+            'X-Auth-Token': AUTH_CONFIG.authToken,
+        },
+        url: `${widgetApi.widgetTemplateDelete}/${uuid}`,
+    })
+        .then(() => resolve(
+            true,
+        ))
+        .catch((error) => reject(error));
+});
+
+export const getAllWidgets = (): Promise<Widget[]> => new Promise((resolve, reject) => {
+    Axios({
+        method: 'get',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'X-Auth-Client': AUTH_CONFIG.authId,
+            'X-Auth-Token': AUTH_CONFIG.authToken,
+        },
+        url: widgetApi.widgetTemplatePublish,
     })
         .then(({ data: { data } }) => resolve(data))
         .catch((error) => reject(error));
