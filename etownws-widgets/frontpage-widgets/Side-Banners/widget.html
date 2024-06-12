@@ -8,11 +8,16 @@
     .side-banners a {
         display: inline-block;
         transition: transform 0.3s ease;
+
     }
 
     .side-banners a:hover {
         transform: scale(1.05);
     }
+
+    
+
+
 
     .side-banners img, .side-banners video {
         margin-top: 2%;
@@ -22,7 +27,7 @@
         object-fit: {{imageFit}};
     }
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 425px) {
         .side-banners img, .side-banners video {
             height: auto !important;
         }
@@ -30,6 +35,31 @@
             width: 100%;
         }
     }
+
+    @media (max-width: 768px) and (min-width: 426px){
+        .side-banners{
+            display: grid;
+            grid-template-columns: repeat( {{leftBanners.length}},1fr);
+            justify-content: space-between;
+            gap:2%;
+            padding: 0px 10px;
+            width: 100vw !important;
+
+        }
+
+        .side-banners img{
+            width: 100% !important;
+        }
+    [data-layout-name="Hero-Layout"]{
+        display: flex !important;
+        flex-direction: column !important;
+
+        [data-widget-id]{
+            width: calc(100vw - 20px) !important;
+        }
+    }
+}
+
     
 </style>
 
