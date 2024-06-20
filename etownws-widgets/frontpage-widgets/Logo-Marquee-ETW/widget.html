@@ -1,0 +1,89 @@
+
+<style>
+
+
+    [data-widget-id="{{_.id}}"] .marqueOffset,.marque{
+        --width: calc( {{logoSize.value}}px + {{spaceBetweenLogos}}px + {{spaceBetweenLogos}}px)
+
+    }
+
+    [data-widget-id="{{_.id}}"] .marquee{
+        animation: marqueeScroll {{scrollSpeed}}ms linear 0s infinite forwards;
+        display: flex;
+        flex-wrap: nowrap;
+        width: max-content;
+
+        {{#if reversed}}
+        animation-direction: reverse
+        {{/if}}
+
+
+    }
+
+    [data-widget-id="{{_.id}}"] .marquee:hover{
+        animation-play-state: paused;
+    }
+
+    [data-widget-id="{{_.id}}"] .internal img{
+        width: {{logoSize.value}}px;
+        height:auto;
+        object-fit:contain;
+        transition: all ease 0.2s;
+    }
+
+    [data-widget-id="{{_.id}}"] .internal img:hover{
+        transform: scale(1.1);
+    }
+
+    [data-widget-id="{{_.id}}"] .internal{
+        margin:  0px {{spaceBetweenLogos}}px;
+        object-fit:contain;
+        aspect-ratio: 1 / 1;
+    }
+
+    [data-widget-id="{{_.id}}"] .marqueOffset{
+        transform: translateX(calc(var(--width) * -1));
+    }
+
+    [data-widget-id="{{_.id}}"] .marqueeClip{
+        width: 100vw;
+        overflow: hidden;
+    }
+
+
+    @keyframes marqueeScroll {
+        to{
+            transform: translateX(var(--width));
+        }
+    }
+</style>
+
+<script>
+    window.addEventListener("load",() => {
+        const marquee = document.querySelector('[data-widget-id="{{_.id}}"] .marquee')
+        
+        if({{reversed}}) marquee.addEventListener("animationiteration", (event) => marquee.append(marquee.firstChild));
+        else marquee.addEventListener("animationiteration", (event) => marquee.prepend(marquee.lastChild));
+
+        window.addEventListener("resize", ()=> fillWidth(marquee))
+        fillWidth(marquee)
+        
+        function fillWidth(marquee){
+            const width = marquee.clientWidth - {{logoSize.value}} - {{spaceBetweenLogos}} - {{spaceBetweenLogos}}
+            console.log({width , window: window.innerWidth})
+
+            if( width > window.innerWidth) return
+
+            const clones = [...marquee.children].map((child)=>child.cloneNode(true))
+            marquee.append(...clones)
+            fillWidth(marquee)
+        }
+    })
+</script>
+
+    
+    <div class="marqueeClip">
+        <div class="marqueOffset">
+            <div class="marquee">{{#each logos}}<a href="{{redirectLink}}" class="internal"><img src="{{logoUrl.src}}"></a>{{/each}}</div>
+        </div>
+    </div>

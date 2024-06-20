@@ -1,0 +1,39 @@
+{
+  "logos": [
+    {
+      "logoUrl": {
+        "src": "https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/original/image-manager/etown-logo.png?t=1715199953",
+        "type": "IMAGE_MANAGER"
+      },
+      "redirectLink": "https://etownws.com/"
+    },
+    {
+      "logoUrl": {
+        "src": "https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/original/image-manager/etown-logo.png?t=1715199953",
+        "type": "IMAGE_MANAGER"
+      },
+      "redirectLink": "https://etownws.com/"
+    },
+    {
+      "logoUrl": {
+        "src": "https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/original/image-manager/etown-logo.png?t=1715199953",
+        "type": "IMAGE_MANAGER"
+      },
+      "redirectLink": "https://etownws.com/"
+    },
+    {
+      "logoUrl": {
+        "src": "https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/original/image-manager/etown-logo.png?t=1715199953",
+        "type": "IMAGE_MANAGER"
+      },
+      "redirectLink": "https://etownws.com/"
+    }
+  ],
+  "scrollSpeed": 6000,
+  "logoSize": {
+    "value": 75,
+    "type": "px"
+  },
+  "spaceBetweenLogos": 15,
+  "slidesToShow": 4
+}
