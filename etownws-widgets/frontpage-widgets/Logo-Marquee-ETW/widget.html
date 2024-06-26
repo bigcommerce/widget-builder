@@ -8,7 +8,9 @@
     }
 
     [data-widget-id="{{_.id}}"] .marquee{
-        animation: marqueeScroll {{scrollSpeed}}ms linear 0s infinite forwards;
+        animation: {{scrollSpeed}}ms linear 0s ;
+        animation-name: marqueeScroll;
+        animation-play-state: running;
         display: flex;
         flex-wrap: nowrap;
         width: max-content;
@@ -58,27 +60,25 @@
     }
 </style>
 
-<script>
-    window.addEventListener("load",() => {
+<script defer="defer">
         const marquee = document.querySelector('[data-widget-id="{{_.id}}"] .marquee')
-        
-        if({{reversed}}) marquee.addEventListener("animationiteration", (event) => marquee.append(marquee.firstChild));
-        else marquee.addEventListener("animationiteration", (event) => marquee.prepend(marquee.lastChild));
+            marquee.addEventListener("animationend", (event) => {
+            if({{reversed}}) marquee.append(marquee.firstChild)
+            else marquee.prepend(marquee.firstChild)
+            marquee.parentNode.replaceChild(marquee,marquee)  
+        });
+       
 
         window.addEventListener("resize", ()=> fillWidth(marquee))
         fillWidth(marquee)
         
         function fillWidth(marquee){
             const width = marquee.clientWidth - {{logoSize.value}} - {{spaceBetweenLogos}} - {{spaceBetweenLogos}}
-            console.log({width , window: window.innerWidth})
-
             if( width > window.innerWidth) return
-
             const clones = [...marquee.children].map((child)=>child.cloneNode(true))
             marquee.append(...clones)
             fillWidth(marquee)
         }
-    })
 </script>
 
     

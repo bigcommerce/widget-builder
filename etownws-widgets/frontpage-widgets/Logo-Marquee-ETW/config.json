@@ -30,10 +30,10 @@
     }
   ],
   "scrollSpeed": 6000,
+  "reversed": true,
   "logoSize": {
     "value": 75,
     "type": "px"
   },
-  "spaceBetweenLogos": 15,
-  "slidesToShow": 4
+  "spaceBetweenLogos": 15
 }
