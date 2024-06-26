@@ -61,6 +61,7 @@
 </style>
 
 <script defer="defer">
+    window.addEventListener("load", ()=>{
         const marquee = document.querySelector('[data-widget-id="{{_.id}}"] .marquee')
             marquee.addEventListener("animationend", (event) => {
             if({{reversed}}) marquee.append(marquee.firstChild)
@@ -79,6 +80,7 @@
             marquee.append(...clones)
             fillWidth(marquee)
         }
+    })
 </script>
 
     
