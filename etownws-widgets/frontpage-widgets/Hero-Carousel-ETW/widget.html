@@ -163,7 +163,7 @@
     function attachClickListener(image) {
       image.addEventListener('click', function() {
         const redirectLink = this.getAttribute('data-redirect');
-        window.open(redirectLink, '_blank');
+        window.open(redirectLink, '_self');
       });
     }
 
