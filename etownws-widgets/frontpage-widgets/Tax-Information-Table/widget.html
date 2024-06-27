@@ -1,0 +1,91 @@
+
+<style>
+
+    .taxTable{
+        overflow: hidden;
+        width: 100%;
+        max-width: {{maxWidth.value}}rem;
+        padding: 0;
+        margin: auto;
+    }
+
+    .taxTable table{
+        width: 100%;
+        border-spacing: 0;
+        border-collapse: collapse;
+        box-sizing: border-box;
+        color:{{textColor}};
+        background-color: {{mainBackgroundColor}};
+    }
+
+
+
+
+    .taxTable td, .taxTable th{
+        border: solid grey 1px !important;
+        border-color: {{borderColor}} !important;
+
+        padding: 0.5em;
+        text-align: center;
+    }
+
+    .taxTable th{
+        {{#if headerTextColor}}
+        color: {{headerTextColor}};
+        {{/if}}
+        {{#if headerBackgroundColor}}
+        background-color: {{headerBackgroundColor}};
+        {{/if}}
+    }
+
+    .taxTable tr:nth-of-type(even){
+        {{#if secondaryBackgroundColor}}
+        background-color: {{secondaryBackgroundColor}};
+        {{/if}}
+    }
+
+
+    @media (max-width:500px){
+        .taxTable td, .taxTable th{
+            padding: 0.1em;
+        }
+
+        .taxTable table{
+            font-size: 0.75em;
+        }
+    }
+</style>
+    
+
+<div class="taxTable">
+    <table>
+        <thead>
+            <tr>
+                <th>State</th>
+                <th>Code</th>
+                <th>e-Liquid</th>
+                <th>Disposables</th>
+                <th>Vape Hardware</th>
+                <th>Pod Cartridges</th>
+            </tr>
+            </thead>
+            <tbody>
+                {{#each taxTable}}
+                    <tr data-taxed="{{{this.noTax}}}">
+                        <td>{{this.stateName}}</td>
+                        <td>{{this.stateCode}}</td>
+                        {{#if noTax}}
+                            <td class="noTaxItem" colspan="100" align="center">No Tax</td>
+                        {{else}}
+                            <td class="taxNumber">{{this.eLiquid}}</td>
+                            <td class="taxNumber">{{this.disposables}}</td>
+                            <td class="taxNumber">{{this.vapeHardware}}</td>
+                            <td class="taxNumber">{{this.podCartridges}}</td>
+                        {{/if}}
+
+                    </tr>
+                {{/each}}
+            </tbody>
+    </table>
+</div>
+

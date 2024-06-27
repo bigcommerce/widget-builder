@@ -1,0 +1,12 @@
+{
+  "taxTable": [
+    {}
+  ],
+  "mainBackgroundColor": "white",
+  "borderColor": "black",
+  "textColor": "black",
+  "maxWidth": {
+    "value": "80",
+    "type": "rem"
+  }
+}

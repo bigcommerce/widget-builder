@@ -1,0 +1,129 @@
+[
+  {
+    "type": "array",
+    "label":"Tax Table",
+    "id":"taxTable",
+    "defaultCount":1,
+    "entryLabel": "State",
+    "schema":[
+      {
+        "type":"tab",
+        "label": "Information",
+        "sections":[
+          {
+            "settings":[
+              {
+                "type":"input",
+                "id": "stateName",
+                "label": "State Name",
+                "default": ""
+              },
+
+              {
+                "type":"input",
+                "id": "stateCode",
+                "label": "State Code",
+                "default":""
+
+              },
+
+              {
+                "type":"input",
+                "id": "eLiquid",
+                "label": "e-Liquid",
+                "default": ""
+
+              },
+
+              {
+                "type":"input",
+                "id": "disposables",
+                "label": "Disposables",
+                "default": ""
+              },
+
+              {
+                "type":"input",
+                "id": "vapeHardware",
+                "label": "Vape Hardware",
+                "default": ""
+              },
+
+              {
+                "type":"input",
+                "id": "podCartridges",
+                "label": "Pod Cartridges",
+                "default":""
+              },
+              {
+                "type":"boolean",
+                "id": "noTax",
+                "label": "No Tax",
+                "default":false
+              }
+              
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type":"tab",
+    "label":"Table Settings",
+    "sections":[
+      {
+        "settings":[
+          {
+            "label":"Main Background",
+            "type": "color",
+            "id":"mainBackgroundColor",
+            "default": "white"
+          },
+          {
+            "label":"Odd Rows highlight",
+            "type": "color",
+            "id":"secondaryBackgroundColor",
+            "default": ""
+          },
+          {
+            "label":"Header Color",
+            "type": "color",
+            "id":"headerBackgroundColor",
+            "default": ""
+          },
+
+          {
+            "label":"Border Color",
+            "type": "color",
+            "id":"borderColor",
+            "default": "black"
+          },
+
+          {
+            "label":"Text Color",
+            "type": "color",
+            "id":"textColor",
+            "default": "black"
+          },
+          {
+            "label":"Header Text Color",
+            "type": "color",
+            "id":"headerTextColor",
+            "default": ""
+          },
+          {
+            "label":"Max Table Width",
+            "type": "number",
+            "id":"maxWidth",
+            "default":{
+              "value":"80",
+              "type":"rem"
+            }
+          }
+        ]
+      }
+    ]
+  }
+  
+]
