@@ -3,6 +3,13 @@
        display: flex;
        align-items: center;
    }
+   .media {
+        width: 100%;
+
+        * {
+            width: 100%;
+        }
+    }
    .media a {
        display: inline-block;
        transition: transform 0.3s ease;
@@ -51,7 +58,7 @@
             {{#if mediaType '===' 'image'}}
             <picture>
                 <source media="(max-width: 449px)" srcset="{{mobileImage.src}}">
-                <source media="(min-width: 450px) and (max-width: 1025px)" srcset="{{tabletImage.src}}">
+                <source media="(min-width: 700px) and (max-width: 1025px)" srcset="{{tabletImage.src}}">
                 <source media="(min-width: 1025px)" srcset="{{imageUrl.src}}">
                 <img id="{{#if customMediaSize}}custom-media-size-{{_.id}}{{else}}media-image-{{_.id}}{{/if}}" src="{{imageUrl.src}}" alt="{{imageAlt}}">
             </picture>
