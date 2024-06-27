@@ -1,0 +1,92 @@
+[
+  {
+    "type": "array",
+    "label": "Logo Carousel",
+    "id": "logos",
+    "defaultCount": 4,
+    "entryLabel": "Logo",
+    "thumbnail": {
+      "type": "image",
+      "valueKey": "logoUrl.src"
+    },
+    "schema": [
+      {
+        "type": "tab",
+        "label": "Content",
+        "sections": [
+          {
+            "settings": [
+              {
+                "type": "imageManager",
+                "id": "logoUrl",
+                "default": {
+                  "src": "https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/original/image-manager/etown-logo.png?t=1715199953",
+                  "type": "IMAGE_MANAGER"
+                }
+              },
+              {
+                "label": "Logo Redirect Link",
+                "type": "input",
+                "id": "redirectLink",
+                "default": "https://etownws.com/"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "tab",
+    "label": "Carousel Settings",
+    "sections": [
+      {
+        "settings": [
+          {
+            "label": "Loop Duration",
+            "id": "scrollSpeed",
+            "type": "range",
+            "default": 6000,
+            "typeMeta": {
+              "rangeValues": {
+                "min": 500,
+                "max": 20000,
+                "step": 500,
+                "unit": "ms"
+              }
+            }
+          },
+          {
+            "label": "Reverse Direction",
+            "id": "reversed",
+            "type": "boolean",
+            "default":true
+          },
+          {
+            "label": "Logo Sizes",
+            "id": "logoSize",
+            "type": "number",
+            "default": {
+              "value": 75,
+              "type": "px"
+            }
+          },
+          {
+            "label": "Space Between Logos",
+            "id": "spaceBetweenLogos",
+            "type": "range",
+            "default": 15,
+            "typeMeta": {
+              "rangeValues": {
+                "min": 0,
+                "max": 60,
+                "step": 1,
+                "type": "px"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+]
