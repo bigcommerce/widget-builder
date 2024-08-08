@@ -67,10 +67,10 @@
         <a href="{{redirectLink}}">
             {{#if mediaType '===' 'image'}}
             <picture>
-                <img class="{{#if customMediaSize}}custom-sized{{/if}}media-image" id="id-{{_.id}}" src="{{imageUrl.src}}" alt="{{imageAlt}}">
+                <img class="{{#if customMediaSize}}custom-sized{{/if}} media-image" id="id-{{_.id}}" src="{{imageUrl.src}}" alt="{{imageAlt}}">
             </picture>
             {{else}}
-            <video  class="{{#if customMediaSize}}custom-sized{{/if}}media-video" id="id-{{_.id}}" autoplay loop>
+            <video  class="{{#if customMediaSize}}custom-sized{{/if}} media-video" id="id-{{_.id}}" autoplay loop>
                 <source src="{{videoUrl}}" type="video/mp4">
             </video>
             {{/if}}
