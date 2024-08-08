@@ -26,26 +26,36 @@
        }
    }
 
-   #media-image-{{_.id}}{
+   .media-image#id-{{_.id}}{
         border-radius: {{borderRadius.value}}px;
         object-fit: {{imageFit}};
         transition: opacity 0.3s ease;
    }
 
-   #custom-media-size-{{_.id}}{
+   .custom-sized#id-{{_.id}}{
         border-radius: {{borderRadius.value}}px;
         object-fit: {{imageFit}};
         transition: opacity 0.3s ease;
    }
 
-   #media-video-{{_.id}}{
+   .media-video#id-{{_.id}}{
         border-radius: {{borderRadius.value}}px;
         object-fit: {{imageFit}};
         transition: opacity 0.3s ease;
    }
+
+   @media (min-width: 701px ) {
+       {{#if enforceHeight}}
+        .media-container .media #id-{{_.id}}{
+            height: {{enforcedHeight.value}}vw !important;
+        }
+        {{/if}}
+    }
+
+
 
    @media (min-width: 1025px){
-        #custom-media-size-{{_.id}}{
+        .custom-sized#{{_.id}}{
             width: {{imageWidth.value}}px;
             height: {{imageHeight.value}}px;
         }
@@ -57,10 +67,10 @@
         <a href="{{redirectLink}}">
             {{#if mediaType '===' 'image'}}
             <picture>
-                <img id="{{#if customMediaSize}}custom-media-size-{{_.id}}{{else}}media-image-{{_.id}}{{/if}}" src="{{imageUrl.src}}" alt="{{imageAlt}}">
+                <img class="{{#if customMediaSize}}custom-sized{{/if}}media-image" id="id-{{_.id}}" src="{{imageUrl.src}}" alt="{{imageAlt}}">
             </picture>
             {{else}}
-            <video id="{{#if customMediaSize}}custom-media-size-{{_.id}}{{else}}media-video-{{_.id}}{{/if}}" autoplay loop>
+            <video  class="{{#if customMediaSize}}custom-sized{{/if}}media-video" id="id-{{_.id}}" autoplay loop>
                 <source src="{{videoUrl}}" type="video/mp4">
             </video>
             {{/if}}

@@ -73,6 +73,21 @@
             }
           },
           {
+            "label": "Enforce Height",
+            "type": "boolean",
+            "id": "enforceHeight",
+            "default": false
+          },
+          {
+            "type": "number",
+            "label": "Enforced Height",
+            "id": "enforcedHeight",
+            "default": {
+              "value": 10,
+              "type": "vw"
+            }
+          },
+          {
             "label":"Edge Roundness",
             "type":"number",
             "id":"borderRadius",
