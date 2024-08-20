@@ -1,0 +1,51 @@
+<style>
+    .mobileNav-subMenu {
+        .navPages-container-header {
+            a {
+                line-height: 0;
+
+                svg {
+                    height:50px;
+                    width: 50px;
+                }
+            }
+        }
+    }
+
+    .mobileNavContent {
+        .navPages-action {
+            img {
+                width: {{image_width}}px;
+                height: {{image_height}}px;
+            }
+        }
+    }
+</style>
+
+<div class="navPages-container mobileNav-subMenu" id="{{menu_id}}" data-menu>
+    <div class="navPages-container-header">
+        <img class="header-logo-image" src="https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/80x80/image-manager/etw-logo-white-no-bg.png">
+        <a href="#" class="mobileMenu-toggle" data-mobile-menu-toggle="{{menu_id}}" title="{{lang 'common.close'}}">
+            <svg>
+                <use xlink:href="#icon-chevron-left"></use>
+            </svg>
+        </a>
+    </div>
+    <div class="container" id="bf-fix-menu-mobile">
+        <nav class="mobileNavContent navPages">
+            <ul class="navPages-list">
+                {{#each tabs}}
+                <li class="navPages-item navPages-item--standard">
+                    <a class="navPages-action" href="{{page_url}}">
+                        <span>{{tab_label}}</span>
+                        <img {{#unless image.src}} style="visibility: hidden;"{{/unless}} src="{{image.src}}">
+                        <svg>
+                            <use xlink:href="#icon-chevron-right"></use>
+                        </svg>
+                    </a>
+                </li>
+                {{/each}}
+            </ul>
+        </nav>
+    </div>
+</div>

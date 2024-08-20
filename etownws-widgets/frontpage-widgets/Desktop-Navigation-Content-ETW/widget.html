@@ -1,0 +1,192 @@
+<script>
+    if(!navBarButtonListener)
+    var navBarButtonListener = (e) => {
+        document.querySelectorAll(".navSectionContent-container.open").forEach((element) => {
+            element.classList.remove("open");
+            element.classList.add("closed");
+        });
+        let tabToOpen = document.querySelector(`.navSectionContent-container[data-nav-section-name='${e.srcElement.dataset.navButtonSection}']`);
+        tabToOpen.classList.remove("closed");
+        tabToOpen.classList.add("open");
+    }
+    document.addEventListener("DOMContentLoaded", (event) => {
+        if(jsContext.settings.request.referer.includes("/manage/page-builder")) {
+            let styleEle = document.createElement("style");
+            styleEle.innerHTML = ".navSectionContent-container {position: relative !important; display: flex !important;}";
+            document.body.append(styleEle);
+        }
+    });
+    document.querySelector(".navBarButton[data-nav-button-section='{{nav_section_name}}']").addEventListener("click", navBarButtonListener);
+</script>
+<style>
+
+    @keyframes navSectionContent-fadeIn {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+    @keyframes navSectionContent-fadeOut {
+        0% {
+            opacity: 1;
+            display: flex;
+        }
+
+        100% {
+            opacity: 0;
+            display: none;
+        }
+    }
+
+    [data-content-region="nav_bar--global"] {
+            [data-sub-layout-container] {
+                z-index: auto !important;
+
+                [data-sub-layout] {
+                    z-index: auto !important;
+                }
+            }
+        }
+
+    .navSectionContent-{{_.id}} {
+
+        &.navSectionContent-container {
+            min-height: 100px;
+            max-width: 100%;
+            width: 100vw;
+            position: absolute;
+            z-index: 10;
+            color: black;
+            justify-content: center;
+            -webkit-backdrop-filter: blur(6px);
+            {{#if nav_section_blur}}
+            backdrop-filter: blur({{nav_section_blur}}px);
+            {{else}}
+            background-color: {{nav_section_background_color}};
+            {{/if}}
+            box-shadow: 0px 8px 20px -20px black;
+
+            &.open {
+                display: flex;
+                animation: .5s navSectionContent-fadeIn;
+            }
+
+            &.closed {
+                display: none;
+                animation: .5s navSectionContent-fadeOut;
+            }
+
+            a {
+                text-decoration: none;
+            }
+
+            .navSectionContentWrapper {
+                width: 80%;
+                justify-content: space-around;
+                display:inherit;
+                flex-wrap: wrap;
+                padding: {{nav_section_padding.top.value}}{{nav_section_padding.top.type}} {{nav_section_padding.right.value}}{{nav_section_padding.right.type}} {{nav_section_padding.bottom.value}}{{nav_section_padding.bottom.type}} {{nav_section_padding.left.value}}{{nav_section_padding.left.type}};
+            }
+        }
+
+        .navSectionContent-categories {
+            order:1;
+            margin: {{nav_section_categories_margins.top.value}}{{nav_section_categories_margins.top.type}} {{nav_section_categories_margins.right.value}}{{nav_section_categories_margins.right.type}} {{nav_section_categories_margins.bottom.value}}{{nav_section_categories_margins.bottom.type}} {{nav_section_categories_margins.left.value}}{{nav_section_categories_margins.left.type}};
+        
+            div, div>a {
+                {{#if nav_section_category_font_color}}color: {{nav_section_category_font_color}};{{/if}}
+                font-size: {{nav_section_category_font_size}}px;
+                font-weight: {{nav_section_category_font_weight}};
+            }
+
+            h2, h2>a {
+                {{#if nav_section_category_header_font_color}}color: {{nav_section_category_header_font_color}};{{/if}}
+                font-size: {{nav_section_category_header_font_size}}px;
+                font-weight: {{nav_section_category_header_font_weight}};
+            }
+
+            h2 {
+                min-height: calc(1em * 1.25);
+            }
+        
+        }
+
+        .navSectionContent-categoriesBreak {
+            order:2;
+            flex-basis:100%;
+        }
+
+        .navSectionContent-brandImage {
+            order:3;
+
+            width: {{nav_section_brand_img_width}}px;
+            height: {{nav_section_brand_img_height}}px;
+            margin: {{nav_section_brand_img_margins.top.value}}{{nav_section_brand_img_margins.top.type}} {{nav_section_brand_img_margins.right.value}}{{nav_section_brand_img_margins.right.type}} {{nav_section_brand_img_margins.bottom.value}}{{nav_section_brand_img_margins.bottom.type}} {{nav_section_brand_img_margins.left.value}}{{nav_section_brand_img_margins.left.type}};
+            overflow:hidden;
+            align-content:center;
+
+        }
+
+        .navSectionContent-brandImageBreak {
+            order:4;
+            flex-basis:100%;
+        }
+
+        .navSectionContent-featuredProduct {
+            order:5;
+
+            width: {{nav_section_featured_img_width}}px;
+            height: {{nav_section_featured_img_height}}px;
+            margin: {{nav_section_featured_img_margins.top.value}}{{nav_section_featured_img_margins.top.type}} {{nav_section_featured_img_margins.right.value}}{{nav_section_featured_img_margins.right.type}} {{nav_section_featured_img_margins.bottom.value}}{{nav_section_featured_img_margins.bottom.type}} {{nav_section_featured_img_margins.left.value}}{{nav_section_featured_img_margins.left.type}};
+            overflow: hidden;
+            align-content:center;
+
+        }
+    }
+
+    [data-widget-id="{{_.id}}"] {
+        position:absolute;
+        left:0;
+        width: 100%;
+    }
+
+</style>
+    
+<div class="navSectionContent-container navSectionContent-{{_.id}} closed" data-nav-section-name="{{nav_section_name}}">
+    <div class="navSectionContentWrapper">
+        <div class="navSectionContent-categoriesBreak"></div>
+        <div class="navSectionContent-brandImageBreak"></div>
+        {{#each nav_content_columns}}
+            {{#any brand_label_1 brand_label_2 brand_label_3 brand_label_4 brand_label_5 category_label}}
+            <div class="navSectionContent-categories">
+                <h2>
+                    {{#if category_page_url}}
+                        <a href="{{category_page_url}}">{{category_label}}</a>
+                    {{else}}
+                        <span>{{category_label}}</span>
+                    {{/if}}
+                </h2>
+                {{#if brand_label_1}}<div><a {{#if brand_page_url_1}}href="{{brand_page_url_1}}"{{/if}}>{{brand_label_1}}</a></div>{{/if}}
+                {{#if brand_label_2}}<div><a {{#if brand_page_url_2}}href="{{brand_page_url_2}}"{{/if}}>{{brand_label_2}}</a></div>{{/if}}
+                {{#if brand_label_3}}<div><a {{#if brand_page_url_3}}href="{{brand_page_url_3}}"{{/if}}>{{brand_label_3}}</a></div>{{/if}}
+                {{#if brand_label_4}}<div><a {{#if brand_page_url_4}}href="{{brand_page_url_4}}"{{/if}}>{{brand_label_4}}</a></div>{{/if}}
+                {{#if brand_label_5}}<div><a {{#if brand_page_url_5}}href="{{brand_page_url_5}}"{{/if}}>{{brand_label_5}}</a></div>{{/if}}
+            </div>
+            {{/any}}
+            {{#if brand_image.src}}
+                <div class="navSectionContent-brandImage">
+                    <a {{#if brand_image_url}}href="{{brand_image_url}}"{{/if}}><img src="{{brand_image.src}}"></a>
+                </div>
+            {{/if}}
+            {{#if featured_product_image.src}}
+                <div class="navSectionContent-featuredProduct">
+                    <a {{#if featured_product_image_url}}href="{{featured_product_image_url}}"{{/if}}><img src="{{featured_product_image.src}}"></a>
+                </div>
+            {{/if}}
+        {{/each}}
+    </div>
+</div>
+

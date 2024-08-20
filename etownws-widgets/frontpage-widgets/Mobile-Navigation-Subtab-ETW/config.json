@@ -1,0 +1,51 @@
+{
+  "text": "Simple Text with Styling",
+  "_.id": "1",
+  "color": "white",
+  "background_color": "#3C1F8C",
+  "font_size": {
+    "value": 24,
+    "type": "px"
+  },
+  "font_weight": "bold",
+  "text_align": {
+    "horizontal": "center"
+  },
+  "margin": {
+    "top": {
+      "value": "0",
+      "type": "px"
+    },
+    "right": {
+      "value": "0",
+      "type": "px"
+    },
+    "bottom": {
+      "value": "0",
+      "type": "px"
+    },
+    "left": {
+      "value": "0",
+      "type": "px"
+    }
+  },
+  "padding": {
+    "top": {
+      "value": "8",
+      "type": "px"
+    },
+    "right": {
+      "value": "24",
+      "type": "px"
+    },
+    "bottom": {
+      "value": "8",
+      "type": "px"
+    },
+    "left": {
+      "value": "24",
+      "type": "px"
+    }
+  },
+  "content": "I am a sample text"
+}

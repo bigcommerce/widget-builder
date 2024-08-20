@@ -1,0 +1,166 @@
+<style>
+    header.is-open {
+
+        .navPages {
+            display: flex;
+            justify-content: center;
+
+            .navPages-list {
+                width: 100%;
+            }
+        }
+    }
+
+    header._searchBar {
+        [data-mobile-menu-toggle="mobileMenu"] {
+            display: inherit !important;
+        }
+    }
+
+    .mobileNavContent {
+
+        .navPages-list {
+            background-color: white;
+            width: 100%;
+        }
+
+        @media screen and (min-width: 801px) {
+            display: none;
+        }
+
+        .navPages-item, .navPages-action {
+            padding: 0;
+        }
+
+        a {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            color: black;
+
+            span {
+                margin: auto 0 auto 1rem;
+                width: 50%;
+                text-align: left;
+            }
+
+            img {
+                height: {{image_height}}px;
+                width: {{image_with}}px;
+                filter: grayscale(100%);
+                -webkit-filter: grayscale(100%);
+                margin: {{image_margins.top.value}}{{image_margins.top.type}} {{image_margins.right.value}}{{image_margins.right.type}} {{image_margins.bottom.value}}{{image_margins.bottom.type}} {{image_margins.left.value}}{{image_margins.left.type}};
+                opacity: calc({{image_opacity}}/100);
+            }
+
+            &:not([data-mobile-menu-toggle]) {
+                svg {
+                    opacity: 0;
+                }
+            }
+
+        }
+
+        .navPages-item {
+            a {
+                border-bottom: 1px solid gray;
+                border-top: 1px solid gray;
+            }
+
+            &~.navPages-item {
+                a {
+                    border-top: none;
+                }
+            }
+        }
+
+        .mobileMenu-toggle {
+            margin-right: 0;
+        }
+
+        svg {
+            height:30px;
+            width:30px;
+            margin: auto 0;
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        .navPages-container#menu > .container > .navPages {
+            
+        }
+    }
+
+    .navPages-container > .container {
+        padding: 0;
+        
+        .navPages-list {
+            padding: 0;
+        }
+    }
+
+    .navPages-container {
+
+        
+        > .navPages-container-header {
+            padding: 0 5px;
+            justify-content: space-between;
+        }
+    }
+
+    .navPages-container-header {
+        .header-logo-image {
+            filter: invert(1);
+            position: relative;
+            margin: unset;
+            min-height: 50px;
+        }
+
+        .mobileMenu-toggle:only-child {
+            margin-left: auto;
+        }
+    }
+
+    [data-mobile-menu-toggle="menu"] {
+        display: none;
+    }
+    [data-mobile-menu-toggle="mobileMenu"] {
+        @media screen and (max-width: 800px) {
+            display: block !important;
+        }
+    }
+</style>
+
+<div class="navPages-container" id="mobileMenu" data-menu>
+    <div class="navPages-container-header">
+        <img class="header-logo-image" src="https://cdn11.bigcommerce.com/s-gfzkqqzlfq/images/stencil/80x80/image-manager/etw-logo-white-no-bg.png">
+        <a href="#" class="mobileMenu-toggle" data-mobile-menu-toggle="mobileMenu" title="{{lang 'common.close'}}"><span class="mobileMenu-toggleIcon"><span class="_icon"></span></span></a>
+    </div>
+    <div class="container" id="bf-fix-menu-mobile">
+        <nav class="mobileNavContent navPages">
+            <ul class="navPages-list">
+                {{#each tabs}}
+                <li class="navPages-item navPages-item--standard">
+                    {{#if submenu_id}}
+                    <a href="#" class="navPages-action mobileMenu-toggle" data-mobile-menu-toggle="{{submenu_id}}" aria-controls="{{submenu_id}}" aria-expanded="false">
+                        <span>{{tab_label}}</span>
+                        <img {{#unless image.src}} style="visibility: hidden;"{{/unless}} src="{{image.src}}">
+                        <svg>
+                            <use xlink:href="#icon-chevron-right"></use>
+                        </svg>
+                    </a>
+                    {{else}}
+                    <a href="{{page_url}}" class="navPages-action">
+                        <span>{{tab_label}}</span>
+                        <img {{#unless image.src}} style="visibility: hidden;"{{/unless}} src="{{image.src}}">
+                        <svg>
+                            <use xlink:href="#icon-chevron-right"></use>
+                        </svg>
+                    </a>
+                    {{/if}}
+                </li>
+                {{/each}}
+            </ul>
+        </nav>
+    </div>
+</div>

@@ -1,0 +1,106 @@
+[
+  {
+    "type": "array",
+    "label": "Navigation Tabs",
+    "id": "tabs",
+    "defaultCount": 0,
+    "entryLabel": "Tab",
+    "schema": [
+      {
+        "type": "tab",
+        "label": "Design",
+        "sections": [
+          {
+            "settings": [
+              {
+                "type": "input",
+                "id": "tab_label",
+                "label": "Tab Name"
+              },
+              {
+                "type": "input",
+                "id": "page_url",
+                "label": "Page URL"
+              },
+              {
+                "type": "imageManager",
+                "id": "image",
+                "label": "Image",
+                "default": {
+                  "src": "",
+                  "type": "IMAGE_MANAGER"
+                }
+              },
+              {
+                "type": "color",
+                "id": "tab_button_hover",
+                "label": "Tab Hover Color"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "tab",
+    "label": "Design",
+    "sections": [
+      {
+        "settings": [
+              {
+                "type": "input",
+                "id": "menu_id",
+                "label": "Menu ID"
+              },
+          {
+            "type": "input",
+            "id": "image_height",
+            "label": "Image Height"
+          },
+          {
+            "type": "input",
+            "id": "image_width",
+            "label": "Image Width"
+          },
+          {
+            "type": "boxModel",
+            "label": "Image Margins (px)",
+            "id": "image_margins",
+            "default": {
+                "top": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "right": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "bottom": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "left": {
+                    "value": "0",
+                    "type": "px"
+                }
+            }
+          },
+          {
+            "type": "range",
+            "label": "Image Opacity",
+            "id": "image_opacity",
+            "typeMeta" : {
+              "rangeValues": {
+                "min": 0,
+                "max": 100,
+                "step": 1,
+                "unit": "%"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

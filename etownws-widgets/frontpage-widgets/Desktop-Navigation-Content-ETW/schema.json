@@ -1,0 +1,348 @@
+[
+  {
+    "type": "array",
+    "label": "Navigation Sections",
+    "id": "nav_content_columns",
+    "defaultCount": 0,
+    "entryLabel": "Nav Section",
+    "schema": [
+      {
+        "type": "tab",
+        "label": "Design",
+        "sections": [
+          {
+            "label":"Categories",
+            "settings": [
+              {
+                "type": "input",
+                "id": "category_label",
+                "label": "Category Label"
+              },
+              {
+                "type": "input",
+                "id": "category_page_url",
+                "label": "Category Page URL"
+              },
+              {
+                "type": "input",
+                "id": "brand_label_1",
+                "label": "Brand Label 1"
+              },
+              {
+                "type": "input",
+                "id": "brand_page_url_1",
+                "label": "Brand Page URL 1"
+              },
+              {
+                "type": "input",
+                "id": "brand_label_2",
+                "label": "Brand Label 2"
+              },
+              {
+                "type": "input",
+                "id": "brand_page_url_2",
+                "label": "Brand Page URL 2"
+              },
+              {
+                "type": "input",
+                "id": "brand_label_3",
+                "label": "Brand Label 3"
+              },
+              {
+                "type": "input",
+                "id": "brand_page_url_3",
+                "label": "Brand Page URL 3"
+              },
+              {
+                "type": "input",
+                "id": "brand_label_4",
+                "label": "Brand Label 4"
+              },
+              {
+                "type": "input",
+                "id": "brand_page_url_4",
+                "label": "Brand Page URL 4"
+              },
+              {
+                "type": "input",
+                "id": "brand_label_5",
+                "label": "Brand Label 5"
+              },
+              {
+                "type": "input",
+                "id": "brand_page_url_5",
+                "label": "Brand Page URL 5"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tab",
+        "label": "Design",
+        "sections": [
+          {
+            "label":"Brand Image",
+            "settings": [
+              {
+                "type": "imageManager",
+                "id": "brand_image",
+                "label": "Brand Image",
+                "default": {
+                  "src": "",
+                  "type": "IMAGE_MANAGER"
+                }
+              },
+              {
+                "type": "input",
+                "id": "brand_image_url",
+                "label": "Brand Image URL"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "tab",
+        "label": "Design",
+        "sections": [
+          {
+            "label":"Featured Image",
+            "settings": [
+              {
+                "type": "imageManager",
+                "id": "featured_product_image",
+                "label": "Featured Product Image",
+                "default": {
+                  "src": "",
+                  "type": "IMAGE_MANAGER"
+                }
+              },
+              {
+                "type": "input",
+                "id": "featured_product_image_url",
+                "label": "Featured Image URL"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "tab",
+    "label": "Category Links",
+    "sections": [
+      {
+        "label":"Category Settings",
+        "settings": [
+          {
+            "type": "input",
+            "id": "nav_section_category_count",
+            "label": "Number of category groups"
+          },
+          {
+            "type": "input",
+            "id": "nav_section_category_header_font_size",
+            "label": "Category header font size (px)"
+          },
+          {
+            "type": "input",
+            "id": "nav_section_category_header_font_weight",
+            "label": "Category header font weight"
+          },
+          {
+            "type": "color",
+            "label": "Category header font color",
+            "id": "nav_section_category_header_font_color"
+          },
+          {
+            "type": "input",
+            "id": "nav_section_category_font_size",
+            "label": "Category link font size (px)"
+          },
+          {
+            "type": "input",
+            "label": "Category link font weight",
+            "id": "nav_section_category_font_weight"
+          },
+          {
+            "type": "color",
+            "label": "Category link font color",
+            "id": "nav_section_category_font_color"
+          },
+          {
+            "type": "boxModel",
+            "label": "Category Group Margins (px)",
+            "id": "nav_section_categories_margins",
+            "default": {
+                "top": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "right": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "bottom": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "left": {
+                    "value": "0",
+                    "type": "px"
+                }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "tab",
+    "label": "Brand Images",
+    "sections": [
+      {
+        "label":"Brand Image Settings",
+        "settings": [
+          {
+            "type": "input",
+            "id": "nav_section_brand_count",
+            "label": "Number of brand images"
+          },
+          {
+            "type": "input",
+            "id": "nav_section_brand_img_width",
+            "label": "Brand Image Width (px)"
+          },
+          {
+            "type": "input",
+            "id": "nav_section_brand_img_height",
+            "label": "Brand Image Height (px)"
+          },
+          {
+            "type": "boxModel",
+            "label": "Brand Image Margins (px)",
+            "id": "nav_section_brand_img_margins",
+            "default": {
+                "top": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "right": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "bottom": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "left": {
+                    "value": "0",
+                    "type": "px"
+                }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "tab",
+    "label": "Featured Images",
+    "sections": [
+      {
+        "label":"Featured Image Settings",
+        "settings": [
+          {
+            "type": "input",
+            "id": "nav_section_featured_count",
+            "label": "Number of featured product images"
+          },
+          {
+            "type": "input",
+            "id": "nav_section_featured_img_width",
+            "label": "Featured Image Width (px)"
+          },
+          {
+            "type": "input",
+            "id": "nav_section_featured_img_height",
+            "label": "Featured Image Height (px)"
+          },
+          {
+            "type": "boxModel",
+            "label": "Featured Image Margins (px)",
+            "id": "nav_section_featured_img_margins",
+            "default": {
+                "top": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "right": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "bottom": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "left": {
+                    "value": "0",
+                    "type": "px"
+                }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "tab",
+    "label": "Section Design",
+    "sections": [
+      {
+        "label":"Container Settings",
+        "settings": [
+          {
+            "type": "input",
+            "label": "Section Name (Nav Bar Button Label)",
+            "id": "nav_section_name"
+          },
+          {
+            "type": "input",
+            "label": "Blur Amount (px)",
+            "id": "nav_section_blur"
+          },
+          {
+            "type": "color",
+            "label": "Background Color",
+            "id": "nav_section_background_color"
+          },
+          {
+            "type": "boxModel",
+            "label": "Padding (px)",
+            "id": "nav_section_padding",
+            "default": {
+                "top": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "right": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "bottom": {
+                    "value": "20",
+                    "type": "px"
+                },
+                "left": {
+                    "value": "0",
+                    "type": "px"
+                }
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

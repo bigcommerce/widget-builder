@@ -1,0 +1,125 @@
+[
+  {
+    "type": "array",
+    "label": "Navigation Sections",
+    "id": "nav_sections",
+    "defaultCount": 0,
+    "entryLabel": "Nav Section",
+    "schema": [
+      {
+        "type": "tab",
+        "label": "Design",
+        "sections": [
+          {
+            "settings": [
+              {
+                "type": "input",
+                "id": "nav_bar_section_label",
+                "label": "Section Label"
+              },
+              {
+                "type": "input",
+                "id": "nav_bar_button_url",
+                "label": "Page URL"
+              },
+              {
+                "type": "color",
+                "id": "nav_bar_button_color",
+                "label": "Button Color",
+                "default":"#363636"
+              },
+              {
+                "type": "color",
+                "id": "nav_bar_button_color_hover",
+                "label": "Button Hover Color",
+                "default": "#263178"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "tab",
+    "label": "Design",
+    "sections": [
+      {
+        "label":"Button Settings",
+        "settings": [
+          {
+            "type": "input",
+            "id": "nav_bar_button_width",
+            "label": "Button Default Width (px)"
+          },
+          {
+            "type": "input",
+            "id": "nav_bar_button_font_size",
+            "label": "Button Font Size (px)"
+          },
+          {
+            "type": "input",
+            "id": "nav_bar_button_border_radius",
+            "label": "Button Border Radius (px)"
+          },
+          {
+            "type": "boxModel",
+            "label": "Nav Bar Button Margins (px)",
+            "id": "nav_bar_button_margins",
+            "default": {
+                "top": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "right": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "bottom": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "left": {
+                    "value": "0",
+                    "type": "px"
+                }
+            }
+          }
+        ]
+      },
+      {
+        "label":"Nav Bar Settings",
+        "settings": [
+          {
+            "type": "input",
+            "id": "nav_bar_height",
+            "label": "Nav Bar Default Height (px)"
+          },
+          {
+            "type": "boxModel",
+            "label": "Nav Bar Margins (px)",
+            "id": "nav_bar_margins",
+            "default": {
+                "top": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "right": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "bottom": {
+                    "value": "0",
+                    "type": "px"
+                },
+                "left": {
+                    "value": "0",
+                    "type": "px"
+                }
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

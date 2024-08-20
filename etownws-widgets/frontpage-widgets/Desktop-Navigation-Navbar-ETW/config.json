@@ -1,0 +1,44 @@
+{
+  "nav_sections": [
+    {
+      "nav_bar_button_color": "#363636",
+      "nav_bar_button_color_hover": "#263178"
+    }
+  ],
+  "nav_bar_button_margins": {
+    "top": {
+      "value": "0",
+      "type": "px"
+    },
+    "right": {
+      "value": "0",
+      "type": "px"
+    },
+    "bottom": {
+      "value": "0",
+      "type": "px"
+    },
+    "left": {
+      "value": "0",
+      "type": "px"
+    }
+  },
+  "nav_bar_margins": {
+    "top": {
+      "value": "0",
+      "type": "px"
+    },
+    "right": {
+      "value": "0",
+      "type": "px"
+    },
+    "bottom": {
+      "value": "0",
+      "type": "px"
+    },
+    "left": {
+      "value": "0",
+      "type": "px"
+    }
+  }
+}

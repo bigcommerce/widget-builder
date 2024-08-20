@@ -1,0 +1,80 @@
+<script>
+    document.addEventListener("click",(e) => {
+        let openNavSection = document.querySelector(".navSectionContent-container.open");
+        if(openNavSection != null) {
+            if(!openNavSection.contains(e.target) && e.target != document.querySelector(`.navBarButton[data-nav-button-section='${openNavSection.dataset.navSectionName}']`)) {
+                openNavSection.classList.remove("open");
+                openNavSection.classList.add("closed");
+            }
+        }
+    });
+</script>
+<style>
+    .navPages-container#menu {
+        @media screen and (min-width: 801px) {
+            display: none !important;
+        }
+    }
+
+    @media screen and (max-width: 800px) {
+        .navBar {
+            display:none !important;
+        }
+    }
+    .navBar {
+        min-height:{{nav_bar_height}}px;
+        display:flex;
+        flex-direction:row;
+        text-align:center;
+        align-items: center;
+        justify-content: center;
+        margin: {{nav_bar_margins.top.value}}{{nav_bar_margins.top.type}} {{nav_bar_margins.right.value}}{{nav_bar_margins.right.type}} {{nav_bar_margins.bottom.value}}{{nav_bar_margins.bottom.type}} {{nav_bar_margins.left.value}}{{nav_bar_margins.left.type}};
+
+        .navBarButton {
+            text-decoration:none;
+        }
+    }
+
+    .navBarButton {
+        color: white;
+        font-size: {{nav_bar_button_font_size}}px;
+        width: {{nav_bar_button_width}}px;
+        border-radius: {{nav_bar_button_border_radius}}px;
+        margin: {{nav_bar_button_margins.top.value}}{{nav_bar_button_margins.top.type}} {{nav_bar_button_margins.right.value}}{{nav_bar_button_margins.right.type}} {{nav_bar_button_margins.bottom.value}}{{nav_bar_button_margins.bottom.type}} {{nav_bar_button_margins.left.value}}{{nav_bar_button_margins.left.type}};
+
+        &:hover {
+            cursor: pointer;
+            color: white;
+        }
+
+        &:focus {
+            color: white;
+        }
+    }
+
+    {{#each nav_sections}}
+        .navBarButton[data-nav-button-section="{{nav_bar_section_label}}"] {
+            background-color: {{nav_bar_button_color}};
+
+            &:hover {
+                background-color: {{nav_bar_button_color_hover}};
+            }
+        }
+    {{/each}}
+
+</style>
+
+<script>
+
+</script>
+    
+<div class="navBar">
+    {{#each nav_sections}}
+        {{#if nav_bar_button_url}}
+        <a class="navBarButton" data-nav-button-section="{{nav_bar_section_label}}" href = "{{nav_bar_button_url}}">{{nav_bar_section_label}}</a>
+        {{else}}
+            <div class="navBarButton" data-nav-button-section="{{nav_bar_section_label}}" tabindex="0">{{nav_bar_section_label}}</div>
+        {{/if}}
+    {{/each}}
+</div>
+
