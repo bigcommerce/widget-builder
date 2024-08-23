@@ -9,6 +9,13 @@
         tabToOpen.classList.remove("closed");
         tabToOpen.classList.add("open");
     }
+    if(!closeNavBar)
+    var closeNavBar = (e) => {
+        document.querySelectorAll(".navSectionContent-container.open").forEach((element) => {
+            element.classList.remove("open");
+            element.classList.add("closed");
+        });
+    }
     document.addEventListener("DOMContentLoaded", (event) => {
         if(jsContext.settings.request.referer.includes("/manage/page-builder")) {
             let styleEle = document.createElement("style");
@@ -16,28 +23,18 @@
             document.body.append(styleEle);
         }
     });
-    document.querySelector(".navBarButton[data-nav-button-section='{{nav_section_name}}']").addEventListener("click", navBarButtonListener);
+    document.querySelector(".navBarButton[data-nav-button-section='{{nav_section_name}}']").addEventListener("mouseover", navBarButtonListener);
+    document.querySelector("[data-content-region='nav_bar--global']").addEventListener("mouseleave", closeNavBar);
 </script>
 <style>
 
     @keyframes navSectionContent-fadeIn {
         0% {
-            opacity: 0;
+            transform: translateY(100vh);
         }
 
         100% {
-            opacity: 1;
-        }
-    }
-    @keyframes navSectionContent-fadeOut {
-        0% {
-            opacity: 1;
-            display: flex;
-        }
-
-        100% {
-            opacity: 0;
-            display: none;
+            transform: translateY(0);
         }
     }
 
@@ -76,7 +73,6 @@
 
             &.closed {
                 display: none;
-                animation: .5s navSectionContent-fadeOut;
             }
 
             a {
