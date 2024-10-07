@@ -108,9 +108,12 @@ export default function startWidgetBuilder(directory: string, options: Options) 
             .catch((error) => {
                 try {
                     const { message } = error.toJSON();
+                    const { data: errorResponse } = error.response;
 
                     if (message.match('401')) {
                         log.error(messages.unauthorizedAccess());
+                    } else if (errorResponse.status === 422) {
+                        log.error(messages.templateError(errorResponse.errors.details));
                     } else {
                         log.error(messages.generalError(message));
                     }

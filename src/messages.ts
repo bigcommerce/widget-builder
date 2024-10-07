@@ -39,6 +39,7 @@ export const messages = {
     socketConnected: () => 'Socket connected.',
     socketDisconnected: () => 'Socket disconnected.',
     unauthorizedAccess: () => 'Unauthorized access, please check your credentials again',
+    templateError: (err: string) => `An error occurred when previewing the widget template: ${err}`,
     generalError: (err: string) => `Something went wrong: ${err}`,
     createWidgetTemplate: {
         createError: (fileName: string, directory?: string) => `There was a problem creating ${fileName} ${directory ? `in ${directory}` : ''}`,
