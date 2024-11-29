@@ -106,6 +106,7 @@ You can find more information here. https://support.bigcommerce.com/s/article/St
 ? What is the Client ID? xxxxxxxxxxxxx
 ? What is the Access Token? xxxxxxxxxxxxx
 ? What is the API Path? https://api.bigcommerce.com/stores/xxxxx/v3/
+? What is the Channel ID or ID\'s you would like to publish your widgets to? Seperate channel ID\'s with comma.? (1,2,3,4)
 [2021-09-08T15:12:40.271Z] Successfully created your configuration, you're all set!
 ```
 ### Resetting configurations
