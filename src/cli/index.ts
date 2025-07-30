@@ -7,6 +7,7 @@ import start from './run/start';
 import widgetTemplatePublish from './deployment/widgetTemplatePublish';
 import validateCommands from './run/validate';
 import init from './run/init';
+import listWidgets from './manage/listWidgets';
 
 const { version } = require('../../package.json');
 
@@ -18,6 +19,7 @@ cli
     .addCommand(start())
     .addCommand(validateCommands())
     .addCommand(createStarterTemplate())
-    .addCommand(widgetTemplatePublish());
+    .addCommand(widgetTemplatePublish())
+    .addCommand(listWidgets());
 
 cli.parse(process.argv);

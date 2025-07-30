@@ -5,8 +5,10 @@ import { publishWidget } from '../api/widget';
 import WidgetFileType, { FileLoaderResponse } from '../../types';
 import schemaLoader from '../schema/schemaLoader/schemaLoader';
 
+import twProcessor, { TailwindOptions } from './twProcessor';
 import widgetTemplateLoader from './widgetTemplateLoader/widgetTemplateLoader';
 import track from './track';
+
 
 interface CreateWidgetTemplateReq {
     name: string;
@@ -15,6 +17,7 @@ interface CreateWidgetTemplateReq {
     storefront_api_query: string;
     channel_id: number;
 }
+
 
 const channelId = process.env.WIDGET_BUILDER_CHANNEL_ID ? parseInt(process.env.WIDGET_BUILDER_CHANNEL_ID, 10) : 1;
 
@@ -26,10 +29,11 @@ const widgetTemplatePayload = (widgetName: string): CreateWidgetTemplateReq => (
     channel_id: channelId,
 });
 
-const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: string) => {
+const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: string, twOptions: TailwindOptions = {}) => {
     const widgetTemplateUuid = track.isTracked(widgetTemplateDir);
 
     try {
+        const styles = await twProcessor(widgetTemplateDir, twOptions);
         const widgetConfiguration = await Promise.all([
             widgetTemplateLoader(widgetTemplateDir),
             schemaLoader(widgetTemplateDir),
@@ -39,7 +43,8 @@ const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: stri
             const { data, type } = current;
 
             if (type === WidgetFileType.TEMPLATE) {
-                return { ...acc, template: data };
+                const template = `<style>${styles}</style>${data}`;
+                return { ...acc, template };
             }
 
             if (type === WidgetFileType.SCHEMA) {
@@ -61,7 +66,13 @@ const publishWidgetTemplate = async (widgetName: string, widgetTemplateDir: stri
         } else {
             log.success(`Successfully updated ${widgetName}`);
         }
-    } catch {
+    } catch (e: unknown) {
+        console.log(e);
+        if (e instanceof Error) {
+            log.error(e.message);
+        } else {
+            log.error(messages.widgetRelease.failure);
+        }
         log.error(messages.widgetRelease.failure);
     }
 };

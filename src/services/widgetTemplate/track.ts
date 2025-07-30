@@ -1,9 +1,8 @@
 import { readFileSync, writeFileSync } from 'fs';
 
 import { log } from '../../messages';
-
-const filePath = (dir: string): string => `${dir}/widget.yml`;
-
+const isDev = process.env.NODE_ENV !== 'production';
+const filePath = (dir: string): string => `${dir}/widget${isDev ? '-dev' : ''}.yml`;
 const isTracked = (dir: string): string | null => {
     try {
         const data = readFileSync(filePath(dir), 'utf-8');
